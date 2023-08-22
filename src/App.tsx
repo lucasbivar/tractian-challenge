@@ -24,6 +24,7 @@ import { NavItem } from './components/NavItem';
 import { MobileNav } from './components/MobileNav';
 import { Routes, Route } from 'react-router-dom';
 import { Settings } from './pages/Settings';
+import { Overview } from './pages/Overview';
 
 interface LinkItemProps {
   name: string
@@ -74,7 +75,7 @@ export default function App() {
           </Text>
         </Box>
         <Routes>
-          <Route path="/" element={<div>Overview Content</div>} />
+          <Route path="/" element={<Overview />} />
           <Route path="/companies" element={<div>Companies Content</div>} />
           <Route path="/units" element={<div>Units Content</div>} />
           <Route path="/assets" element={<div>Assets Content</div>} />
