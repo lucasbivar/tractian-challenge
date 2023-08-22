@@ -28,7 +28,7 @@ export const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
         icon={<FiMenu size={30} color="#fff" />}
       />
 
-      <div style={{ width: '50%'}}>
+      <div style={{ width: '50%', paddingRight: 10}}>
         <TractianLogo />
       </div>
     </Flex>
