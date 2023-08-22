@@ -63,11 +63,11 @@ export const Settings = () => {
         <Stack width={{base: '100%', sm: '300px'}}>
           <FormControl>
             <FormLabel>
-              <Text as="b">Visualization:</Text>
+              <Text as="b">Dashboard Visualization:</Text>
             </FormLabel>
             <RadioGroup width="100%" value={visualization} onChange={(v) => {setVisualization(v); if (v === 'admin') {setCompany('')}}} >
               <Stack direction='row' justifyContent="space-between" width="100%">
-                <Radio _checked={{bg: '#1A3071'}} value='admin'>Admin</Radio>
+                <Radio _checked={{bg: '#1A3071'}} value='admin'>Tractian Admin</Radio>
                 <Radio _checked={{bg: '#1A3071'}} value='simulated'>Simulated</Radio>
               </Stack>
             </RadioGroup>

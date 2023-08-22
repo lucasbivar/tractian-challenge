@@ -121,7 +121,7 @@ export const Overview = () => {
             <Flex flexDirection="row" alignItems="center" mt="1" mb="1">
               <div style={{ width: 10, height: 35, backgroundColor: '#1A3071', borderRadius: 5, marginRight: 10 }} />
               <Text style={{ marginRight: 10 }} as='b'>30</Text>
-              <Text>Machines</Text>
+              <Text>Total of Machines</Text>
             </Flex>
             <Flex flexDirection="row" alignItems="center" mb="1">
               <div style={{ width: 10, height: 35, backgroundColor: '#52C41A', borderRadius: 5, marginRight: 10 }} />
