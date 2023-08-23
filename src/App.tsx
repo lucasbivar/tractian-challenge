@@ -94,6 +94,7 @@ interface SidebarProps extends BoxProps {
 }
 
 const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
+  const isAdmin = localStorage.getItem('view') === 'admin';
   return (
     <Box
       bg="#1A3071"
@@ -110,9 +111,10 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
         </Flex>
       </Show>
 
-      {LinkItems.map((link) => (
-        <NavItem key={link.name} label={link.name} onClick={onClose} path={link.path} icon={link.icon} />
-      ))}
+      {LinkItems.map((link) => {
+        if (link.name === 'Companies' && !isAdmin) return;
+        return <NavItem key={link.name} label={link.name} onClick={onClose} path={link.path} icon={link.icon} />;
+      })}
       <Hide above='sm'>
         <NavItem key={'Close'} onClick={onClose} path={'#'} label="Close" icon={<FiX color="#fff" />} />
       </Hide>

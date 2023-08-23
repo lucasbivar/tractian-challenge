@@ -43,6 +43,7 @@ export const Settings = () => {
         duration: 3000,
       });
       setIsLoading(false);
+      window.location.reload();
     }, 800);
 
   };
