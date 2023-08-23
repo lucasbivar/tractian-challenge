@@ -22,10 +22,10 @@ export const NavItem = ({ icon, children, label, path, ...rest }: NavItemProps) 
       cursor="pointer"
       paddingLeft="8"
       color="#fff"
-      bg={isSelected ? '#0D1528':"#1A3071" }
+      bg={isSelected ? '#051746':"#1A3071" }
       borderRight={isSelected ? '10px solid #6BFBCE' : 'none'}
       _hover={{
-        bg: '#0D1528',
+        bg: '#051746',
         color: 'white',
       }}
         {...rest}>
