@@ -35,13 +35,13 @@ const optionsMachineStatus = {
     },
     data: [
     {
-      name: 'In Op.',
+      name: 'In Operation',
       y: 12,
       z: 12,
       color: '#52C41A'
     },  
     {
-      name: 'Unplan. Stop',
+      name: 'Unplanned Stop',
       y: 10,
       z: 10,
       color: '#FAAD14'
@@ -53,7 +53,7 @@ const optionsMachineStatus = {
       color: '#ED3833'
     },
     {
-      name: 'Plan. Stop',
+      name: 'Planned Stop',
       y: 3,
       z: 3,
       color: '#8CA1FF'

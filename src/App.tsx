@@ -25,6 +25,8 @@ import { MobileNav } from './components/MobileNav';
 import { Routes, Route } from 'react-router-dom';
 import { Settings } from './pages/Settings';
 import { Overview } from './pages/Overview';
+import { Units } from './pages/Units';
+import { UnitProfile } from './pages/UnitProfile';
 
 interface LinkItemProps {
   name: string
@@ -60,29 +62,92 @@ export default function App() {
       </Drawer>
       <MobileNav display={{ base: 'flex', md: 'none' }} onOpen={onOpen} />
       <Box ml={{ base: 0, md: 60 }} padding="40px 50px 0px 50px">
-        <Box mb={4}>
-          <Text as='b' fontSize='4xl'>
-            <Routes>
-              <Route path="/" element={"Overview"} />
-              <Route path="/companies" element={"Companies"} />
-              <Route path="/units" element={"Units"} />
-              <Route path="/assets" element={"Assets"} />
-              <Route path="/work-orders" element={"Work Orders"} />
-              <Route path="/users" element={"Users"} />
-              <Route path="/settings" element={"Settings"} />
-              <Route path="/*" element={"Not Found"} />
-            </Routes>
-          </Text>
-        </Box>
         <Routes>
-          <Route path="/" element={<Overview />} />
-          <Route path="/companies" element={<div>Companies Content</div>} />
-          <Route path="/units" element={<div>Units Content</div>} />
-          <Route path="/assets" element={<div>Assets Content</div>} />
-          <Route path="/work-orders" element={<div>Work Orders Content</div>} />
-          <Route path="/users" element={<div>Users Content</div>} />
-          <Route path="/settings" element={<Settings />} />
-          <Route path="/*" element={<div>Not Found Content</div>} />
+          <Route path="/" element={
+            <>
+              <Box mb={4}>
+                <Text as='b' fontSize='4xl'>
+                  Overview
+                </Text>
+              </Box>
+              <Overview />
+            </>} 
+          />
+          <Route path="/companies" element={
+            <>
+              <Box mb={4}>
+                <Text as='b' fontSize='4xl'>
+                  Companies
+                </Text>
+              </Box>
+              Companies Content
+            </>} 
+          />
+          <Route path="/units" element={
+            <>
+              <Box mb={4}>
+                <Text as='b' fontSize='4xl'>
+                  Units
+                </Text>
+              </Box>
+              <Units />
+            </>} 
+          />  
+          <Route path="/units/:id" element={
+            <>
+              <UnitProfile />
+            </>} 
+          />  
+          <Route path="/assets" element={
+            <>
+              <Box mb={4}>
+                <Text as='b' fontSize='4xl'>
+                  Assets
+                </Text>
+              </Box>
+              Assets Content
+            </>} 
+          />
+          <Route path="/work-orders" element={
+            <>
+              <Box mb={4}>
+                <Text as='b' fontSize='4xl'>
+                  Work Orders
+                </Text>
+              </Box>
+              Work Orders Content
+            </>} 
+          />
+          <Route path="/users" element={
+            <>
+              <Box mb={4}>
+                <Text as='b' fontSize='4xl'>
+                  Users
+                </Text>
+              </Box>
+              Users Content
+            </>} 
+          />
+          <Route path="/settings" element={
+            <>
+              <Box mb={4}>
+                <Text as='b' fontSize='4xl'>
+                  Settings
+                </Text>
+              </Box>
+              <Settings />
+            </>} 
+          />
+          <Route path="/*" element={
+            <>
+              <Box mb={4}>
+                <Text as='b' fontSize='4xl'>
+                  Not Found
+                </Text>
+              </Box>
+              Not Found Content
+            </>} 
+          />                                                          
         </Routes>
       </Box>
     </Box>
