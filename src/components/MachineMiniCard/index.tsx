@@ -10,7 +10,7 @@ interface MachineMiniCardProps {
   status?: string
 };
 
-export const MachineMiniCard = ({name, model, healthScore, status}: MachineMiniCardProps) => {
+export const MachineMiniCard = ({name, model, status}: MachineMiniCardProps) => {
 
   return (
     <Flex flexDirection="column" justifyContent="space-between" padding="5" width={{base: "100%", sm: "47%", md: "47%", lg: "30%", xl: "31%"}} border="1px solid #D7D7D7" _hover={{boxShadow: "base"}} bg="#FFF"  borderLeft="15px solid #52C41A" borderRadius={10}>
