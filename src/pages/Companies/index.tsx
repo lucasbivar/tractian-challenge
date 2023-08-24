@@ -5,7 +5,7 @@ import {
   FiPlus
 } from 'react-icons/fi';
 import { Navigate } from "react-router-dom";
-import { CompanyItem } from "../../components/CompanyItem";
+import { CompanyListItem } from "../../components/CompanyListItem";
 import { SetInfoModal } from "../../components/SetInfoModal";
 
 export const Companies = () => {
@@ -33,14 +33,14 @@ export const Companies = () => {
         <Button onClick={onOpenEdit} mt={{base: "4", sm: "0"}} leftIcon={<FiPlus />} width={{base: "100%", sm: "45%", md: "38%", lg: "28%", xl: "18%"}} _hover={{bg: "#12255d", color: "#FFF"}}  color="#FFF" bg="#1A3071">Create Company</Button>
       </Flex>
       <Flex flexDirection="column" justifyContent="space-between" flexWrap="wrap" width="100%" mb="50px">
-        <CompanyItem name="TDG Company" id={1}/>
-        <CompanyItem name="TDG Company" id={1}/>
-        <CompanyItem name="TDG Company" id={1}/>
-        <CompanyItem name="TDG Company" id={1}/>
-        <CompanyItem name="TDG Company" id={1}/>
-        <CompanyItem name="TDG Company" id={1}/>
-        <CompanyItem name="TDG Company" id={1}/>
-        <CompanyItem name="TDG Company" id={1}/>
+        <CompanyListItem name="TDG Company" id={1}/>
+        <CompanyListItem name="TDG Company" id={1}/>
+        <CompanyListItem name="TDG Company" id={1}/>
+        <CompanyListItem name="TDG Company" id={1}/>
+        <CompanyListItem name="TDG Company" id={1}/>
+        <CompanyListItem name="TDG Company" id={1}/>
+        <CompanyListItem name="TDG Company" id={1}/>
+        <CompanyListItem name="TDG Company" id={1}/>
       </Flex>
       <SetInfoModal view="new" type="company" isOpen={isOpenEdit} onClose={onCloseEdit} />
     </Flex>

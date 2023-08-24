@@ -7,12 +7,12 @@ import {
 import { SetInfoModal } from "../SetInfoModal";
 import { DeleteModal } from "../DeleteModal";
 
-interface CompanyItemProps {
+interface CompanyListItemProps {
   name?: string,
   id?: number
 };
 
-export const CompanyItem = ({name, id}: CompanyItemProps) => {
+export const CompanyListItem = ({name, id}: CompanyListItemProps) => {
   const navigate = useNavigate();
   const { isOpen: isOpenEdit, onOpen: onOpenEdit, onClose: onCloseEdit } = useDisclosure();
   const { isOpen: isOpenDelete, onOpen: onOpenDelete, onClose: onCloseDelete } = useDisclosure();

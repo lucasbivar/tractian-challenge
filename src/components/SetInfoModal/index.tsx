@@ -9,11 +9,12 @@ interface SetUnitModalProps {
   onClose: () => void,
   isOpen: boolean,
   name?: string,
+  email?: string,
   view: 'new' | 'edit'
   type: 'unit' | 'company' | 'user' | 'machine' 
 };
 
-export const SetInfoModal = ({onClose, isOpen, name, view, type}: SetUnitModalProps) => {
+export const SetInfoModal = ({onClose, isOpen, name, email, view, type}: SetUnitModalProps) => {
   const labels = categoryLabels[type];
   return (
     <Modal onClose={onClose} isOpen={isOpen} isCentered>
@@ -26,8 +27,16 @@ export const SetInfoModal = ({onClose, isOpen, name, view, type}: SetUnitModalPr
               <FiX color="#1A3071"/>
             </Box>
           </Flex>
-          <Text as="b">{labels.nameLabel}</Text>
-          <Input mt="1" mb="7" width="100%" placeholder={labels.placeholder} value={name} borderColor="#bdbdbd" variant='outline' _focus={{ boxShadow: 'none', outline: 'none', borderColor: '#7a7a7a' }}/>
+          <Box>
+            <Text as="b">{labels.nameLabel}</Text>
+            <Input mt="1" mb="7" width="100%" placeholder={labels.namePlaceholder} value={name} borderColor="#bdbdbd" variant='outline' _focus={{ boxShadow: 'none', outline: 'none', borderColor: '#7a7a7a' }}/>
+          </Box>
+          { type === 'user' && (
+            <Box>
+              <Text as="b">{labels.emailLabel}</Text>
+              <Input mt="1" mb="7" width="100%" placeholder={labels.emailPlaceholder} value={email} borderColor="#bdbdbd" variant='outline' _focus={{ boxShadow: 'none', outline: 'none', borderColor: '#7a7a7a' }}/>
+            </Box>
+          )}
           <Button bg="#1A3071" alignSelf="flex-end" _hover={{bg: "#12255d", color: "#FFF"}} color="#FFF" onClick={onClose}>{`${view === 'new' ? 'Create' : 'Edit'}`}</Button>
         </Flex>
       </ModalContent>

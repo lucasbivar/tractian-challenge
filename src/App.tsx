@@ -29,6 +29,7 @@ import { Units } from './pages/Units';
 import { UnitProfile } from './pages/UnitProfile';
 import { CompanyProfile } from './pages/CompanyProfile';
 import { Companies } from './pages/Companies';
+import { Users } from './pages/Users';
 
 interface LinkItemProps {
   name: string
@@ -132,7 +133,7 @@ export default function App() {
                   Users
                 </Text>
               </Box>
-              Users Content
+              <Users />
             </>} 
           />
           <Route path="/settings" element={
