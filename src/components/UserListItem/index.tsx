@@ -1,4 +1,4 @@
-import { Avatar, Box, Flex, Hide, Show, Text, useDisclosure } from "@chakra-ui/react";
+import { Avatar, Box, Flex, Show, Text, useDisclosure } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import {
   FiEdit,
