@@ -7,8 +7,6 @@ import HighchartsReact from 'highcharts-react-official';
 import HighchartsMap from "highcharts/modules/map";
 import HC_exporting from 'highcharts/modules/exporting'
 import variablePie from 'highcharts/modules/variable-pie';
-import mapData from "@highcharts/map-collection/custom/world.geo.json";
-import proj4 from "proj4";
 import { useNavigate } from "react-router-dom";
 variablePie(Highcharts);
 HighchartsMap(Highcharts);

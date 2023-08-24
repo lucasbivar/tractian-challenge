@@ -1,8 +1,7 @@
 
-import { Box, Button, Flex, Input, Modal, ModalContent, ModalOverlay, Text } from "@chakra-ui/react";
+import { Box, Button, Flex, Modal, ModalContent, ModalOverlay, Text } from "@chakra-ui/react";
 import {
   FiAlertTriangle,
- FiX,
 } from 'react-icons/fi';
 import { categoryLabels } from "../../lib/enums/setInfoCategory";
 

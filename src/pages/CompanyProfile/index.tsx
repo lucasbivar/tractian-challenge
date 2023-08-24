@@ -1,6 +1,5 @@
-import { Box, Flex, Image, Text } from "@chakra-ui/react";
+import { Box, Flex, Text } from "@chakra-ui/react";
 import { Card } from "../../components/Card";
-import { MachineMiniCard } from "../../components/MachineMiniCard";
 import { UnitCard } from "../../components/UnitCard";
 
 export const CompanyProfile = () => {
