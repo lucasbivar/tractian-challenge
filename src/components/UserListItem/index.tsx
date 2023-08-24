@@ -34,7 +34,7 @@ export const UserListItem = ({name, email, company, unit, id}: UserListItemProps
           </Text>
         </Flex>
       </Flex>
-      <Flex gap={{base: '0', sm: '200'}} justifyContent="space-between" width={{base: "100%", sm: 'auto'}} my={{base: '5', sm: '0'}}>
+      <Flex gap={{base: "0", sm: "0", md: "8", lg: "140", xl: "200"}} justifyContent="space-between" width={{base: "100%", sm: "100%", md: "auto", lg: "auto", xl: "auto"}} my={{base: "5", sm: "5", md: "0", lg: "0", xl: "0"}}>
         <Flex flexDirection="column" justifyContent="center">
           <Text as="b" fontSize="md">
             Company
@@ -52,7 +52,7 @@ export const UserListItem = ({name, email, company, unit, id}: UserListItemProps
           </Text>
         </Flex>
       </Flex>
-      <Flex gap="3" justifyContent="center" width={{base: '100%', sm: 'auto'}}>
+      <Flex gap="3" justifyContent="center" width={{base: "100%", sm: "100%", md: "auto", lg: "auto", xl: "auto"}}>
         <Box onClick={(e) => {e.stopPropagation(); onOpenEdit()}}>
           <FiEdit color="#1A3071" size="20"/>
         </Box>
