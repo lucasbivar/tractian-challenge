@@ -1,4 +1,5 @@
 import {
+  Box,
   Flex,
   FlexProps,
   IconButton
@@ -7,11 +8,13 @@ import { TractianLogo } from '../../assets/icons/TractianLogo';
 import {
   FiMenu,
 } from 'react-icons/fi';
+import { useNavigate } from 'react-router-dom';
 
 interface MobileProps extends FlexProps {
   onOpen: () => void
 }
 export const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
+  const navigate = useNavigate();
   return (
     <Flex
       ml={{ base: 0, md: 60 }}
@@ -28,9 +31,9 @@ export const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
         icon={<FiMenu size={30} color="#fff" />}
       />
 
-      <div style={{ width: '50%', paddingRight: 10}}>
+      <Box cursor="pointer" onClick={() => navigate('/')} width="50%" paddingRight={10}>
         <TractianLogo />
-      </div>
+      </Box>
     </Flex>
   )
 }
