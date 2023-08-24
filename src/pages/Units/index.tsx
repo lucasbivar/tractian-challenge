@@ -5,7 +5,7 @@ import {
   FiSearch,
   FiPlus
 } from 'react-icons/fi';
-import { SetUnitModal } from "../../components/SetUnitModal";
+import { SetInfoModal } from "../../components/SetInfoModal";
 
 export const Units = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -26,7 +26,7 @@ export const Units = () => {
             _focus={{ boxShadow: 'none', outline: 'none', borderColor: '#7a7a7a' }}
           />
         </InputGroup>
-        <Button onClick={onOpen} mt={{base: "4", sm: "0"}} leftIcon={<FiPlus />} width={{base: "100%", sm: "30%", md: "24%", lg: "20%", xl: "14%"}} _hover={{bg: "#12255d", color: "#FFF"}}  color="#FFF" bg="#1A3071">Create Unit</Button>
+        <Button onClick={onOpen} mt={{base: "4", sm: "0"}} leftIcon={<FiPlus />} width={{base: "100%", sm: "45%", md: "38%", lg: "28%", xl: "18%"}} _hover={{bg: "#12255d", color: "#FFF"}}  color="#FFF" bg="#1A3071">Create Unit</Button>
       </Flex>
       <Flex flexDirection="row" justifyContent="space-between" gap={5} flexWrap="wrap" width="100%" mb="50px">
         <UnitCard name="Shopping Manaira" image="https://media-cdn.tripadvisor.com/media/photo-s/11/c8/a6/99/manaira-shopping.jpg" />
@@ -48,7 +48,7 @@ export const Units = () => {
         <UnitCard name="Shopping Manaira" image="https://media-cdn.tripadvisor.com/media/photo-s/11/c8/a6/99/manaira-shopping.jpg" />
         <UnitCard name="Shopping Manaira" image="https://media-cdn.tripadvisor.com/media/photo-s/11/c8/a6/99/manaira-shopping.jpg" />
       </Flex>
-      <SetUnitModal view="new" isOpen={isOpen} onClose={onClose} />
+      <SetInfoModal view="new" type="unit" isOpen={isOpen} onClose={onClose} />
     </Flex>
   );
 };

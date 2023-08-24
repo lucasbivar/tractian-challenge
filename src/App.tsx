@@ -22,11 +22,13 @@ import { TractianLogo } from './assets/icons/TractianLogo'
 import { BsBank } from "react-icons/bs";
 import { NavItem } from './components/NavItem';
 import { MobileNav } from './components/MobileNav';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, useNavigate } from 'react-router-dom';
 import { Settings } from './pages/Settings';
 import { Overview } from './pages/Overview';
 import { Units } from './pages/Units';
 import { UnitProfile } from './pages/UnitProfile';
+import { CompanyProfile } from './pages/CompanyProfile';
+import { Companies } from './pages/Companies';
 
 interface LinkItemProps {
   name: string
@@ -45,7 +47,7 @@ const LinkItems: Array<LinkItemProps> = [
 ]
 
 export default function App() {
-  const { isOpen, onOpen, onClose } = useDisclosure()
+  const { isOpen, onOpen, onClose } = useDisclosure();
   return (
     <Box minH="100vh" bg="#FFF">
       <SidebarContent onClose={() => onClose} display={{ base: 'none', md: 'block' }} />
@@ -80,9 +82,14 @@ export default function App() {
                   Companies
                 </Text>
               </Box>
-              Companies Content
+              <Companies />
             </>} 
           />
+          <Route path="/companies/:id" element={
+            <>
+              <CompanyProfile />
+            </>} 
+          />  
           <Route path="/units" element={
             <>
               <Box mb={4}>
@@ -160,6 +167,8 @@ interface SidebarProps extends BoxProps {
 
 const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
   const isAdmin = localStorage.getItem('view') === 'admin';
+  const navigate = useNavigate();
+
   return (
     <Box
       bg="#1A3071"
@@ -170,7 +179,7 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
       {...rest}>
       <Show above='sm'>
         <Flex h="20" alignItems="center" mx="8" justifyContent="space-between">
-          <Box style={{ width: '80%'}}>
+          <Box cursor="pointer" onClick={() => navigate('/')} style={{ width: '80%'}}>
             <TractianLogo />
           </Box>
         </Flex>
