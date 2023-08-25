@@ -14,6 +14,10 @@ interface ICategoryLabels {
     statusPlaceholder?: string,
     usersLabel?: string,
     usersPlaceholder?: string,
+    sensorLabel?: string,
+    sensorPlaceholder?: string,
+    modelLabel?: string,
+    modelPlaceholder?: string,
     deleteMessage: string
   }
 };
@@ -42,12 +46,16 @@ export const categoryLabels: ICategoryLabels = {
     emailPlaceholder: 'Type the user e-mail',
     deleteMessage: 'Are you sure you want to delete this user?'
   },
-  machine: {
-    newTitle: 'Create Machine',
-    editTitle: 'Edit Machine',
-    namePlaceholder: 'Type the machine name',
+  asset: {
+    newTitle: 'Create Asset',
+    editTitle: 'Edit Asset',
     nameLabel: "Name",
-    deleteMessage: 'Are you sure you want to delete this machine?'
+    namePlaceholder: 'Type the Asset name',
+    sensorLabel: "Sensor",
+    sensorPlaceholder: 'Type the Asset sensor',
+    modelLabel: "Model",
+    modelPlaceholder: 'Type the Asset model',
+    deleteMessage: 'Are you sure you want to delete this Asset?'
   },
   workOrder : {
     newTitle: 'Create Work Order',

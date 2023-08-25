@@ -8,7 +8,7 @@ import { categoryLabels } from "../../lib/enums/setInfoCategory";
 interface SetUnitModalProps {
   onClose: () => void,
   isOpen: boolean,
-  type: 'unit' | 'company' | 'user' | 'machine' | 'workOrder' 
+  type: 'unit' | 'company' | 'user' | 'asset' | 'workOrder' 
 };
 
 export const DeleteModal = ({onClose, isOpen, type}: SetUnitModalProps) => {

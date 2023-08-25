@@ -6,6 +6,7 @@ import {
 } from 'react-icons/fi';
 import { SetInfoModal } from "../../components/SetInfoModal";
 import { Card } from "../../components/Card";
+import { AssetListItem } from "../../components/AssetListItem";
 
 export const Assets = () => {
   const { isOpen: isOpenEdit, onOpen: onOpenEdit, onClose: onCloseEdit } = useDisclosure();
@@ -31,10 +32,18 @@ export const Assets = () => {
       </Flex>
       <Card noPadding width="100%">
         <Flex flexDirection="column" flexWrap="wrap" width="100%" mb="-1px">
+          <AssetListItem name="Motor H13D-1" model="Motor" image="https://tractian-img.s3.amazonaws.com/6d5028682016cb43d02b857d4f1384ae.jpeg" />
+          <AssetListItem name="Motor H13D-1" model="Motor" image="https://tractian-img.s3.amazonaws.com/6d5028682016cb43d02b857d4f1384ae.jpeg" />
+          <AssetListItem name="Motor H13D-1" model="Motor" image="https://tractian-img.s3.amazonaws.com/6d5028682016cb43d02b857d4f1384ae.jpeg" />
+          <AssetListItem name="Motor H13D-1" model="Motor" image="https://tractian-img.s3.amazonaws.com/6d5028682016cb43d02b857d4f1384ae.jpeg" />
+          <AssetListItem name="Motor H13D-1" model="Motor" image="https://tractian-img.s3.amazonaws.com/6d5028682016cb43d02b857d4f1384ae.jpeg" />
+          <AssetListItem name="Motor H13D-1" model="Motor" image="https://tractian-img.s3.amazonaws.com/6d5028682016cb43d02b857d4f1384ae.jpeg" />
+          <AssetListItem name="Motor H13D-1" model="Motor" image="https://tractian-img.s3.amazonaws.com/6d5028682016cb43d02b857d4f1384ae.jpeg" />
+
         </Flex>
       </Card>
 
-      <SetInfoModal view="new" type="company" isOpen={isOpenEdit} onClose={onCloseEdit} />
+      <SetInfoModal view="new" type="asset" isOpen={isOpenEdit} onClose={onCloseEdit} />
     </Flex>
   );
 };

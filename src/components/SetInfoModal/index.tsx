@@ -12,7 +12,7 @@ interface SetUnitModalProps {
   name?: string,
   email?: string,
   view: 'new' | 'edit'
-  type: 'unit' | 'company' | 'user' | 'machine' | 'workOrder' 
+  type: 'unit' | 'company' | 'user' | 'asset' | 'workOrder' 
 };
 
 export const SetInfoModal = ({onClose, isOpen, name, email, view, type}: SetUnitModalProps) => {
@@ -83,6 +83,18 @@ export const SetInfoModal = ({onClose, isOpen, name, email, view, type}: SetUnit
                     <Text> Lucas Bivar</Text>
                   </Flex>
                 </Flex>
+              </Box>
+            </>
+          )}
+          { type === 'asset' && (
+            <>
+              <Box>
+                <Text as="b">{labels.modelLabel}</Text>
+                <Input mt="1" mb="2" width="100%" placeholder={labels.modelPlaceholder} value={email} borderColor="#bdbdbd" variant='outline' _focus={{ boxShadow: 'none', outline: 'none', borderColor: '#7a7a7a' }}/>
+              </Box>
+              <Box>
+                <Text as="b">{labels.sensorLabel}</Text>
+                <Input mt="1" mb="2" width="100%" placeholder={labels.sensorPlaceholder} value={email} borderColor="#bdbdbd" variant='outline' _focus={{ boxShadow: 'none', outline: 'none', borderColor: '#7a7a7a' }}/>
               </Box>
             </>
           )}
