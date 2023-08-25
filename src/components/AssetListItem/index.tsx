@@ -17,7 +17,6 @@ interface AssetListItemProps {
 };
 
 export const AssetListItem = ({name, model, image}: AssetListItemProps) => {
-  const navigate = useNavigate();
   const { isOpen: isOpenEdit, onOpen: onOpenEdit, onClose: onCloseEdit } = useDisclosure();
   const { isOpen: isOpenDelete, onOpen: onOpenDelete, onClose: onCloseDelete } = useDisclosure();
 
