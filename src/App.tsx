@@ -32,6 +32,7 @@ import { Companies } from './pages/Companies';
 import { Users } from './pages/Users';
 import { WorkOrders } from './pages/WorkOrders';
 import { Assets } from './pages/Assets';
+import { AssetProfile } from './pages/AssetProfile';
 
 interface LinkItemProps {
   name: string
@@ -118,6 +119,11 @@ export default function App() {
               <Assets />
             </>} 
           />
+          <Route path="/assets/:id" element={
+            <>
+              <AssetProfile />
+            </>} 
+          />          
           <Route path="/work-orders" element={
             <>
               <Box mb={4}>
