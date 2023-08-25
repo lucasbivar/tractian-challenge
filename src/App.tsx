@@ -30,6 +30,8 @@ import { UnitProfile } from './pages/UnitProfile';
 import { CompanyProfile } from './pages/CompanyProfile';
 import { Companies } from './pages/Companies';
 import { Users } from './pages/Users';
+import { WorkOrders } from './pages/WorkOrders';
+import { Assets } from './pages/Assets';
 
 interface LinkItemProps {
   name: string
@@ -113,7 +115,7 @@ export default function App() {
                   Assets
                 </Text>
               </Box>
-              Assets Content
+              <Assets />
             </>} 
           />
           <Route path="/work-orders" element={
@@ -123,7 +125,7 @@ export default function App() {
                   Work Orders
                 </Text>
               </Box>
-              Work Orders Content
+              <WorkOrders />
             </>} 
           />
           <Route path="/users" element={

@@ -8,7 +8,7 @@ import { categoryLabels } from "../../lib/enums/setInfoCategory";
 interface SetUnitModalProps {
   onClose: () => void,
   isOpen: boolean,
-  type: 'unit' | 'company' | 'user' | 'machine' 
+  type: 'unit' | 'company' | 'user' | 'machine' | 'workOrder' 
 };
 
 export const DeleteModal = ({onClose, isOpen, type}: SetUnitModalProps) => {
@@ -16,7 +16,7 @@ export const DeleteModal = ({onClose, isOpen, type}: SetUnitModalProps) => {
   return (
     <Modal onClose={onClose} isOpen={isOpen} isCentered>
       <ModalOverlay />
-      <ModalContent width={{base: '80%' , sm: '30%'}} borderRadius={10} padding="8" bg="#FFF" borderTop="15px solid #1A3071">
+      <ModalContent width={{base: '80%' , md: '45%', lg: '30%'}} borderRadius={10} padding="8" bg="#FFF" borderTop="15px solid #1A3071">
         <Flex flexDirection="column" width="100%">
           <Flex flexDirection="row" justifyContent="space-between" alignItems="center">
             <Text fontSize="xl" as="b">Delete</Text>
