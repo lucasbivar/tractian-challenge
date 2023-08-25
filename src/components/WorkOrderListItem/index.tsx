@@ -22,7 +22,7 @@ interface WorkOrderListItemProps {
   index?: number
 };
 
-export const WorkOrderListItem = ({title, description, priority, status, assetId, checklist, index}: WorkOrderListItemProps) => {
+export const WorkOrderListItem = ({title, description, assetId, checklist, index}: WorkOrderListItemProps) => {
   const navigate = useNavigate();
   const { isOpen: isOpenEdit, onOpen: onOpenEdit, onClose: onCloseEdit } = useDisclosure();
   const { isOpen: isOpenDelete, onOpen: onOpenDelete, onClose: onCloseDelete } = useDisclosure();
