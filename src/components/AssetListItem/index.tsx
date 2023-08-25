@@ -1,5 +1,4 @@
 import { Box, Flex, Image, Text, useDisclosure } from "@chakra-ui/react";
-import { useNavigate } from "react-router-dom";
 import {
   FiEdit,
   FiTrash2,
