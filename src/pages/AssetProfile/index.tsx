@@ -77,12 +77,12 @@ export const AssetProfile = () => {
   return (
     <Card noPadding>
       <Flex flexDirection="column" p="5" bg="#F8F8F8" height="100%" width="100%">
-        <Flex justifyContent="space-between" mb="4">
-          <Box width="65%">
+        <Flex justifyContent="space-between" flexWrap="wrap" mb="4">
+          <Box width={{base: "100%", xl:'65%' }}>
             <Text as="b" fontSize="2xl">Informations</Text>
-            <Flex mt="1" bg="#FFF" boxShadow="md" padding="5" gap="8" borderRadius="10" border="1px solid #D7D7D7">
-              <Image cursor="pointer" borderRadius="10" fit="cover" width={{base: "50px", sm: '250px'}} src={image} />
-              <Box width="40%">
+            <Flex mt="1"  mb={{base: '4', xl: '0'}} bg="#FFF" flexWrap="wrap" boxShadow="md" padding="5" gap="8" borderRadius="10" border="1px solid #D7D7D7">
+              <Image cursor="pointer" borderRadius="10" fit="cover" width={{base: "100%", lg: '250px'}} src={image} />
+              <Box width={{base: "100%", lg: '40%'}}>
                 <Box>
                   <Text as="b" fontSize="sm">Name:</Text>
                   <Text fontSize="sm">Motor H13D-1</Text>
@@ -129,7 +129,7 @@ export const AssetProfile = () => {
               </Box>
             </Flex>
           </Box>
-          <Flex width="30%" flexDirection="column">
+          <Flex width={{base: "100%", xl:'30%' }} flexDirection="column">
             <Text as="b" fontSize="2xl">Metrics</Text>
             <Flex bg="#FFF" flexDirection="column" justifyContent="space-between"  padding="5" boxShadow="md" height="100%" borderRadius="10" border="1px solid #D7D7D7">
               <Box>
