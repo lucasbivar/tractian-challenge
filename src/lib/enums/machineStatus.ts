@@ -1,7 +1,7 @@
 export const MachineStatus = {
-  inAlert: {
-    label: "Em alerta",
-    bgColor: "yellow",
-    icon: null
-  }
-}
+	inAlert: {
+		label: "Em alerta",
+		bgColor: "yellow",
+		icon: null,
+	},
+};
