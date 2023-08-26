@@ -1,5 +1,4 @@
-export interface Unit {
-	companyId?: number;
+export interface Company {
 	id: number;
 	name: string;
 }

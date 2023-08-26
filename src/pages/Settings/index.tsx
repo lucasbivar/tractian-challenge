@@ -6,16 +6,20 @@ import { Select } from "@chakra-ui/select";
 import { Spinner } from "@chakra-ui/spinner";
 import { useToast } from "@chakra-ui/toast";
 import { useState } from "react";
+import { useCompanies } from "../../hooks/companies/useCompanies";
 
 export const Settings = (): JSX.Element => {
 	const storedView = localStorage.getItem("view") ?? "admin";
 	const [visualization, setVisualization] = useState(storedView);
 	const storedCompany = localStorage.getItem("company") ?? "";
 	const [company, setCompany] = useState(storedCompany);
-	const [isLoading, setIsLoading] = useState(false);
+	const [isSubmitting, setIsSubmitting] = useState(false);
 	const toast = useToast();
+	const { data: companies, isLoading } = useCompanies();
+	console.log(companies);
+
 	const handleSubmit = (): void => {
-		setIsLoading(true);
+		setIsSubmitting(true);
 		setTimeout(() => {
 			if (visualization === "admin") {
 				localStorage.setItem("view", "admin");
@@ -29,7 +33,7 @@ export const Settings = (): JSX.Element => {
 						position: "bottom-right",
 						duration: 3000,
 					});
-					setIsLoading(false);
+					setIsSubmitting(false);
 					return;
 				}
 				localStorage.setItem("view", "simulated");
@@ -42,13 +46,14 @@ export const Settings = (): JSX.Element => {
 				position: "bottom-right",
 				duration: 3000,
 			});
-			setIsLoading(false);
+			setIsSubmitting(false);
 			window.location.reload();
 		}, 800);
 	};
+
 	return (
 		<>
-			{isLoading && (
+			{(isLoading || isSubmitting) && (
 				<Flex
 					width="100%"
 					height="450px"
@@ -64,7 +69,7 @@ export const Settings = (): JSX.Element => {
 					/>
 				</Flex>
 			)}
-			{!isLoading && (
+			{!isLoading && !isSubmitting && (
 				<Stack width={{ base: "100%", sm: "300px" }}>
 					<FormControl>
 						<FormLabel>
@@ -104,9 +109,11 @@ export const Settings = (): JSX.Element => {
 							disabled={visualization === "admin"}
 							placeholder="Select a company"
 						>
-							<option value="company-1">Company 1</option>
-							<option value="company-2">Company 2</option>
-							<option value="company-3">Company 3</option>
+							{companies?.map((company) => (
+								<option key={company.id} value={company.id}>
+									{company.name}
+								</option>
+							))}
 						</Select>
 					</FormControl>
 					<Button

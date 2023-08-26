@@ -8,7 +8,7 @@ import {
 	Text,
 } from "@chakra-ui/react";
 import { FiAlertTriangle } from "react-icons/fi";
-import { categoryLabels } from "../../lib/enums/setInfoCategory";
+import { categoryLabels } from "../../utils/enums/setInfoCategory";
 
 interface SetUnitModalProps {
 	onClose: () => void;

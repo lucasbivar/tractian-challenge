@@ -11,7 +11,7 @@ import {
 	Text,
 } from "@chakra-ui/react";
 import { FiX } from "react-icons/fi";
-import { categoryLabels } from "../../lib/enums/setInfoCategory";
+import { categoryLabels } from "../../utils/enums/setInfoCategory";
 import { useState } from "react";
 
 interface SetUnitModalProps {
