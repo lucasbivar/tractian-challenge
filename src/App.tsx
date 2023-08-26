@@ -67,7 +67,7 @@ export default function App() {
         </DrawerContent>
       </Drawer>
       <MobileNav display={{ base: 'flex', md: 'none' }} onOpen={onOpen} />
-      <Box ml={{ base: 0, md: 60 }} padding={{base: "40px 15px 0px 15px" , sm: "40px 50px 0px 50px" }}>
+      <Box ml={{ base: 0, md: 60 }} padding={{base: "40px 25px 0px 25px" , sm: "40px 50px 0px 50px" }}>
         <Routes>
           <Route path="/" element={
             <>
