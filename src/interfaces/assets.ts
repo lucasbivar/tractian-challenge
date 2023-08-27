@@ -22,20 +22,20 @@ interface Specifications {
 	rpm?: number;
 }
 
-type Models = "motor" | "fan";
+export type Models = "motor" | "fan";
 
 export interface Asset {
 	assignedUserIds?: number[];
 	companyId?: number;
-	healthHistory: HealthDataItem[];
-	healthscore: number;
+	healthHistory?: HealthDataItem[];
+	healthscore?: number;
 	id: number;
 	image: string;
-	metrics: Metrics;
+	metrics?: Metrics;
 	model: Models;
 	name: string;
-	sensors: string[];
-	specifications: Specifications;
-	status: Status;
+	sensors?: string[];
+	specifications?: Specifications;
+	status?: Status;
 	unitId?: number;
 }

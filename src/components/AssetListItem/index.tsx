@@ -1,6 +1,5 @@
 import { Box, Flex, Image, Text, useDisclosure } from "@chakra-ui/react";
 import { FiEdit, FiTrash2 } from "react-icons/fi";
-import { SetInfoModal } from "../SetInfoModal";
 import { DeleteModal } from "../DeleteModal";
 import { useNavigate } from "react-router-dom";
 import { type Asset } from "../../interfaces/assets";
@@ -8,6 +7,7 @@ import { useDeleteAsset } from "../../hooks/assets/useDeleteAssets";
 import { getHealthScoreInfo } from "../../utils/healthScore";
 import { assetStatus } from "../../utils/enums/assetStatus";
 import { assetModels } from "../../utils/enums/models";
+import { SetAssetModal } from "../SetInfoModal/SetAssetModal";
 
 interface AssetListItemProps {
 	asset: Asset;
@@ -80,7 +80,7 @@ export const AssetListItem = ({ asset }: AssetListItemProps): JSX.Element => {
 					color="#FFF"
 				>
 					<Text as="b" fontSize="sm">
-						{`${asset.healthscore}%`}
+						{asset.healthscore != null ? `${asset.healthscore}%` : "No Info"}
 					</Text>
 				</Box>
 				<Box
@@ -94,9 +94,7 @@ export const AssetListItem = ({ asset }: AssetListItemProps): JSX.Element => {
 					color="#FFF"
 				>
 					<Text as="b" fontSize="sm">
-						{asset.status != null
-							? assetStatus[asset.status].label
-							: "No Information"}
+						{asset.status != null ? assetStatus[asset.status].label : "No Info"}
 					</Text>
 				</Box>
 				<Flex gap="3" justifyContent="center">
@@ -118,12 +116,11 @@ export const AssetListItem = ({ asset }: AssetListItemProps): JSX.Element => {
 					</Box>
 				</Flex>
 			</Flex>
-			<SetInfoModal
+			<SetAssetModal
 				view="edit"
-				type="asset"
 				isOpen={isOpenEdit}
 				onClose={onCloseEdit}
-				name={asset.name}
+				asset={asset}
 			/>
 			<DeleteModal
 				type="asset"

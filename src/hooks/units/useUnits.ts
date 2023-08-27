@@ -18,5 +18,5 @@ export const useUnits = ({
 };
 
 export const useUnit = (id: number): UseQueryResult<Unit, Error> => {
-	return useFetch<Unit>(`unit-${id}`, async () => await getUnitById(id));
+	return useFetch<Unit>(`units-${id}`, async () => await getUnitById(id));
 };

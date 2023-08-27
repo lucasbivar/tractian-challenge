@@ -85,7 +85,9 @@ export const AssetProfile = (): JSX.Element => {
 										<Text as="b" fontSize="sm">
 											Sensores:
 										</Text>
-										<Text fontSize="sm">{asset?.sensors.join(" - ")}</Text>
+										<Text fontSize="sm">
+											{asset?.sensors?.join(" - ") ?? "-"}
+										</Text>
 									</Box>
 									<Box>
 										<Text as="b" fontSize="sm">
@@ -95,19 +97,19 @@ export const AssetProfile = (): JSX.Element => {
 											<Flex gap="1" alignItems="center">
 												<FiThermometer color="#000" />
 												<Text fontSize="sm">
-													{asset?.specifications.maxTemp ?? "-"} °C
+													{asset?.specifications?.maxTemp ?? "-"} °C
 												</Text>
 											</Flex>
 											<Flex gap="1" alignItems="center">
 												<BsLightningCharge color="#000" />
 												<Text fontSize="sm">
-													{asset?.specifications.power ?? "-"} W
+													{asset?.specifications?.power ?? "-"} W
 												</Text>
 											</Flex>
 											<Flex gap="1" alignItems="center">
 												<BsSpeedometer2 color="#000" />
 												<Text fontSize="sm">
-													{asset?.specifications.rpm ?? "-"} rpm
+													{asset?.specifications?.rpm ?? "-"} rpm
 												</Text>
 											</Flex>
 										</Flex>
@@ -132,7 +134,7 @@ export const AssetProfile = (): JSX.Element => {
 												<Text fontSize="sm">
 													{asset?.status != null
 														? assetStatus[asset.status].label
-														: "No Information"}
+														: "No Info"}
 												</Text>
 											</Box>
 										</Box>
@@ -174,13 +176,14 @@ export const AssetProfile = (): JSX.Element => {
 										Total Uptime:
 									</Text>
 									<Text fontSize="sm" isTruncated>
-										{(asset?.metrics.totalUptime != null &&
-											`${asset?.metrics.totalUptime.toFixed(0)} hours ${(
-												(asset?.metrics.totalUptime -
-													Math.trunc(asset?.metrics.totalUptime)) *
-												60
-											).toFixed(0)} minutes`) ??
-											"-"}
+										{asset?.metrics != null
+											? asset?.metrics?.totalUptime != null &&
+											  `${asset?.metrics.totalUptime.toFixed(0)} hours ${(
+													(asset?.metrics.totalUptime -
+														Math.trunc(asset?.metrics.totalUptime)) *
+													60
+											  ).toFixed(0)} minutes`
+											: "-"}
 									</Text>
 								</Box>
 								<Box>
@@ -188,7 +191,7 @@ export const AssetProfile = (): JSX.Element => {
 										Total Collects:
 									</Text>
 									<Text fontSize="sm">
-										{asset?.metrics.totalCollectsUptime ?? "-"}
+										{asset?.metrics?.totalCollectsUptime ?? "-"}
 									</Text>
 								</Box>
 								<Box>
@@ -196,7 +199,7 @@ export const AssetProfile = (): JSX.Element => {
 										Last Collect Time:
 									</Text>
 									<Text fontSize="sm">
-										{(asset?.metrics.lastUptimeAt != null &&
+										{(asset?.metrics?.lastUptimeAt != null &&
 											new Date(asset?.metrics.lastUptimeAt).toLocaleString()) ??
 											"-"}
 									</Text>
@@ -205,7 +208,9 @@ export const AssetProfile = (): JSX.Element => {
 									<Text as="b" fontSize="sm">
 										Current 4G Connection Quality:
 									</Text>
-									<Text fontSize="sm">Good</Text>
+									<Text fontSize="sm">
+										{asset?.metrics != null ? "Good" : "-"}
+									</Text>
 								</Box>
 							</Flex>
 						</Flex>

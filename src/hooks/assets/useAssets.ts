@@ -18,5 +18,5 @@ export const useAssets = ({
 };
 
 export const useAsset = (id: number): UseQueryResult<Asset, Error> => {
-	return useFetch<Asset>(`asset-${id}`, async () => await getAssetById(id));
+	return useFetch<Asset>(`assets-${id}`, async () => await getAssetById(id));
 };

@@ -8,11 +8,11 @@ import {
 	useDisclosure,
 } from "@chakra-ui/react";
 import { FiSearch, FiPlus } from "react-icons/fi";
-import { SetInfoModal } from "../../components/SetInfoModal";
 import { Card } from "../../components/Card";
 import { AssetListItem } from "../../components/AssetListItem";
 import { useAssets } from "../../hooks/assets/useAssets";
 import { useSearch } from "../../hooks/useSearch";
+import { SetAssetModal } from "../../components/SetInfoModal/SetAssetModal";
 
 export const Assets = (): JSX.Element => {
 	const {
@@ -101,12 +101,7 @@ export const Assets = (): JSX.Element => {
 				)}
 			</Card>
 
-			<SetInfoModal
-				view="new"
-				type="asset"
-				isOpen={isOpenEdit}
-				onClose={onCloseEdit}
-			/>
+			<SetAssetModal view="new" isOpen={isOpenEdit} onClose={onCloseEdit} />
 		</Flex>
 	);
 };

@@ -17,8 +17,6 @@ type ICategoryLabels = Record<
 		usersPlaceholder?: string;
 		companyLabel?: string;
 		companyPlaceholder?: string;
-		sensorLabel?: string;
-		sensorPlaceholder?: string;
 		modelLabel?: string;
 		modelPlaceholder?: string;
 		deleteMessage: string;
@@ -77,10 +75,8 @@ export const categoryLabels: ICategoryLabels = {
 		editTitle: "Edit Asset",
 		nameLabel: "Name",
 		namePlaceholder: "Type the Asset name",
-		sensorLabel: "Sensor",
-		sensorPlaceholder: "Type the Asset sensor",
 		modelLabel: "Model",
-		modelPlaceholder: "Type the Asset model",
+		modelPlaceholder: "Select the Asset model",
 		deleteMessage: "Are you sure you want to delete this Asset?",
 		successEditMessage: "Asset edited successfully!",
 		errorEditMessage: "Cannot edit the asset!",

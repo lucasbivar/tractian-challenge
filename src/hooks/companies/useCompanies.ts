@@ -19,7 +19,7 @@ export const useCompanies = ({
 
 export const useCompany = (id: number): UseQueryResult<Company, Error> => {
 	return useFetch<Company>(
-		`company-${id}`,
+		`companies-${id}`,
 		async () => await getCompanyById(id),
 	);
 };

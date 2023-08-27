@@ -58,6 +58,7 @@ export const useUpdate = <T extends { id: number }>(
 			if (entityIndex != null && entities != null) {
 				entities[entityIndex] = data;
 				queryClient.setQueryData([queryKey], () => entities);
+				queryClient.setQueryData([`${queryKey}-${data.id}`], () => data);
 			}
 		},
 	});
@@ -66,7 +67,6 @@ export const useUpdate = <T extends { id: number }>(
 export const useCreate = <T extends { id: number }>(
 	queryKey: string,
 	useQueryCustom: () => UseQueryResult<T[], Error>,
-	queryKeyEntity?: string,
 ): UseMutationResult<T, unknown, T, unknown> => {
 	const { data: entities } = useQueryCustom();
 
@@ -77,11 +77,7 @@ export const useCreate = <T extends { id: number }>(
 				if (entities != null) {
 					entities.push(data);
 					queryClient.setQueryData([queryKey], () => entities);
-					if (queryKeyEntity != null)
-						queryClient.setQueryData(
-							[`${queryKeyEntity}-${data.id}`],
-							() => data,
-						);
+					queryClient.setQueryData([`${queryKey}-${data.id}`], () => data);
 				} else {
 					queryClient.setQueryData([queryKey], () => [data]);
 				}
