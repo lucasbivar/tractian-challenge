@@ -42,3 +42,44 @@ export const useDelete = <T extends { id: number }>(
 		},
 	});
 };
+
+export const useUpdate = <T extends { id: number }>(
+	queryKey: string,
+	useQueryCustom: () => UseQueryResult<T[], Error>,
+): UseMutationResult<T, unknown, T, unknown> => {
+	const { data: entities } = useQueryCustom();
+
+	return useMutation(async (data: T) => data, {
+		onSuccess: (data) => {
+			const entityIndex = entities?.findIndex(
+				(entity) => entity.id !== data.id,
+			);
+
+			if (entityIndex != null && entities != null) {
+				entities[entityIndex] = data;
+				queryClient.setQueryData([queryKey], () => entities);
+			}
+		},
+	});
+};
+
+export const useCreate = <T extends { id: number }>(
+	queryKey: string,
+	useQueryCustom: () => UseQueryResult<T[], Error>,
+): UseMutationResult<T, unknown, T, unknown> => {
+	const { data: entities } = useQueryCustom();
+
+	return useMutation(
+		async (data: T) => ({ ...data, id: Math.floor(Math.random() * 10000 + 1) }),
+		{
+			onSuccess: (data) => {
+				if (entities != null) {
+					entities.push(data);
+					queryClient.setQueryData([queryKey], () => entities);
+				} else {
+					queryClient.setQueryData([queryKey], () => [data]);
+				}
+			},
+		},
+	);
+};
