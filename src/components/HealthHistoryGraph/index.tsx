@@ -15,8 +15,8 @@ export const HealthHistoryGraph = ({
 	healthHistory,
 }: HealthHistoryGraphProps): JSX.Element => {
 	const history = healthHistory?.map((data) => ({
-		name: assetStatus[data.status].label,
-		description: new Date(data.timestamp).toLocaleString(),
+		label: assetStatus[data.status].label,
+		name: new Date(data.timestamp).toLocaleString(),
 	}));
 
 	const colors = healthHistory?.map((data) => assetStatus[data.status].color);
@@ -34,9 +34,6 @@ export const HealthHistoryGraph = ({
 					"<div>{chartLongdesc}</div>" +
 					"<div>{viewTableButton}</div>",
 			},
-			point: {
-				valueDescriptionFormat: "{index}. {point.label}. {point.description}.",
-			},
 		},
 		xAxis: {
 			visible: false,
@@ -47,12 +44,22 @@ export const HealthHistoryGraph = ({
 		title: {
 			text: "",
 		},
-		dataLabels: {
-			allowOverlap: false,
-		},
 		colors,
 		series: [
 			{
+				tooltip: {
+					headerFormat: "",
+					pointFormat:
+						'<span style="color:{point.color}">\u25CF</span> <b> {point.label}</b><br/>' +
+						"{point.name}<br/>",
+				},
+				dataLabels: {
+					allowOverlap: false,
+					alternate: true,
+					format:
+						'<span style="color:{point.color}">● </span><span style="font-weight: bold;" > ' +
+						"{point.label:%d %b %Y}</span><br/>{point.name}",
+				},
 				data: history,
 			},
 		],
