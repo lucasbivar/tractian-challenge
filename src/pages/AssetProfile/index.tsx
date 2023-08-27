@@ -2,72 +2,12 @@ import { Box, Flex, Image, Spinner, Text } from "@chakra-ui/react";
 import { Card } from "../../components/Card";
 import { FiThermometer } from "react-icons/fi";
 import { BsSpeedometer2, BsLightningCharge } from "react-icons/bs";
-import Highcharts from "highcharts";
-import HighchartsReact from "highcharts-react-official";
-import TimelineSetup from "highcharts/modules/timeline";
-import HC_exporting from "highcharts/modules/exporting";
 import { useParams } from "react-router-dom";
 import { useAsset } from "../../hooks/assets/useAssets";
 import { getHealthScoreInfo } from "../../utils/healthScore";
 import { assetStatus } from "../../utils/enums/assetStatus";
 import { assetModels } from "../../utils/enums/models";
-TimelineSetup(Highcharts);
-HC_exporting(Highcharts);
-
-const options = {
-	chart: {
-		type: "timeline",
-	},
-	accessibility: {
-		screenReaderSection: {
-			beforeChartFormat:
-				"<h5>{chartTitle}</h5>" +
-				"<div>{typeDescription}</div>" +
-				"<div>{chartSubtitle}</div>" +
-				"<div>{chartLongdesc}</div>" +
-				"<div>{viewTableButton}</div>",
-		},
-		point: {
-			valueDescriptionFormat: "{index}. {point.label}. {point.description}.",
-		},
-	},
-	xAxis: {
-		visible: false,
-	},
-	yAxis: {
-		visible: false,
-	},
-	title: {
-		text: "",
-	},
-	colors: ["#52C41A", "#ED3833", "#52C41A", "#FAAD14", "#52C41A"],
-	series: [
-		{
-			data: [
-				{
-					name: "In Operation",
-					description: "01/01/2023 13:17:50",
-				},
-				{
-					name: "In Alert",
-					description: "02/02/2023 13:17:50",
-				},
-				{
-					name: "In Operation",
-					description: "03/04/2023 13:17:50",
-				},
-				{
-					name: "Unplanned Sto",
-					description: "04/05/2023 13:17:50",
-				},
-				{
-					name: "In Operation",
-					description: "04/06/2023 13:17:50",
-				},
-			],
-		},
-	],
-};
+import { HealthHistoryGraph } from "../../components/HealthHistoryGraph";
 
 export const AssetProfile = (): JSX.Element => {
 	const { id } = useParams();
@@ -285,7 +225,7 @@ export const AssetProfile = (): JSX.Element => {
 							borderRadius="10"
 							border="1px solid #D7D7D7"
 						>
-							<HighchartsReact highcharts={Highcharts} options={options} />
+							<HealthHistoryGraph healthHistory={asset?.healthHistory} />
 						</Flex>
 					</Box>
 				</Flex>

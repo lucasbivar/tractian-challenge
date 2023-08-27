@@ -11,7 +11,7 @@ type Status =
 	| "plannedStop"
 	| "unplannedStop";
 
-interface HealthDataItem {
+export interface HealthDataItem {
 	status: Status;
 	timestamp: string;
 }
