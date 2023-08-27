@@ -76,25 +76,6 @@ export const SetInfoModal = ({
 							}}
 						/>
 					</Box>
-					{type === "user" && (
-						<Box>
-							<Text as="b">{labels.emailLabel}</Text>
-							<Input
-								mt="1"
-								mb="2"
-								width="100%"
-								placeholder={labels.emailPlaceholder}
-								value={email}
-								borderColor="#bdbdbd"
-								variant="outline"
-								_focus={{
-									boxShadow: "none",
-									outline: "none",
-									borderColor: "#7a7a7a",
-								}}
-							/>
-						</Box>
-					)}
 					{type === "workOrder" && (
 						<>
 							<Box>

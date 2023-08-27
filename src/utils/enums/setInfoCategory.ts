@@ -17,6 +17,8 @@ type ICategoryLabels = Record<
 		usersPlaceholder?: string;
 		companyLabel?: string;
 		companyPlaceholder?: string;
+		unitLabel?: string;
+		unitPlaceholder?: string;
 		modelLabel?: string;
 		modelPlaceholder?: string;
 		deleteMessage: string;
@@ -63,6 +65,8 @@ export const categoryLabels: ICategoryLabels = {
 		nameLabel: "Name",
 		emailLabel: "E-mail",
 		emailPlaceholder: "Type the user e-mail",
+		unitLabel: "Unit",
+		unitPlaceholder: "Select the user's unit",
 		deleteMessage: "Are you sure you want to delete this user?",
 		successEditMessage: "User edited successfully!",
 		errorEditMessage: "Cannot edit the user!",

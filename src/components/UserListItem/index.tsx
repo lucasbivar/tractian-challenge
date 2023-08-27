@@ -1,12 +1,12 @@
 import { Avatar, Box, Flex, Show, Text, useDisclosure } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import { FiEdit, FiTrash2 } from "react-icons/fi";
-import { SetInfoModal } from "../SetInfoModal";
 import { DeleteModal } from "../DeleteModal";
 import { MdOutlineStoreMallDirectory } from "react-icons/md";
 import { BsBank } from "react-icons/bs";
 import { type User } from "../../interfaces/users";
 import { useDeleteUser } from "../../hooks/users/useDeleteUser";
+import { SetUserModal } from "../SetInfoModal/SetUserModal";
 
 interface UserListItemProps {
 	user: User;
@@ -204,13 +204,11 @@ export const UserListItem = ({ user }: UserListItemProps): JSX.Element => {
 					</Box>
 				</Flex>
 			</Show>
-			<SetInfoModal
+			<SetUserModal
 				view="edit"
-				type="user"
 				isOpen={isOpenEdit}
 				onClose={onCloseEdit}
-				name={user.name}
-				email={user.email}
+				user={user}
 			/>
 			<DeleteModal
 				type="user"

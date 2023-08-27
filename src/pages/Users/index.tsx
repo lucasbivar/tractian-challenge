@@ -8,11 +8,11 @@ import {
 	useDisclosure,
 } from "@chakra-ui/react";
 import { FiSearch, FiPlus } from "react-icons/fi";
-import { SetInfoModal } from "../../components/SetInfoModal";
 import { UserListItem } from "../../components/UserListItem";
 import { Card } from "../../components/Card";
 import { useUsers } from "../../hooks/users/useUsers";
 import { useSearch } from "../../hooks/useSearch";
+import { SetUserModal } from "../../components/SetInfoModal/SetUserModal";
 
 export const Users = (): JSX.Element => {
 	const {
@@ -103,12 +103,7 @@ export const Users = (): JSX.Element => {
 				)}
 			</Card>
 
-			<SetInfoModal
-				view="new"
-				type="user"
-				isOpen={isOpenEdit}
-				onClose={onCloseEdit}
-			/>
+			<SetUserModal view="new" isOpen={isOpenEdit} onClose={onCloseEdit} />
 		</Flex>
 	);
 };
