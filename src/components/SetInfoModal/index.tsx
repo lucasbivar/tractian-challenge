@@ -198,44 +198,6 @@ export const SetInfoModal = ({
 							</Box>
 						</>
 					)}
-					{type === "asset" && (
-						<>
-							<Box>
-								<Text as="b">{labels.modelLabel}</Text>
-								<Input
-									mt="1"
-									mb="2"
-									width="100%"
-									placeholder={labels.modelPlaceholder}
-									value={email}
-									borderColor="#bdbdbd"
-									variant="outline"
-									_focus={{
-										boxShadow: "none",
-										outline: "none",
-										borderColor: "#7a7a7a",
-									}}
-								/>
-							</Box>
-							<Box>
-								<Text as="b">{labels.sensorLabel}</Text>
-								<Input
-									mt="1"
-									mb="2"
-									width="100%"
-									placeholder={labels.sensorPlaceholder}
-									value={email}
-									borderColor="#bdbdbd"
-									variant="outline"
-									_focus={{
-										boxShadow: "none",
-										outline: "none",
-										borderColor: "#7a7a7a",
-									}}
-								/>
-							</Box>
-						</>
-					)}
 					<Button
 						bg="#1A3071"
 						mt="7"

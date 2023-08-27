@@ -10,14 +10,24 @@ export const AssetHealthGrapth = ({
 }: AssetHealthGrapthProps): JSX.Element => {
 	const totalAssets = assets?.length ?? 0;
 	const totalCorrectOperations =
-		assets?.filter((asset) => asset.healthscore >= 85).length ?? 0;
+		assets?.filter(
+			(asset) => asset.healthscore != null && asset.healthscore >= 85,
+		).length ?? 0;
 	const totalInRisk =
-		assets?.filter((asset) => asset.healthscore < 85 && asset.healthscore >= 70)
-			.length ?? 0;
+		assets?.filter(
+			(asset) =>
+				asset.healthscore != null &&
+				asset.healthscore < 85 &&
+				asset.healthscore >= 70,
+		).length ?? 0;
 	const totalNeedMaintence =
-		assets?.filter((asset) => asset.healthscore < 70).length ?? 0;
+		assets?.filter(
+			(asset) => asset.healthscore != null && asset.healthscore < 70,
+		).length ?? 0;
 	const totalNoInformation =
-		assets?.filter((asset) => asset.healthscore == null).length ?? 0;
+		assets?.filter(
+			(asset) => asset.healthscore != null && asset.healthscore == null,
+		).length ?? 0;
 
 	const maxLen: number =
 		Math.max.apply(null, [

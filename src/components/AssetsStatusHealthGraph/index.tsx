@@ -54,6 +54,7 @@ export const AssetsStatusHealthGraph = ({
 		inDowntime: 4,
 	};
 	assets?.forEach((asset) => {
+		if (asset.status == null) return;
 		const index = indexOfKeys[asset.status];
 		if (index != null) {
 			quantities[index].y += 1;
