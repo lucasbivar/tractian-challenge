@@ -209,7 +209,6 @@ const optionsMaps = {
 };
 
 export const Overview = (): JSX.Element => {
-	console.log(import.meta.env.VITE_APP_API_URL);
 	return (
 		<Flex
 			width="100%"
