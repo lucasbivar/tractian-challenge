@@ -24,6 +24,7 @@ export const HealthHistoryGraph = ({
 	const options = {
 		chart: {
 			type: "timeline",
+			innerWidth: "100%",
 		},
 		accessibility: {
 			screenReaderSection: {
@@ -58,7 +59,7 @@ export const HealthHistoryGraph = ({
 					alternate: true,
 					format:
 						'<span style="color:{point.color}">● </span><span style="font-weight: bold;" > ' +
-						"{point.label:%d %b %Y}</span><br/>{point.name}",
+						"{point.label:%d %b %Y}</span>",
 				},
 				data: history,
 			},
