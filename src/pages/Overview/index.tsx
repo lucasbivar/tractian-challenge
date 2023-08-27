@@ -23,13 +23,13 @@ const optionsMachineStatus = {
 			minPointSize: 20,
 			innerSize: "100%",
 			zMin: 0,
-			name: "Machine Status",
+			name: "Assets Status",
 			borderRadius: 0,
 			tooltip: {
 				headerFormat: "",
 				pointFormat:
 					'<span style="color:{point.color}">\u25CF</span> <b> {point.name}</b><br/>' +
-					"Machines: <b>{point.y}</b><br/>",
+					"Assets: <b>{point.y}</b><br/>",
 			},
 			data: [
 				{
@@ -54,6 +54,12 @@ const optionsMachineStatus = {
 					name: "Planned Stop",
 					y: 3,
 					z: 3,
+					color: "#8CA1FF",
+				},
+				{
+					name: "In Downtime",
+					y: 5,
+					z: 5,
 					color: "#8CA1FF",
 				},
 			],
@@ -220,7 +226,7 @@ export const Overview = (): JSX.Element => {
 				width="100%"
 			>
 				<Card
-					title="Machine Status"
+					title="Assets Status"
 					height={{ base: "280px", sm: "100%" }}
 					width={{ base: "100%", sm: "32%" }}
 				>
@@ -232,7 +238,7 @@ export const Overview = (): JSX.Element => {
 					/>
 				</Card>
 				<Card
-					title="Machine Health"
+					title="Assets Health"
 					height={{ base: "280px", sm: "100%" }}
 					width={{ base: "100%", sm: "32%" }}
 				>
@@ -248,7 +254,7 @@ export const Overview = (): JSX.Element => {
 							<Text style={{ marginRight: 10 }} as="b">
 								31
 							</Text>
-							<Text>Total of Machines</Text>
+							<Text>Total of Assets</Text>
 						</Flex>
 						<Flex flexDirection="row" alignItems="center" mb="1">
 							<Box

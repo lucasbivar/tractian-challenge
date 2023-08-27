@@ -3,15 +3,15 @@ import { useNavigate } from "react-router-dom";
 import { FiEdit, FiTrash2 } from "react-icons/fi";
 import { SetInfoModal } from "../SetInfoModal";
 import { DeleteModal } from "../DeleteModal";
+import { type Company } from "../../interfaces/companies";
+import { useDeleteCompany } from "../../hooks/companies/useDeleteCompanies";
 
 interface CompanyListItemProps {
-	name?: string;
-	id?: number;
+	company: Company;
 }
 
 export const CompanyListItem = ({
-	name,
-	id,
+	company,
 }: CompanyListItemProps): JSX.Element => {
 	const navigate = useNavigate();
 	const {
@@ -25,12 +25,18 @@ export const CompanyListItem = ({
 		onClose: onCloseDelete,
 	} = useDisclosure();
 
+	const { mutateAsync: deleteCompany } = useDeleteCompany();
+
+	const handleDeleteCompany = async (): Promise<void> => {
+		await deleteCompany(company);
+	};
+
 	return (
 		<Flex
 			cursor="pointer"
 			flexDirection="row"
 			onClick={() => {
-				navigate(`/companies/${id}`);
+				navigate(`/companies/${company.id}`);
 			}}
 			justifyContent="space-between"
 			alignItems="center"
@@ -40,8 +46,8 @@ export const CompanyListItem = ({
 			borderBottom="1px solid #D7D7D7"
 		>
 			<Box>
-				<Text as="b" fontSize="md">
-					{name}
+				<Text as="b" fontSize="md" isTruncated>
+					{company.name}
 				</Text>
 			</Box>
 			<Flex gap="3">
@@ -67,12 +73,13 @@ export const CompanyListItem = ({
 				type="company"
 				isOpen={isOpenEdit}
 				onClose={onCloseEdit}
-				name={name}
+				name={company.name}
 			/>
 			<DeleteModal
 				type="company"
 				isOpen={isOpenDelete}
 				onClose={onCloseDelete}
+				handleDelete={handleDeleteCompany}
 			/>
 		</Flex>
 	);

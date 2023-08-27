@@ -6,12 +6,14 @@ import {
 	ModalContent,
 	ModalOverlay,
 	Text,
+	useToast,
 } from "@chakra-ui/react";
 import { FiAlertTriangle } from "react-icons/fi";
 import { categoryLabels } from "../../utils/enums/setInfoCategory";
 
 interface SetUnitModalProps {
 	onClose: () => void;
+	handleDelete: () => Promise<void>;
 	isOpen: boolean;
 	type: "unit" | "company" | "user" | "asset" | "workOrder";
 }
@@ -19,9 +21,36 @@ interface SetUnitModalProps {
 export const DeleteModal = ({
 	onClose,
 	isOpen,
+	handleDelete,
 	type,
 }: SetUnitModalProps): JSX.Element => {
 	const labels = categoryLabels[type];
+	const toast = useToast();
+
+	const deleteItem = (): void => {
+		(async () => {
+			try {
+				await handleDelete();
+				toast({
+					title: "Success",
+					description: `${labels.entity} deleted successfully!`,
+					status: "success",
+					position: "bottom-right",
+					duration: 3000,
+				});
+				onClose();
+			} catch (err) {
+				toast({
+					title: "Error",
+					description: `Cannot delete the ${labels.entity}!`,
+					status: "error",
+					position: "bottom-right",
+					duration: 3000,
+				});
+			}
+		})().catch(() => {});
+	};
+
 	return (
 		<Modal onClose={onClose} isOpen={isOpen} isCentered>
 			<ModalOverlay />
@@ -73,7 +102,7 @@ export const DeleteModal = ({
 							bg="#ED3833"
 							_hover={{ bg: "#c51f19", color: "#FFF" }}
 							color="#FFF"
-							onClick={onClose}
+							onClick={deleteItem}
 						>
 							Delete
 						</Button>

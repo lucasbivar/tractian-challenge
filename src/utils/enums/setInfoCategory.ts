@@ -20,11 +20,13 @@ type ICategoryLabels = Record<
 		modelLabel?: string;
 		modelPlaceholder?: string;
 		deleteMessage: string;
+		entity: string;
 	}
 >;
 
 export const categoryLabels: ICategoryLabels = {
 	unit: {
+		entity: "Unit",
 		newTitle: "Create Unit",
 		editTitle: "Edit Unit",
 		namePlaceholder: "Type the unit name",
@@ -32,6 +34,7 @@ export const categoryLabels: ICategoryLabels = {
 		deleteMessage: "Are you sure you want to delete this unit?",
 	},
 	company: {
+		entity: "Company",
 		newTitle: "Create Company",
 		editTitle: "Edit Company",
 		namePlaceholder: "Type the company name",
@@ -39,6 +42,7 @@ export const categoryLabels: ICategoryLabels = {
 		deleteMessage: "Are you sure you want to delete this company?",
 	},
 	user: {
+		entity: "User",
 		newTitle: "Create User",
 		editTitle: "Edit User",
 		namePlaceholder: "Type the user name",
@@ -48,6 +52,7 @@ export const categoryLabels: ICategoryLabels = {
 		deleteMessage: "Are you sure you want to delete this user?",
 	},
 	asset: {
+		entity: "Asset",
 		newTitle: "Create Asset",
 		editTitle: "Edit Asset",
 		nameLabel: "Name",
@@ -59,6 +64,7 @@ export const categoryLabels: ICategoryLabels = {
 		deleteMessage: "Are you sure you want to delete this Asset?",
 	},
 	workOrder: {
+		entity: "Work Order",
 		newTitle: "Create Work Order",
 		editTitle: "Edit Work Order",
 		namePlaceholder: "Type the Work Order name",

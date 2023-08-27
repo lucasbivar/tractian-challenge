@@ -1,5 +1,5 @@
 interface Metrics {
-	lastUptimeAt: Date;
+	lastUptimeAt: string;
 	totalCollectsUptime: number;
 	totalUptime: number;
 }
@@ -13,7 +13,7 @@ type Status =
 
 interface HealthDataItem {
 	status: Status;
-	timestamp: Date;
+	timestamp: string;
 }
 
 interface Specifications {
@@ -21,6 +21,8 @@ interface Specifications {
 	power?: number;
 	rpm?: number;
 }
+
+type Models = "motor" | "fan";
 
 export interface Asset {
 	assignedUserIds?: number[];
@@ -30,10 +32,10 @@ export interface Asset {
 	id: number;
 	image: string;
 	metrics: Metrics;
-	model: string;
+	model: Models;
 	name: string;
 	sensors: string[];
 	specifications: Specifications;
-	status: string;
+	status: Status;
 	unitId?: number;
 }

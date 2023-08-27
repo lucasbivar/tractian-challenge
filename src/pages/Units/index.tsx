@@ -4,16 +4,20 @@ import {
 	Input,
 	InputGroup,
 	InputLeftElement,
+	Spinner,
 	useDisclosure,
 } from "@chakra-ui/react";
 import { UnitCard } from "../../components/UnitCard";
-import { useState } from "react";
 import { FiSearch, FiPlus } from "react-icons/fi";
 import { SetInfoModal } from "../../components/SetInfoModal";
+import { useUnits } from "../../hooks/units/useUnits";
+import { useSearch } from "../../hooks/useSearch";
 
 export const Units = (): JSX.Element => {
 	const { isOpen, onOpen, onClose } = useDisclosure();
-	const [searchBarValue, setSearchBarValue] = useState("");
+	const { searchValue, debouncedValue, handleChangedSearchValue } = useSearch();
+	const { data: units, isLoading } = useUnits({ searchValue: debouncedValue });
+
 	return (
 		<Flex
 			width="100%"
@@ -37,9 +41,9 @@ export const Units = (): JSX.Element => {
 						<FiSearch style={{ color: "#1A3071" }} />
 					</InputLeftElement>
 					<Input
-						value={searchBarValue}
+						value={searchValue}
 						onChange={(e) => {
-							setSearchBarValue(e.target.value);
+							handleChangedSearchValue(e.target.value);
 						}}
 						borderColor="#bdbdbd"
 						placeholder="Unit"
@@ -65,84 +69,31 @@ export const Units = (): JSX.Element => {
 			</Flex>
 			<Flex
 				flexDirection="row"
-				justifyContent="space-between"
+				// justifyContent="space-between"
 				gap={5}
 				flexWrap="wrap"
 				width="100%"
 				mb="50px"
 			>
-				<UnitCard
-					name="Shopping Manaira"
-					image="https://media-cdn.tripadvisor.com/media/photo-s/11/c8/a6/99/manaira-shopping.jpg"
-				/>
-				<UnitCard
-					name="Shopping Manaira"
-					image="https://media-cdn.tripadvisor.com/media/photo-s/11/c8/a6/99/manaira-shopping.jpg"
-				/>
-				<UnitCard
-					name="Shopping Manaira"
-					image="https://media-cdn.tripadvisor.com/media/photo-s/11/c8/a6/99/manaira-shopping.jpg"
-				/>
-				<UnitCard
-					name="Shopping Manaira"
-					image="https://media-cdn.tripadvisor.com/media/photo-s/11/c8/a6/99/manaira-shopping.jpg"
-				/>
-				<UnitCard
-					name="Shopping Manaira"
-					image="https://media-cdn.tripadvisor.com/media/photo-s/11/c8/a6/99/manaira-shopping.jpg"
-				/>
-				<UnitCard
-					name="Shopping Manaira"
-					image="https://media-cdn.tripadvisor.com/media/photo-s/11/c8/a6/99/manaira-shopping.jpg"
-				/>
-				<UnitCard
-					name="Shopping Manaira"
-					image="https://media-cdn.tripadvisor.com/media/photo-s/11/c8/a6/99/manaira-shopping.jpg"
-				/>
-				<UnitCard
-					name="Shopping Manaira"
-					image="https://media-cdn.tripadvisor.com/media/photo-s/11/c8/a6/99/manaira-shopping.jpg"
-				/>
-				<UnitCard
-					name="Shopping Manaira"
-					image="https://media-cdn.tripadvisor.com/media/photo-s/11/c8/a6/99/manaira-shopping.jpg"
-				/>
-				<UnitCard
-					name="Shopping Manaira"
-					image="https://media-cdn.tripadvisor.com/media/photo-s/11/c8/a6/99/manaira-shopping.jpg"
-				/>
-				<UnitCard
-					name="Shopping Manaira"
-					image="https://media-cdn.tripadvisor.com/media/photo-s/11/c8/a6/99/manaira-shopping.jpg"
-				/>
-				<UnitCard
-					name="Shopping Manaira"
-					image="https://media-cdn.tripadvisor.com/media/photo-s/11/c8/a6/99/manaira-shopping.jpg"
-				/>
-				<UnitCard
-					name="Shopping Manaira"
-					image="https://media-cdn.tripadvisor.com/media/photo-s/11/c8/a6/99/manaira-shopping.jpg"
-				/>
-				<UnitCard
-					name="Shopping Manaira"
-					image="https://media-cdn.tripadvisor.com/media/photo-s/11/c8/a6/99/manaira-shopping.jpg"
-				/>
-				<UnitCard
-					name="Shopping Manaira"
-					image="https://media-cdn.tripadvisor.com/media/photo-s/11/c8/a6/99/manaira-shopping.jpg"
-				/>
-				<UnitCard
-					name="Shopping Manaira"
-					image="https://media-cdn.tripadvisor.com/media/photo-s/11/c8/a6/99/manaira-shopping.jpg"
-				/>
-				<UnitCard
-					name="Shopping Manaira"
-					image="https://media-cdn.tripadvisor.com/media/photo-s/11/c8/a6/99/manaira-shopping.jpg"
-				/>
-				<UnitCard
-					name="Shopping Manaira"
-					image="https://media-cdn.tripadvisor.com/media/photo-s/11/c8/a6/99/manaira-shopping.jpg"
-				/>
+				{isLoading && (
+					<Flex
+						width="100%"
+						height="450px"
+						alignItems="center"
+						justifyContent="center"
+					>
+						<Spinner
+							thickness="4px"
+							speed="0.65s"
+							emptyColor="gray.200"
+							color="#1A3071"
+							size="xl"
+						/>
+					</Flex>
+				)}
+				{!isLoading && (
+					<>{units?.map((unit) => <UnitCard key={unit.id} unit={unit} />)}</>
+				)}
 			</Flex>
 			<SetInfoModal view="new" type="unit" isOpen={isOpen} onClose={onClose} />
 		</Flex>

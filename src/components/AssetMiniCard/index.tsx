@@ -1,21 +1,15 @@
 import { Box, Flex, Text } from "@chakra-ui/react";
 import { FiEye } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
+import { type Asset } from "../../interfaces/assets";
+import { assetStatus } from "../../utils/enums/assetStatus";
+import { assetModels } from "../../utils/enums/models";
 
-interface MachineMiniCardProps {
-	name?: string;
-	model?: string;
-	healthScore?: number;
-	status?: string;
-	id?: number;
+interface AssetMiniCardProps {
+	asset: Asset;
 }
 
-export const MachineMiniCard = ({
-	name,
-	model,
-	status,
-	id,
-}: MachineMiniCardProps): JSX.Element => {
+export const AssetMiniCard = ({ asset }: AssetMiniCardProps): JSX.Element => {
 	const navigate = useNavigate();
 	return (
 		<Flex
@@ -27,35 +21,37 @@ export const MachineMiniCard = ({
 			border="1px solid #D7D7D7"
 			_hover={{ boxShadow: "base" }}
 			bg="#FFF"
-			borderLeft="15px solid #52C41A"
+			borderLeft={`15px solid ${
+				asset.status != null ? assetStatus[asset.status].color : "#1A3071"
+			}`}
 			borderRadius={10}
 		>
 			<Flex flexDirection="column" width="80%">
-				<Text as="b" fontSize="md">
-					{name}
+				<Text as="b" fontSize="md" isTruncated>
+					{asset.name ?? "-"}
 				</Text>
-				<Text fontSize="sm">
+				<Text fontSize="sm" isTruncated>
 					<Text as="b" fontSize="sm">
 						Model:&nbsp;
 					</Text>
-					{model}
+					{asset.model != null ? assetModels[asset.model].label : "-"}
 				</Text>
-				<Text fontSize="sm">
+				<Text fontSize="sm" isTruncated>
 					<Text as="b" fontSize="sm">
 						Status:&nbsp;
 					</Text>
-					{status}
+					{asset.status != null ? assetStatus[asset.status].label : "-"}
 				</Text>
-				<Text fontSize="sm">
+				<Text fontSize="sm" isTruncated>
 					<Text as="b" fontSize="sm">
 						Health Score:&nbsp;
 					</Text>
-					{"Correct"}
+					{asset.healthscore ?? "-"}%
 				</Text>
 			</Flex>
 			<Box
 				onClick={() => {
-					navigate(`/assets/${id}`);
+					navigate(`/assets/${asset.id}`);
 				}}
 				width="15px"
 				aria-label="open machine"

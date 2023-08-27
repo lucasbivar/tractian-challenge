@@ -1,8 +1,22 @@
 import { type UseQueryResult } from "@tanstack/react-query";
 import { useFetch } from "../../utils/reactQuery";
-import { getAllUnits } from "../../services/units";
+import { getAllUnits, getUnitById } from "../../services/units";
 import { type Unit } from "../../interfaces/units";
+import { arrayOfObjectsGeneralFilter } from "../../utils/manipulateDataStructures";
 
-export const useUnits = (): UseQueryResult<Unit[], Error> => {
-	return useFetch<Unit[]>("units", getAllUnits);
+interface useUnitsArgs {
+	searchValue?: string;
+}
+
+export const useUnits = ({
+	searchValue,
+}: useUnitsArgs): UseQueryResult<Unit[], Error> => {
+	return useFetch<Unit[]>("units", getAllUnits, {
+		select: (items) =>
+			arrayOfObjectsGeneralFilter<Unit>(items, searchValue ?? ""),
+	});
+};
+
+export const useUnit = (id: number): UseQueryResult<Unit, Error> => {
+	return useFetch<Unit>(`unit-${id}`, async () => await getUnitById(id));
 };

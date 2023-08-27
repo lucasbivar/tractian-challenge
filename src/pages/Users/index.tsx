@@ -4,13 +4,15 @@ import {
 	Input,
 	InputGroup,
 	InputLeftElement,
+	Spinner,
 	useDisclosure,
 } from "@chakra-ui/react";
-import { useState } from "react";
 import { FiSearch, FiPlus } from "react-icons/fi";
 import { SetInfoModal } from "../../components/SetInfoModal";
 import { UserListItem } from "../../components/UserListItem";
 import { Card } from "../../components/Card";
+import { useUsers } from "../../hooks/users/useUsers";
+import { useSearch } from "../../hooks/useSearch";
 
 export const Users = (): JSX.Element => {
 	const {
@@ -18,7 +20,9 @@ export const Users = (): JSX.Element => {
 		onOpen: onOpenEdit,
 		onClose: onCloseEdit,
 	} = useDisclosure();
-	const [searchBarValue, setSearchBarValue] = useState("");
+
+	const { searchValue, debouncedValue, handleChangedSearchValue } = useSearch();
+	const { data: users, isLoading } = useUsers({ searchValue: debouncedValue });
 
 	return (
 		<Flex
@@ -43,9 +47,9 @@ export const Users = (): JSX.Element => {
 						<FiSearch style={{ color: "#1A3071" }} />
 					</InputLeftElement>
 					<Input
-						value={searchBarValue}
+						value={searchValue}
 						onChange={(e) => {
-							setSearchBarValue(e.target.value);
+							handleChangedSearchValue(e.target.value);
 						}}
 						borderColor="#bdbdbd"
 						placeholder="User"
@@ -70,98 +74,33 @@ export const Users = (): JSX.Element => {
 				</Button>
 			</Flex>
 			<Card noPadding width="100%">
-				<Flex
-					flexDirection="column"
-					flexWrap="wrap"
-					paddingX="5"
-					width="100%"
-					mb="-1px"
-				>
-					<UserListItem
-						name="Lucas Bivar"
-						email="lucasbivar@tractian.com"
-						company="TDG Company"
-						unit="Dinamerica"
-						id={1}
-					/>
-					<UserListItem
-						name="Lucas Bivar"
-						email="lucasbivar@tractian.com"
-						company="TDG Company"
-						unit="Dinamerica"
-						id={1}
-					/>
-					<UserListItem
-						name="Lucas Bivar"
-						email="lucasbivar@tractian.com"
-						company="TDG Company"
-						unit="Dinamerica"
-						id={1}
-					/>
-					<UserListItem
-						name="Lucas Bivar"
-						email="lucasbivar@tractian.com"
-						company="TDG Company"
-						unit="Dinamerica"
-						id={1}
-					/>
-					<UserListItem
-						name="Lucas Bivar"
-						email="lucasbivar@tractian.com"
-						company="TDG Company"
-						unit="Dinamerica"
-						id={1}
-					/>
-					<UserListItem
-						name="Lucas Bivar"
-						email="lucasbivar@tractian.com"
-						company="TDG Company"
-						unit="Dinamerica"
-						id={1}
-					/>
-					<UserListItem
-						name="Lucas Bivar"
-						email="lucasbivar@tractian.com"
-						company="TDG Company"
-						unit="Dinamerica"
-						id={1}
-					/>
-					<UserListItem
-						name="Lucas Bivar"
-						email="lucasbivar@tractian.com"
-						company="TDG Company"
-						unit="Dinamerica"
-						id={1}
-					/>
-					<UserListItem
-						name="Lucas Bivar"
-						email="lucasbivar@tractian.com"
-						company="TDG Company"
-						unit="Dinamerica"
-						id={1}
-					/>
-					<UserListItem
-						name="Lucas Bivar"
-						email="lucasbivar@tractian.com"
-						company="TDG Company"
-						unit="Dinamerica"
-						id={1}
-					/>
-					<UserListItem
-						name="Lucas Bivar"
-						email="lucasbivar@tractian.com"
-						company="TDG Company"
-						unit="Dinamerica"
-						id={1}
-					/>
-					<UserListItem
-						name="Lucas Bivar"
-						email="lucasbivar@tractian.com"
-						company="TDG Company"
-						unit="Dinamerica"
-						id={1}
-					/>
-				</Flex>
+				{isLoading && (
+					<Flex
+						width="100%"
+						height="450px"
+						alignItems="center"
+						justifyContent="center"
+					>
+						<Spinner
+							thickness="4px"
+							speed="0.65s"
+							emptyColor="gray.200"
+							color="#1A3071"
+							size="xl"
+						/>
+					</Flex>
+				)}
+				{!isLoading && (
+					<Flex
+						flexDirection="column"
+						flexWrap="wrap"
+						paddingX="5"
+						width="100%"
+						mb="-1px"
+					>
+						{users?.map((user) => <UserListItem key={user.id} user={user} />)}
+					</Flex>
+				)}
 			</Card>
 
 			<SetInfoModal

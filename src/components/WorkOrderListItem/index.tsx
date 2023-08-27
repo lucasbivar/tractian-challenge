@@ -27,22 +27,28 @@ import {
 import { SetInfoModal } from "../SetInfoModal";
 import { DeleteModal } from "../DeleteModal";
 import { useState } from "react";
+import { type TaskItem, type WorkOrder } from "../../interfaces/workOrders";
+import { useDeleteWorkOrder } from "../../hooks/workOrders/useDeleteWorkOrders";
+import { workOrderPriority } from "../../utils/enums/workOrderPriority";
+import { workOrderStatus } from "../../utils/enums/workOrderStatus";
+
+const getProgressStatus = (tasks: TaskItem[]): number => {
+	if (tasks == null || tasks.length === 0) return 100;
+	const completed = tasks.reduce((value, task) => {
+		if (task.completed) value += 1;
+		return value;
+	}, 0);
+
+	return Math.trunc((completed * 100) / tasks.length);
+};
 
 interface WorkOrderListItemProps {
-	title?: string;
-	description?: string;
-	priority?: string;
-	status?: string;
-	checklist?: Array<{ completed: boolean; task: string }>;
-	assetId?: number;
+	workOrder: WorkOrder;
 	index?: number;
 }
 
 export const WorkOrderListItem = ({
-	title,
-	description,
-	assetId,
-	checklist,
+	workOrder,
 	index,
 }: WorkOrderListItemProps): JSX.Element => {
 	const navigate = useNavigate();
@@ -57,8 +63,11 @@ export const WorkOrderListItem = ({
 		onClose: onCloseDelete,
 	} = useDisclosure();
 	const [collapsed, setCollapsed] = useState(index === 0);
-	const image =
-		"https://tractian-img.s3.amazonaws.com/6d5028682016cb43d02b857d4f1384ae.jpeg";
+	const { mutateAsync: deleteWorkOrder } = useDeleteWorkOrder();
+
+	const handleDeleteWorkOrder = async (): Promise<void> => {
+		await deleteWorkOrder(workOrder);
+	};
 	return (
 		<Flex
 			flexDirection="column"
@@ -87,23 +96,27 @@ export const WorkOrderListItem = ({
 							fit="cover"
 							width={{ base: "50px", sm: "80px" }}
 							height={{ base: "50px", sm: "80px" }}
-							src={image}
+							src={workOrder.asset.image}
 						/>
 
 						<Flex flexDirection="column" justifyContent="center">
-							<Text as="b" fontSize="md">
-								{title}
+							<Text as="b" fontSize="md" isTruncated>
+								{workOrder.title ?? "-"}
 							</Text>
 							<Text
 								fontSize={{ base: "x-small", sm: "sm" }}
 								width={{ base: "90%", lg: "75%" }}
 							>
-								{description}
+								{workOrder.description ?? "-"}
 							</Text>
 						</Flex>
 					</Flex>
 					<Show below="lg">
-						<Progress mt="3" colorScheme="facebook" value={40} />
+						<Progress
+							mt="3"
+							colorScheme="facebook"
+							value={getProgressStatus(workOrder.checklist)}
+						/>
 					</Show>
 				</Flex>
 				<Flex
@@ -112,8 +125,13 @@ export const WorkOrderListItem = ({
 					gap={{ base: "5", lg: "20" }}
 				>
 					<Show above="lg">
-						<CircularProgress value={40} color="#1A3071">
-							<CircularProgressLabel>40%</CircularProgressLabel>
+						<CircularProgress
+							value={getProgressStatus(workOrder.checklist)}
+							color="#1A3071"
+						>
+							<CircularProgressLabel>
+								{getProgressStatus(workOrder.checklist)}%
+							</CircularProgressLabel>
 						</CircularProgress>
 					</Show>
 					<Box
@@ -171,9 +189,9 @@ export const WorkOrderListItem = ({
 								<FiPlus color="#FFF" size="15" />
 							</Button>
 						</Flex>
-						{checklist?.map((task) => (
+						{workOrder.checklist?.map((task) => (
 							<Flex key={task.task} gap="2" mb="1">
-								<Checkbox colorScheme="green" checked={task.completed} />
+								<Checkbox colorScheme="green" defaultChecked={task.completed} />
 								<Text fontSize="sm">{task.task}</Text>
 							</Flex>
 						))}
@@ -200,7 +218,11 @@ export const WorkOrderListItem = ({
 									</Text>
 
 									<Box
-										bg="#ED3833"
+										bg={
+											workOrder.priority != null
+												? workOrderPriority[workOrder.priority].color
+												: "#1A3071"
+										}
 										mt="1"
 										py="1"
 										width="100px"
@@ -209,7 +231,9 @@ export const WorkOrderListItem = ({
 										color="#FFF"
 									>
 										<Text as="b" fontSize="sm">
-											High
+											{workOrder.priority != null
+												? workOrderPriority[workOrder.priority].label
+												: "No Information"}
 										</Text>
 									</Box>
 								</Box>
@@ -219,7 +243,11 @@ export const WorkOrderListItem = ({
 									</Text>
 
 									<Box
-										bg="#52C41A"
+										bg={
+											workOrder.status != null
+												? workOrderStatus[workOrder.status].color
+												: "#1A3071"
+										}
 										mt="1"
 										py="1"
 										width="100px"
@@ -228,7 +256,9 @@ export const WorkOrderListItem = ({
 										color="#FFF"
 									>
 										<Text as="b" fontSize="sm">
-											Completed
+											{workOrder.status != null
+												? workOrderStatus[workOrder.status].label
+												: "No Information"}
 										</Text>
 									</Box>
 								</Box>
@@ -238,7 +268,7 @@ export const WorkOrderListItem = ({
 									Description
 								</Text>
 								<Box mt="1">
-									<Text fontSize="sm">{description}</Text>
+									<Text fontSize="sm">{workOrder.description ?? "-"}</Text>
 								</Box>
 							</Box>
 						</Flex>
@@ -257,7 +287,8 @@ export const WorkOrderListItem = ({
 										gap="2"
 										cursor="pointer"
 										onClick={() => {
-											navigate(`/assets/${assetId}`);
+											workOrder.assetId != null &&
+												navigate(`/assets/${workOrder.assetId}`);
 										}}
 										alignItems="center"
 									>
@@ -296,15 +327,14 @@ export const WorkOrderListItem = ({
 								</Text>
 								<Box mt="1">
 									<AvatarGroup size="sm" max={4}>
-										<Avatar name="Ryan Florence" color="#FFF" bg="#1A3071" />
-										<Avatar name="Segun Adebayo" color="#FFF" bg="#1A3071" />
-										<Avatar name="Kent Dodds" color="#FFF" bg="#1A3071" />
-										<Avatar
-											name="Prosper Otemuyiwa"
-											color="#FFF"
-											bg="#1A3071"
-										/>
-										<Avatar name="Christian Nwamba" color="#FFF" bg="#1A3071" />
+										{workOrder.users?.map((user) => (
+											<Avatar
+												key={user.id}
+												name={user.name}
+												color="#FFF"
+												bg="#1A3071"
+											/>
+										))}
 									</AvatarGroup>
 								</Box>
 							</Box>
@@ -316,6 +346,7 @@ export const WorkOrderListItem = ({
 				type="workOrder"
 				isOpen={isOpenDelete}
 				onClose={onCloseDelete}
+				handleDelete={handleDeleteWorkOrder}
 			/>
 			<SetInfoModal
 				view="edit"

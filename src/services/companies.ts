@@ -1,5 +1,6 @@
 import type { Company } from "../interfaces/companies";
 import { axiosTractianApiInstance } from "../api/axios";
+import { getAllUnits } from "./units";
 
 export const getAllCompanies = async (): Promise<Company[]> => {
 	const response = await axiosTractianApiInstance.get<Company[]>("/companies");
@@ -7,10 +8,16 @@ export const getAllCompanies = async (): Promise<Company[]> => {
 	return response.data;
 };
 
-export const getCompanyById = async (id: string): Promise<Company> => {
+export const getCompanyById = async (id: number): Promise<Company> => {
 	const response = await axiosTractianApiInstance.get<Company>(
 		`/companies/${id}`,
 	);
 
-	return response.data;
+	const units = await getAllUnits();
+	const companyUnits = units.filter((unit) => unit.companyId === id);
+
+	return {
+		...response.data,
+		...(companyUnits.length !== 0 && { units: companyUnits }),
+	};
 };

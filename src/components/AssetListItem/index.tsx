@@ -3,21 +3,17 @@ import { FiEdit, FiTrash2 } from "react-icons/fi";
 import { SetInfoModal } from "../SetInfoModal";
 import { DeleteModal } from "../DeleteModal";
 import { useNavigate } from "react-router-dom";
+import { type Asset } from "../../interfaces/assets";
+import { useDeleteAsset } from "../../hooks/assets/useDeleteAssets";
+import { getHealthScoreInfo } from "../../utils/healthScore";
+import { assetStatus } from "../../utils/enums/assetStatus";
+import { assetModels } from "../../utils/enums/models";
 
 interface AssetListItemProps {
-	name?: string;
-	model?: string;
-	image?: string;
-	status?: string;
-	healthScore?: string;
-	id?: number;
+	asset: Asset;
 }
 
-export const AssetListItem = ({
-	name,
-	model,
-	image,
-}: AssetListItemProps): JSX.Element => {
+export const AssetListItem = ({ asset }: AssetListItemProps): JSX.Element => {
 	const {
 		isOpen: isOpenEdit,
 		onOpen: onOpenEdit,
@@ -29,13 +25,19 @@ export const AssetListItem = ({
 		onClose: onCloseDelete,
 	} = useDisclosure();
 	const navigate = useNavigate();
+	const { mutateAsync: deleteAsset } = useDeleteAsset();
+
+	const handleDeleteAsset = async (): Promise<void> => {
+		await deleteAsset(asset);
+	};
+
 	return (
 		<Flex
 			flexDirection="row"
 			flexWrap="wrap"
 			cursor="pointer"
 			onClick={() => {
-				navigate("/assets/1");
+				navigate(`/assets/${asset.id}`);
 			}}
 			justifyContent="space-between"
 			alignItems="center"
@@ -50,13 +52,15 @@ export const AssetListItem = ({
 					fit="cover"
 					width={{ base: "50px", sm: "70px" }}
 					height={{ base: "50px", sm: "70px" }}
-					src={image}
+					src={asset.image}
 				/>
 				<Flex flexDirection="column" justifyContent="center">
-					<Text as="b" fontSize="md">
-						{name}
+					<Text as="b" fontSize="md" isTruncated>
+						{asset.name}
 					</Text>
-					<Text fontSize="sm">{model}</Text>
+					<Text fontSize="sm" isTruncated>
+						{assetModels[asset.model].label}
+					</Text>
 				</Flex>
 			</Flex>
 
@@ -68,7 +72,7 @@ export const AssetListItem = ({
 				width={{ base: "100%", sm: "100%", md: "auto", lg: "auto", xl: "auto" }}
 			>
 				<Box
-					bg="#ED3833"
+					bg={getHealthScoreInfo(asset.healthscore).color}
 					py="1"
 					width="80px"
 					textAlign="center"
@@ -76,11 +80,13 @@ export const AssetListItem = ({
 					color="#FFF"
 				>
 					<Text as="b" fontSize="sm">
-						49%
+						{`${asset.healthscore}%`}
 					</Text>
 				</Box>
 				<Box
-					bg="#52C41A"
+					bg={
+						asset.status != null ? assetStatus[asset.status].color : "#1A3071"
+					}
 					py="1"
 					width="100px"
 					textAlign="center"
@@ -88,7 +94,9 @@ export const AssetListItem = ({
 					color="#FFF"
 				>
 					<Text as="b" fontSize="sm">
-						In Operation
+						{asset.status != null
+							? assetStatus[asset.status].label
+							: "No Information"}
 					</Text>
 				</Box>
 				<Flex gap="3" justifyContent="center">
@@ -115,9 +123,14 @@ export const AssetListItem = ({
 				type="asset"
 				isOpen={isOpenEdit}
 				onClose={onCloseEdit}
-				name={name}
+				name={asset.name}
 			/>
-			<DeleteModal type="asset" isOpen={isOpenDelete} onClose={onCloseDelete} />
+			<DeleteModal
+				type="asset"
+				isOpen={isOpenDelete}
+				handleDelete={handleDeleteAsset}
+				onClose={onCloseDelete}
+			/>
 		</Flex>
 	);
 };

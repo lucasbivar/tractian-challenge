@@ -15,8 +15,7 @@ export const Settings = (): JSX.Element => {
 	const [company, setCompany] = useState(storedCompany);
 	const [isSubmitting, setIsSubmitting] = useState(false);
 	const toast = useToast();
-	const { data: companies, isLoading } = useCompanies();
-	console.log(companies);
+	const { data: companies, isLoading } = useCompanies({});
 
 	const handleSubmit = (): void => {
 		setIsSubmitting(true);

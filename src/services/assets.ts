@@ -7,7 +7,7 @@ export const getAllAssets = async (): Promise<Asset[]> => {
 	return response.data;
 };
 
-export const getAssetById = async (id: string): Promise<Asset> => {
+export const getAssetById = async (id: number): Promise<Asset> => {
 	const response = await axiosTractianApiInstance.get<Asset>(`/assets/${id}`);
 
 	return response.data;

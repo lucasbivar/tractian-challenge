@@ -5,22 +5,14 @@ import { SetInfoModal } from "../SetInfoModal";
 import { DeleteModal } from "../DeleteModal";
 import { MdOutlineStoreMallDirectory } from "react-icons/md";
 import { BsBank } from "react-icons/bs";
+import { type User } from "../../interfaces/users";
+import { useDeleteUser } from "../../hooks/users/useDeleteUser";
 
 interface UserListItemProps {
-	name?: string;
-	email?: string;
-	unit?: string;
-	company?: string;
-	id?: number;
+	user: User;
 }
 
-export const UserListItem = ({
-	name,
-	email,
-	company,
-	unit,
-	id,
-}: UserListItemProps): JSX.Element => {
+export const UserListItem = ({ user }: UserListItemProps): JSX.Element => {
 	const navigate = useNavigate();
 	const {
 		isOpen: isOpenEdit,
@@ -32,6 +24,11 @@ export const UserListItem = ({
 		onOpen: onOpenDelete,
 		onClose: onCloseDelete,
 	} = useDisclosure();
+	const { mutateAsync: deleteUser } = useDeleteUser();
+
+	const handleDeleteUser = async (): Promise<void> => {
+		await deleteUser(user);
+	};
 
 	return (
 		<Flex
@@ -44,38 +41,58 @@ export const UserListItem = ({
 			width="100%"
 			borderBottom="1px solid #D7D7D7"
 		>
-			<Flex flexDirection="row" gap="3" alignItems="center">
-				<Avatar name={name} bg="#1A3071" color="#FFF" />
+			<Flex
+				flexDirection="row"
+				width={{
+					base: "100%",
+					sm: "100%",
+					md: "180px",
+					lg: "200px",
+					xl: "300px",
+				}}
+				gap="3"
+				alignItems="center"
+			>
+				<Avatar name={user.name} bg="#1A3071" color="#FFF" />
 
 				<Flex flexDirection="column" justifyContent="center">
-					<Text as="b" fontSize="md">
-						{name}
+					<Text as="b" fontSize="md" isTruncated>
+						{user.name}
 					</Text>
-					<Text fontSize="sm">{email}</Text>
+					<Text fontSize="sm" isTruncated>
+						{user.name}
+					</Text>
 				</Flex>
 			</Flex>
 			<Flex
-				gap={{ base: "0", sm: "0", md: "8", lg: "140", xl: "200" }}
 				justifyContent="space-between"
-				width={{ base: "100%", sm: "100%", md: "auto", lg: "auto", xl: "auto" }}
+				width={{
+					base: "100%",
+					sm: "100%",
+					md: "170px",
+					lg: "350px",
+					xl: "540px",
+				}}
 				mt={{ base: "2", sm: "2", md: "0", lg: "0", xl: "0" }}
 			>
 				<Show above="md">
-					<Flex flexDirection="column" justifyContent="center">
+					<Flex flexDirection="column" width="50%" justifyContent="center">
 						<Text as="b" fontSize="md">
 							Company
 						</Text>
 						<Text
 							cursor="pointer"
 							onClick={() => {
-								navigate(`/companies/${id}`);
+								user.companyId != null &&
+									navigate(`/companies/${user.companyId}`);
 							}}
 							fontSize="sm"
+							isTruncated
 						>
-							{company}
+							{user.companyName ?? "-"}
 						</Text>
 					</Flex>
-					<Flex flexDirection="column" justifyContent="center">
+					<Flex flexDirection="column" width="50%" justifyContent="center">
 						<Text as="b" fontSize="md">
 							Unit
 						</Text>
@@ -83,10 +100,11 @@ export const UserListItem = ({
 							fontSize="sm"
 							cursor="pointer"
 							onClick={() => {
-								navigate(`/units/${id}`);
+								user.unitId != null && navigate(`/units/${user.unitId}`);
 							}}
+							isTruncated
 						>
-							{unit}
+							{user.unitName ?? "-"}
 						</Text>
 					</Flex>
 				</Show>
@@ -105,11 +123,12 @@ export const UserListItem = ({
 								<Text
 									cursor="pointer"
 									onClick={() => {
-										navigate(`/companies/${id}`);
+										user.companyId != null &&
+											navigate(`/companies/${user.companyId}`);
 									}}
 									fontSize="sm"
 								>
-									{company}
+									{user.companyName ?? "-"}
 								</Text>
 							</Flex>
 							<Box
@@ -134,11 +153,11 @@ export const UserListItem = ({
 								<Text
 									cursor="pointer"
 									onClick={() => {
-										navigate(`/units/${id}`);
+										user.unitId != null && navigate(`/units/${user.unitId}`);
 									}}
 									fontSize="sm"
 								>
-									{unit}
+									{user.unitName ?? "-"}
 								</Text>
 							</Flex>
 							<Box
@@ -166,6 +185,7 @@ export const UserListItem = ({
 					}}
 				>
 					<Box
+						cursor="pointer"
 						onClick={(e) => {
 							e.stopPropagation();
 							onOpenEdit();
@@ -174,6 +194,7 @@ export const UserListItem = ({
 						<FiEdit color="#1A3071" size="20" />
 					</Box>
 					<Box
+						cursor="pointer"
 						onClick={(e) => {
 							e.stopPropagation();
 							onOpenDelete();
@@ -188,10 +209,15 @@ export const UserListItem = ({
 				type="user"
 				isOpen={isOpenEdit}
 				onClose={onCloseEdit}
-				name={name}
-				email={email}
+				name={user.name}
+				email={user.email}
 			/>
-			<DeleteModal type="user" isOpen={isOpenDelete} onClose={onCloseDelete} />
+			<DeleteModal
+				type="user"
+				handleDelete={handleDeleteUser}
+				isOpen={isOpenDelete}
+				onClose={onCloseDelete}
+			/>
 		</Flex>
 	);
 };

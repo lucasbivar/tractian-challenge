@@ -1,14 +1,12 @@
 import { Avatar, Flex, Text } from "@chakra-ui/react";
+import { type User } from "../../interfaces/users";
 
 interface ProfileMiniCardProps {
-	name?: string;
-	email?: string;
-	id?: number;
+	user: User;
 }
 
 export const ProfileMiniCard = ({
-	name,
-	email,
+	user,
 }: ProfileMiniCardProps): JSX.Element => {
 	return (
 		<Flex
@@ -23,11 +21,11 @@ export const ProfileMiniCard = ({
 			bg="#FFF"
 			borderRadius={10}
 		>
-			<Avatar bg="#1A3071" color="#FFF" name={name} />
+			<Avatar bg="#1A3071" color="#FFF" name={user.name} />
 			<Text as="b" fontSize="md">
-				{name}
+				{user.name ?? "-"}
 			</Text>
-			<Text fontSize="xs">{email}</Text>
+			<Text fontSize="xs">{user.email ?? "-"}</Text>
 		</Flex>
 	);
 };

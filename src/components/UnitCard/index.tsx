@@ -3,18 +3,15 @@ import { FiEdit, FiTrash2 } from "react-icons/fi";
 import { SetInfoModal } from "../SetInfoModal";
 import { useNavigate } from "react-router-dom";
 import { DeleteModal } from "../DeleteModal";
+import { type Unit } from "../../interfaces/units";
+import { useDeleteUnit } from "../../hooks/units/useDeleteUnits";
 
 interface UnitCardProps {
-	name: string;
-	image: string;
+	unit: Unit;
 	disableEdit?: boolean;
 }
 
-export const UnitCard = ({
-	name,
-	image,
-	disableEdit,
-}: UnitCardProps): JSX.Element => {
+export const UnitCard = ({ unit, disableEdit }: UnitCardProps): JSX.Element => {
 	const {
 		isOpen: isOpenEdit,
 		onOpen: onOpenEdit,
@@ -26,11 +23,16 @@ export const UnitCard = ({
 		onClose: onCloseDelete,
 	} = useDisclosure();
 	const navigate = useNavigate();
+	const { mutateAsync: deleteUnit } = useDeleteUnit();
+
+	const handleDeleteUnit = async (): Promise<void> => {
+		await deleteUnit(unit);
+	};
 
 	return (
 		<Flex
 			onClick={() => {
-				navigate("/units/1");
+				navigate(`/units/${unit.id}`);
 			}}
 			width={{ base: "100%", sm: "47%", md: "47%", lg: "30%", xl: "31%" }}
 			height="200px"
@@ -44,7 +46,7 @@ export const UnitCard = ({
 				fit="cover"
 				width="100%"
 				zIndex="2"
-				src={image}
+				src={unit.image}
 				borderRadius={10}
 			/>
 			<Box
@@ -66,7 +68,7 @@ export const UnitCard = ({
 				position="absolute"
 			>
 				<Text color="#FFF" as="b">
-					{name}
+					{unit.name}
 				</Text>
 				{(disableEdit === false || !disableEdit) && (
 					<Flex flexDirection="row" gap="2">
@@ -94,9 +96,14 @@ export const UnitCard = ({
 				type="unit"
 				isOpen={isOpenEdit}
 				onClose={onCloseEdit}
-				name={name}
+				name={unit.name}
 			/>
-			<DeleteModal type="unit" isOpen={isOpenDelete} onClose={onCloseDelete} />
+			<DeleteModal
+				type="unit"
+				isOpen={isOpenDelete}
+				handleDelete={handleDeleteUnit}
+				onClose={onCloseDelete}
+			/>
 		</Flex>
 	);
 };
