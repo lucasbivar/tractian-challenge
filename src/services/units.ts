@@ -4,10 +4,10 @@ import { getAllAssets } from "./assets";
 import { getAllUsers } from "./users";
 import { getCompanyById } from "./companies";
 
-const urlFakeUnitImage =
+export const urlFakeUnitImage =
 	"https://lh3.googleusercontent.com/p/AF1QipMEHk-PfFIzK1mVIdaDaSdjl2fzVxO_b_ymt3Kv=s1360-w1360-h1020";
 
-const fakeGeolocalizations: Geolocalization[] = [
+export const fakeGeolocalizations: Geolocalization[] = [
 	{
 		lat: -7.069378,
 		lon: -34.637298,

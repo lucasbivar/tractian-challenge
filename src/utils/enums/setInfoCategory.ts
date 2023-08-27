@@ -15,6 +15,8 @@ type ICategoryLabels = Record<
 		statusPlaceholder?: string;
 		usersLabel?: string;
 		usersPlaceholder?: string;
+		companyLabel?: string;
+		companyPlaceholder?: string;
 		sensorLabel?: string;
 		sensorPlaceholder?: string;
 		modelLabel?: string;
@@ -35,6 +37,8 @@ export const categoryLabels: ICategoryLabels = {
 		editTitle: "Edit Unit",
 		namePlaceholder: "Type the unit name",
 		nameLabel: "Name",
+		companyLabel: "Company",
+		companyPlaceholder: "Select the unit's company",
 		deleteMessage: "Are you sure you want to delete this unit?",
 		successEditMessage: "Unit edited successfully!",
 		errorEditMessage: "Cannot edit the unit!",

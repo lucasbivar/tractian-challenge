@@ -6,57 +6,67 @@ import {
 	Modal,
 	ModalContent,
 	ModalOverlay,
+	Select,
 	Text,
 	useToast,
 } from "@chakra-ui/react";
 import { FiX } from "react-icons/fi";
 import { categoryLabels } from "../../utils/enums/setInfoCategory";
-import { type Company } from "../../interfaces/companies";
 import { useState } from "react";
-import { useCreateCompany } from "../../hooks/companies/useCreateCompanies";
-import { useUpdateCompany } from "../../hooks/companies/useUpdateCompanies";
+import { type Unit } from "../../interfaces/units";
+import { useCreateUnit } from "../../hooks/units/useCreateUnits";
+import { useUpdateUnit } from "../../hooks/units/useUpdateUnits";
+import { fakeGeolocalizations, urlFakeUnitImage } from "../../services/units";
+import { useCompanies } from "../../hooks/companies/useCompanies";
 
-interface SetCompanyModalProps {
+interface SetUnitModalProps {
 	onClose: () => void;
 	isOpen: boolean;
-	company?: Company;
+	unit?: Unit;
 	view: "new" | "edit";
 }
 
-export const SetCompanyModal = ({
+export const SetUnitModal = ({
 	onClose,
 	isOpen,
-	company,
+	unit,
 	view,
-}: SetCompanyModalProps): JSX.Element => {
-	const labels = categoryLabels.company;
-	const [companyEdited, setCompanyEdited] = useState({
-		id: company?.id ?? Math.floor(Math.random() * 10000 + 100),
-		name: company?.name ?? "",
+}: SetUnitModalProps): JSX.Element => {
+	const labels = categoryLabels.unit;
+	const [unitEdited, setUnitEdited] = useState({
+		...unit,
+		id: unit?.id ?? Math.floor(Math.random() * 10000 + 100),
+		name: unit?.name ?? "",
+		companyId: unit?.companyId ?? undefined,
+		image: unit?.image ?? urlFakeUnitImage,
+		geolocalization:
+			unit?.geolocalization ??
+			fakeGeolocalizations[(fakeGeolocalizations.length * Math.random()) | 0],
 	});
 
-	const { mutateAsync: createCompany } = useCreateCompany();
-	const handleCreateCompany = async (): Promise<void> => {
-		await createCompany(companyEdited);
+	const { data: companies } = useCompanies({});
+
+	const { mutateAsync: createUnit } = useCreateUnit();
+	const handleCreateUnit = async (): Promise<void> => {
+		await createUnit(unitEdited);
 	};
 
-	const { mutateAsync: updateCompany } = useUpdateCompany();
-	const handleUpdateCompany = async (): Promise<void> => {
-		await updateCompany(companyEdited);
+	const { mutateAsync: updateUnit } = useUpdateUnit();
+	const handleUpdateUnit = async (): Promise<void> => {
+		await updateUnit(unitEdited);
 	};
 	const toast = useToast();
 
 	const handleSetCompany = (): void => {
 		(async () => {
 			try {
-				if (companyEdited.name === "") throw Error("");
+				if (unitEdited.name === "") throw Error("");
 
 				if (view === "new") {
-					await handleCreateCompany();
+					await handleCreateUnit();
 				} else if (view === "edit") {
-					await handleUpdateCompany();
+					await handleUpdateUnit();
 				}
-
 				toast({
 					title: "Success",
 					description:
@@ -114,11 +124,11 @@ export const SetCompanyModal = ({
 							mb="2"
 							width="100%"
 							placeholder={labels.namePlaceholder}
-							value={companyEdited.name}
+							value={unitEdited.name}
 							borderColor="#bdbdbd"
 							variant="outline"
 							onChange={(v) => {
-								setCompanyEdited({ ...companyEdited, name: v.target.value });
+								setUnitEdited({ ...unitEdited, name: v.target.value });
 							}}
 							_focus={{
 								boxShadow: "none",
@@ -127,7 +137,27 @@ export const SetCompanyModal = ({
 							}}
 						/>
 					</Box>
-
+					<Box>
+						<Text as="b">{labels.companyLabel}</Text>
+						<Select
+							mb="2"
+							onChange={(e) => {
+								setUnitEdited({
+									...unitEdited,
+									companyId: Number(e.target.value) ?? undefined,
+								});
+							}}
+							value={unitEdited.companyId}
+							mt={2}
+							placeholder={labels.companyPlaceholder}
+						>
+							{companies?.map((company) => (
+								<option key={company.id} value={company.id}>
+									{company.name}
+								</option>
+							))}
+						</Select>
+					</Box>
 					<Button
 						bg="#1A3071"
 						mt="7"

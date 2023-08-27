@@ -1,10 +1,10 @@
 import { Box, Flex, Image, Text, useDisclosure } from "@chakra-ui/react";
 import { FiEdit, FiTrash2 } from "react-icons/fi";
-import { SetInfoModal } from "../SetInfoModal";
 import { useNavigate } from "react-router-dom";
 import { DeleteModal } from "../DeleteModal";
 import { type Unit } from "../../interfaces/units";
 import { useDeleteUnit } from "../../hooks/units/useDeleteUnits";
+import { SetUnitModal } from "../SetInfoModal/SetUnitModal";
 
 interface UnitCardProps {
 	unit: Unit;
@@ -91,12 +91,11 @@ export const UnitCard = ({ unit, disableEdit }: UnitCardProps): JSX.Element => {
 					</Flex>
 				)}
 			</Flex>
-			<SetInfoModal
+			<SetUnitModal
 				view="edit"
-				type="unit"
 				isOpen={isOpenEdit}
 				onClose={onCloseEdit}
-				name={unit.name}
+				unit={unit}
 			/>
 			<DeleteModal
 				type="unit"

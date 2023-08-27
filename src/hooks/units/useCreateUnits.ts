@@ -9,5 +9,5 @@ export const useCreateUnit = (): UseMutationResult<
 	Unit,
 	unknown
 > => {
-	return useCreate<Unit>("units", () => useUnits({}));
+	return useCreate<Unit>("units", () => useUnits({}), "unit");
 };

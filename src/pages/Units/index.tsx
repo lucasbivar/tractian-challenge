@@ -9,9 +9,9 @@ import {
 } from "@chakra-ui/react";
 import { UnitCard } from "../../components/UnitCard";
 import { FiSearch, FiPlus } from "react-icons/fi";
-import { SetInfoModal } from "../../components/SetInfoModal";
 import { useUnits } from "../../hooks/units/useUnits";
 import { useSearch } from "../../hooks/useSearch";
+import { SetUnitModal } from "../../components/SetInfoModal/SetUnitModal";
 
 export const Units = (): JSX.Element => {
 	const { isOpen, onOpen, onClose } = useDisclosure();
@@ -95,7 +95,7 @@ export const Units = (): JSX.Element => {
 					<>{units?.map((unit) => <UnitCard key={unit.id} unit={unit} />)}</>
 				)}
 			</Flex>
-			<SetInfoModal view="new" type="unit" isOpen={isOpen} onClose={onClose} />
+			<SetUnitModal view="new" isOpen={isOpen} onClose={onClose} />
 		</Flex>
 	);
 };
