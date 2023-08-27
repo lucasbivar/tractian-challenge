@@ -1,10 +1,10 @@
 import { Box, Flex, Text, useDisclosure } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import { FiEdit, FiTrash2 } from "react-icons/fi";
-import { SetInfoModal } from "../SetInfoModal";
 import { DeleteModal } from "../DeleteModal";
 import { type Company } from "../../interfaces/companies";
 import { useDeleteCompany } from "../../hooks/companies/useDeleteCompanies";
+import { SetCompanyModal } from "../SetInfoModal/SetCompanyModal";
 
 interface CompanyListItemProps {
 	company: Company;
@@ -68,12 +68,11 @@ export const CompanyListItem = ({
 					<FiTrash2 color="#ED3833" size="20" />
 				</Box>
 			</Flex>
-			<SetInfoModal
+			<SetCompanyModal
 				view="edit"
-				type="company"
 				isOpen={isOpenEdit}
 				onClose={onCloseEdit}
-				name={company.name}
+				company={company}
 			/>
 			<DeleteModal
 				type="company"

@@ -9,5 +9,5 @@ export const useCreateCompany = (): UseMutationResult<
 	Company,
 	unknown
 > => {
-	return useCreate<Company>("companies", () => useCompanies({}));
+	return useCreate<Company>("companies", () => useCompanies({}), "company");
 };

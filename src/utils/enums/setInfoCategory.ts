@@ -21,6 +21,10 @@ type ICategoryLabels = Record<
 		modelPlaceholder?: string;
 		deleteMessage: string;
 		entity: string;
+		successEditMessage: string;
+		errorEditMessage: string;
+		successCreateMessage: string;
+		errorCreateMessage: string;
 	}
 >;
 
@@ -32,6 +36,10 @@ export const categoryLabels: ICategoryLabels = {
 		namePlaceholder: "Type the unit name",
 		nameLabel: "Name",
 		deleteMessage: "Are you sure you want to delete this unit?",
+		successEditMessage: "Unit edited successfully!",
+		errorEditMessage: "Cannot edit the unit!",
+		successCreateMessage: "Unit created successfully!",
+		errorCreateMessage: "Cannot create the unit!",
 	},
 	company: {
 		entity: "Company",
@@ -40,6 +48,10 @@ export const categoryLabels: ICategoryLabels = {
 		namePlaceholder: "Type the company name",
 		nameLabel: "Name",
 		deleteMessage: "Are you sure you want to delete this company?",
+		successEditMessage: "Company edited successfully!",
+		errorEditMessage: "Cannot edit the company!",
+		successCreateMessage: "Company created successfully!",
+		errorCreateMessage: "Cannot create the company!",
 	},
 	user: {
 		entity: "User",
@@ -50,6 +62,10 @@ export const categoryLabels: ICategoryLabels = {
 		emailLabel: "E-mail",
 		emailPlaceholder: "Type the user e-mail",
 		deleteMessage: "Are you sure you want to delete this user?",
+		successEditMessage: "User edited successfully!",
+		errorEditMessage: "Cannot edit the user!",
+		successCreateMessage: "User created successfully!",
+		errorCreateMessage: "Cannot create the user!",
 	},
 	asset: {
 		entity: "Asset",
@@ -62,6 +78,10 @@ export const categoryLabels: ICategoryLabels = {
 		modelLabel: "Model",
 		modelPlaceholder: "Type the Asset model",
 		deleteMessage: "Are you sure you want to delete this Asset?",
+		successEditMessage: "Asset edited successfully!",
+		errorEditMessage: "Cannot edit the asset!",
+		successCreateMessage: "Asset created successfully!",
+		errorCreateMessage: "Cannot create the asset!",
 	},
 	workOrder: {
 		entity: "Work Order",
@@ -78,5 +98,9 @@ export const categoryLabels: ICategoryLabels = {
 		statusPlaceholder: "Select the Work Order's Status",
 		usersLabel: "Users",
 		usersPlaceholder: "Select the Work Order's Users",
+		successEditMessage: "Work Order edited successfully!",
+		errorEditMessage: "Cannot edit the work order!",
+		successCreateMessage: "Work Order created successfully!",
+		errorCreateMessage: "Cannot create the work order!",
 	},
 };

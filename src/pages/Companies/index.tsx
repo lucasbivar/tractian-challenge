@@ -10,10 +10,10 @@ import {
 import { FiSearch, FiPlus } from "react-icons/fi";
 import { Navigate } from "react-router-dom";
 import { CompanyListItem } from "../../components/CompanyListItem";
-import { SetInfoModal } from "../../components/SetInfoModal";
 import { Card } from "../../components/Card";
 import { useCompanies } from "../../hooks/companies/useCompanies";
 import { useSearch } from "../../hooks/useSearch";
+import { SetCompanyModal } from "../../components/SetInfoModal/SetCompanyModal";
 
 export const Companies = (): JSX.Element => {
 	const {
@@ -110,12 +110,7 @@ export const Companies = (): JSX.Element => {
 				)}
 			</Card>
 
-			<SetInfoModal
-				view="new"
-				type="company"
-				isOpen={isOpenEdit}
-				onClose={onCloseEdit}
-			/>
+			<SetCompanyModal view="new" isOpen={isOpenEdit} onClose={onCloseEdit} />
 		</Flex>
 	);
 };
