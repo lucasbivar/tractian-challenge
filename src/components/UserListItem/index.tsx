@@ -60,7 +60,7 @@ export const UserListItem = ({ user }: UserListItemProps): JSX.Element => {
 						{user.name}
 					</Text>
 					<Text fontSize="sm" isTruncated>
-						{user.name}
+						{user.email}
 					</Text>
 				</Flex>
 			</Flex>
