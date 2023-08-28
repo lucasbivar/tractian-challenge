@@ -6,18 +6,18 @@ export interface TaskItem {
 	task: string;
 }
 
-type Status = "not started" | "in progress" | "completed";
+export type Status = "not started" | "in progress" | "completed";
 
-type Priority = "low" | "medium" | "high";
+export type Priority = "low" | "medium" | "high";
 export interface WorkOrder {
-	assetId: number;
+	assetId?: number;
 	assignedUserIds?: number[];
-	checklist: TaskItem[];
+	checklist?: TaskItem[];
 	description: string;
 	id: number;
 	priority: Priority;
 	status: Status;
 	title: string;
 	users?: User[];
-	asset: Asset;
+	asset?: Asset;
 }

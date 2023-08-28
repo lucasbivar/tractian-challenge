@@ -14,6 +14,7 @@ import {
 	Button,
 	Show,
 	Progress,
+	useToast,
 } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import {
@@ -24,15 +25,16 @@ import {
 	FiPlus,
 	FiTrash2,
 } from "react-icons/fi";
-import { SetInfoModal } from "../SetInfoModal";
 import { DeleteModal } from "../DeleteModal";
 import { useState } from "react";
 import { type TaskItem, type WorkOrder } from "../../interfaces/workOrders";
 import { useDeleteWorkOrder } from "../../hooks/workOrders/useDeleteWorkOrders";
 import { workOrderPriority } from "../../utils/enums/workOrderPriority";
 import { workOrderStatus } from "../../utils/enums/workOrderStatus";
+import { SetWorkOrderModal } from "../SetInfoModal/SetWorkOrderModal";
+import { useUpdateWorkOrder } from "../../hooks/workOrders/useUpdateWorkOrders";
 
-const getProgressStatus = (tasks: TaskItem[]): number => {
+const getProgressStatus = (tasks?: TaskItem[]): number => {
 	if (tasks == null || tasks.length === 0) return 100;
 	const completed = tasks.reduce((value, task) => {
 		if (task.completed) value += 1;
@@ -63,11 +65,45 @@ export const WorkOrderListItem = ({
 		onClose: onCloseDelete,
 	} = useDisclosure();
 	const [collapsed, setCollapsed] = useState(index === 0);
+	const [newTask, setNewTasks] = useState("");
+	const [workOrderEdited, setWorkOrderEdited] = useState({
+		...workOrder,
+		id: workOrder.id,
+		checklist: workOrder.checklist ?? [],
+	});
+
+	const { mutateAsync: updateWorkOrder } = useUpdateWorkOrder();
+	const handleUpdateWorkOrder = async (): Promise<void> => {
+		await updateWorkOrder(workOrderEdited);
+	};
+
 	const { mutateAsync: deleteWorkOrder } = useDeleteWorkOrder();
 
 	const handleDeleteWorkOrder = async (): Promise<void> => {
 		await deleteWorkOrder(workOrder);
 	};
+
+	const toast = useToast();
+
+	const handleCreateNewTask = (): void => {
+		(async () => {
+			try {
+				if (newTask === "") throw Error("");
+				workOrderEdited.checklist?.push({ completed: false, task: newTask });
+				await handleUpdateWorkOrder();
+				setNewTasks("");
+			} catch (err) {
+				toast({
+					title: "Error",
+					description: "Error! Try to create a non empty task.",
+					status: "error",
+					position: "bottom-right",
+					duration: 3000,
+				});
+			}
+		})().catch(() => {});
+	};
+
 	return (
 		<Flex
 			flexDirection="column"
@@ -96,7 +132,7 @@ export const WorkOrderListItem = ({
 							fit="cover"
 							width={{ base: "50px", sm: "80px" }}
 							height={{ base: "50px", sm: "80px" }}
-							src={workOrder.asset.image}
+							src={workOrder.asset?.image}
 						/>
 
 						<Flex flexDirection="column" justifyContent="center">
@@ -115,7 +151,7 @@ export const WorkOrderListItem = ({
 						<Progress
 							mt="3"
 							colorScheme="facebook"
-							value={getProgressStatus(workOrder.checklist)}
+							value={getProgressStatus(workOrderEdited.checklist)}
 						/>
 					</Show>
 				</Flex>
@@ -126,11 +162,11 @@ export const WorkOrderListItem = ({
 				>
 					<Show above="lg">
 						<CircularProgress
-							value={getProgressStatus(workOrder.checklist)}
+							value={getProgressStatus(workOrderEdited.checklist)}
 							color="#1A3071"
 						>
 							<CircularProgressLabel>
-								{getProgressStatus(workOrder.checklist)}%
+								{getProgressStatus(workOrderEdited.checklist)}%
 							</CircularProgressLabel>
 						</CircularProgress>
 					</Show>
@@ -176,12 +212,17 @@ export const WorkOrderListItem = ({
 							<Input
 								px="1"
 								maxLength={25}
+								value={newTask}
+								onChange={(e) => {
+									setNewTasks(e.target.value);
+								}}
 								placeholder="Create new task"
 								variant="unstyled"
 							/>
 							<Button
 								size="sm"
 								variant="outline"
+								onClick={handleCreateNewTask}
 								_hover={{ bg: "#12255d", color: "#FFF" }}
 								color="#FFF"
 								bg="#1A3071"
@@ -189,10 +230,56 @@ export const WorkOrderListItem = ({
 								<FiPlus color="#FFF" size="15" />
 							</Button>
 						</Flex>
-						{workOrder.checklist?.map((task) => (
-							<Flex key={task.task} gap="2" mb="1">
-								<Checkbox colorScheme="green" defaultChecked={task.completed} />
-								<Text fontSize="sm">{task.task}</Text>
+						{workOrderEdited.checklist?.map((task) => (
+							<Flex
+								key={task.task}
+								alignItems="center"
+								justifyContent="space-between"
+								mb="1"
+							>
+								<Flex gap="2">
+									<Checkbox
+										colorScheme="green"
+										onChange={(e) => {
+											const index = workOrderEdited.checklist?.findIndex(
+												(currTask) => currTask.task === task.task,
+											);
+											const checklist = workOrderEdited.checklist;
+											if (checklist != null && index != null && index > -1) {
+												if (e.target.checked) {
+													checklist[index].completed = true;
+												} else {
+													checklist[index].completed = false;
+												}
+												setWorkOrderEdited({
+													...workOrderEdited,
+													checklist,
+												});
+											}
+										}}
+										defaultChecked={task.completed}
+									/>
+									<Text fontSize="sm" isTruncated>
+										{task.task}
+									</Text>
+								</Flex>
+								<Box
+									cursor="pointer"
+									onClick={() => {
+										let checklist = workOrderEdited.checklist;
+										if (checklist != null) {
+											checklist = checklist.filter(
+												(currTask) => task.task !== currTask.task,
+											);
+											setWorkOrderEdited({
+												...workOrderEdited,
+												checklist,
+											});
+										}
+									}}
+								>
+									<FiTrash2 color="#1A3071" />
+								</Box>
 							</Flex>
 						))}
 					</Flex>
@@ -348,9 +435,9 @@ export const WorkOrderListItem = ({
 				onClose={onCloseDelete}
 				handleDelete={handleDeleteWorkOrder}
 			/>
-			<SetInfoModal
+			<SetWorkOrderModal
 				view="edit"
-				type="workOrder"
+				workOrder={workOrder}
 				isOpen={isOpenEdit}
 				onClose={onCloseEdit}
 			/>

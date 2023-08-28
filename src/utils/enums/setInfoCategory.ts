@@ -3,8 +3,8 @@ type ICategoryLabels = Record<
 	{
 		newTitle: string;
 		editTitle: string;
-		namePlaceholder: string;
-		nameLabel: string;
+		namePlaceholder?: string;
+		nameLabel?: string;
 		emailLabel?: string;
 		emailPlaceholder?: string;
 		descriptionLabel?: string;
@@ -13,6 +13,10 @@ type ICategoryLabels = Record<
 		priorityPlaceholder?: string;
 		statusLabel?: string;
 		statusPlaceholder?: string;
+		titleLabel?: string;
+		titlePlaceholder?: string;
+		assetLabel?: string;
+		assetPlaceholder?: string;
 		usersLabel?: string;
 		usersPlaceholder?: string;
 		companyLabel?: string;
@@ -91,8 +95,10 @@ export const categoryLabels: ICategoryLabels = {
 		entity: "Work Order",
 		newTitle: "Create Work Order",
 		editTitle: "Edit Work Order",
-		namePlaceholder: "Type the Work Order name",
-		nameLabel: "Name",
+		titlePlaceholder: "Type the Work Order title",
+		titleLabel: "Title",
+		assetLabel: "Asset",
+		assetPlaceholder: "Select the Work Order`s Asset",
 		descriptionLabel: "Description",
 		descriptionPlaceholder: "Type the Work Order description",
 		deleteMessage: "Are you sure you want to delete this Work Order?",

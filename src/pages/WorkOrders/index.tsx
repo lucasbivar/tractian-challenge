@@ -8,11 +8,11 @@ import {
 	useDisclosure,
 } from "@chakra-ui/react";
 import { FiSearch, FiPlus } from "react-icons/fi";
-import { SetInfoModal } from "../../components/SetInfoModal";
 import { WorkOrderListItem } from "../../components/WorkOrderListItem";
 import { Card } from "../../components/Card";
 import { useWorkOrders } from "../../hooks/workOrders/useWorkOrders";
 import { useSearch } from "../../hooks/useSearch";
+import { SetWorkOrderModal } from "../../components/SetInfoModal/SetWorkOrderModal";
 
 export const WorkOrders = (): JSX.Element => {
 	const {
@@ -104,12 +104,7 @@ export const WorkOrders = (): JSX.Element => {
 					</Flex>
 				)}
 			</Card>
-			<SetInfoModal
-				view="new"
-				type="workOrder"
-				isOpen={isOpenEdit}
-				onClose={onCloseEdit}
-			/>
+			<SetWorkOrderModal view="new" isOpen={isOpenEdit} onClose={onCloseEdit} />
 		</Flex>
 	);
 };
