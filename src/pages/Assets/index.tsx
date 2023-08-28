@@ -13,6 +13,7 @@ import { AssetListItem } from "../../components/AssetListItem";
 import { useAssets } from "../../hooks/assets/useAssets";
 import { useSearch } from "../../hooks/useSearch";
 import { SetAssetModal } from "../../components/SetInfoModal/SetAssetModal";
+import { NoDataFound } from "../../components/NoDataFound";
 
 export const Assets = (): JSX.Element => {
 	const {
@@ -76,6 +77,9 @@ export const Assets = (): JSX.Element => {
 				</Button>
 			</Flex>
 			<Card noPadding width="100%">
+				{!isLoading && (assets?.length == null || assets?.length === 0) && (
+					<NoDataFound />
+				)}
 				{isLoading && (
 					<Flex
 						width="100%"

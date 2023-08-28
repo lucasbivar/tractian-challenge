@@ -13,6 +13,7 @@ import { Card } from "../../components/Card";
 import { useWorkOrders } from "../../hooks/workOrders/useWorkOrders";
 import { useSearch } from "../../hooks/useSearch";
 import { SetWorkOrderModal } from "../../components/SetInfoModal/SetWorkOrderModal";
+import { NoDataFound } from "../../components/NoDataFound";
 
 export const WorkOrders = (): JSX.Element => {
 	const {
@@ -76,6 +77,10 @@ export const WorkOrders = (): JSX.Element => {
 				</Button>
 			</Flex>
 			<Card noPadding width="100%">
+				{!isLoading &&
+					(workOrders?.length == null || workOrders?.length === 0) && (
+						<NoDataFound />
+					)}
 				{isLoading && (
 					<Flex
 						width="100%"

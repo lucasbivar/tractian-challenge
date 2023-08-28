@@ -12,6 +12,7 @@ import { FiSearch, FiPlus } from "react-icons/fi";
 import { useUnits } from "../../hooks/units/useUnits";
 import { useSearch } from "../../hooks/useSearch";
 import { SetUnitModal } from "../../components/SetInfoModal/SetUnitModal";
+import { NoDataFound } from "../../components/NoDataFound";
 
 export const Units = (): JSX.Element => {
 	const { isOpen, onOpen, onClose } = useDisclosure();
@@ -75,6 +76,9 @@ export const Units = (): JSX.Element => {
 				width="100%"
 				mb="50px"
 			>
+				{!isLoading && (units?.length == null || units?.length === 0) && (
+					<NoDataFound />
+				)}
 				{isLoading && (
 					<Flex
 						width="100%"

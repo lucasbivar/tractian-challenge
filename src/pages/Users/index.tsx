@@ -13,6 +13,7 @@ import { Card } from "../../components/Card";
 import { useUsers } from "../../hooks/users/useUsers";
 import { useSearch } from "../../hooks/useSearch";
 import { SetUserModal } from "../../components/SetInfoModal/SetUserModal";
+import { NoDataFound } from "../../components/NoDataFound";
 
 export const Users = (): JSX.Element => {
 	const {
@@ -74,6 +75,9 @@ export const Users = (): JSX.Element => {
 				</Button>
 			</Flex>
 			<Card noPadding width="100%">
+				{!isLoading && (users?.length == null || users?.length === 0) && (
+					<NoDataFound />
+				)}
 				{isLoading && (
 					<Flex
 						width="100%"

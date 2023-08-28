@@ -199,9 +199,9 @@ export const AssetProfile = (): JSX.Element => {
 										Last Collect Time:
 									</Text>
 									<Text fontSize="sm">
-										{(asset?.metrics?.lastUptimeAt != null &&
-											new Date(asset?.metrics.lastUptimeAt).toLocaleString()) ??
-											"-"}
+										{asset?.metrics?.lastUptimeAt != null
+											? new Date(asset?.metrics.lastUptimeAt).toLocaleString()
+											: "-"}
 									</Text>
 								</Box>
 								<Box>

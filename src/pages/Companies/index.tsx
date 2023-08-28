@@ -14,6 +14,7 @@ import { Card } from "../../components/Card";
 import { useCompanies } from "../../hooks/companies/useCompanies";
 import { useSearch } from "../../hooks/useSearch";
 import { SetCompanyModal } from "../../components/SetInfoModal/SetCompanyModal";
+import { NoDataFound } from "../../components/NoDataFound";
 
 export const Companies = (): JSX.Element => {
 	const {
@@ -79,6 +80,10 @@ export const Companies = (): JSX.Element => {
 				</Button>
 			</Flex>
 			<Card noPadding width="100%">
+				{!isLoading &&
+					(companies?.length == null || companies?.length === 0) && (
+						<NoDataFound />
+					)}
 				{isLoading && (
 					<Flex
 						width="100%"
