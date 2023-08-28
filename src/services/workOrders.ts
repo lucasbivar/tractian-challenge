@@ -19,9 +19,10 @@ const populateWorkOrders = async (data: WorkOrder[]): Promise<WorkOrder[]> => {
 		return {
 			...workOrder,
 			...(woUsers.length !== 0 && { users: woUsers }),
-			...(assetById[workOrder.assetId] != null && {
-				asset: assetById[workOrder.assetId],
-			}),
+			...(workOrder.assetId != null &&
+				assetById[workOrder.assetId] != null && {
+					asset: assetById[workOrder.assetId],
+				}),
 		};
 	});
 };
