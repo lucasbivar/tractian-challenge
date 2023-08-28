@@ -38,7 +38,7 @@ export const CompanyProfile = (): JSX.Element => {
 						width="100%"
 					>
 						<Box mb="15">
-							<Text color="#FFF" as="b" fontSize="4xl">
+							<Text color="#FFF" as="b" fontSize={{ base: "2xl", sm: "4xl" }}>
 								{company?.name}
 							</Text>
 						</Box>

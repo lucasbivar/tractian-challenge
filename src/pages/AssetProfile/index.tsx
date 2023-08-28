@@ -1,4 +1,4 @@
-import { Box, Flex, Image, Spinner, Text } from "@chakra-ui/react";
+import { Box, Flex, Image, Spinner, Text, Tooltip } from "@chakra-ui/react";
 import { Card } from "../../components/Card";
 import { FiThermometer } from "react-icons/fi";
 import { BsSpeedometer2, BsLightningCharge } from "react-icons/bs";
@@ -94,24 +94,30 @@ export const AssetProfile = (): JSX.Element => {
 											Specification:
 										</Text>
 										<Flex justifyContent="space-between">
-											<Flex gap="1" alignItems="center">
-												<FiThermometer color="#000" />
-												<Text fontSize="sm">
-													{asset?.specifications?.maxTemp ?? "-"} °C
-												</Text>
-											</Flex>
-											<Flex gap="1" alignItems="center">
-												<BsLightningCharge color="#000" />
-												<Text fontSize="sm">
-													{asset?.specifications?.power ?? "-"} W
-												</Text>
-											</Flex>
-											<Flex gap="1" alignItems="center">
-												<BsSpeedometer2 color="#000" />
-												<Text fontSize="sm">
-													{asset?.specifications?.rpm ?? "-"} rpm
-												</Text>
-											</Flex>
+											<Tooltip hasArrow label="Max Temperature">
+												<Flex gap="1" alignItems="center">
+													<FiThermometer color="#000" />
+													<Text fontSize="sm">
+														{asset?.specifications?.maxTemp ?? "-"} °C
+													</Text>
+												</Flex>
+											</Tooltip>
+											<Tooltip hasArrow label="Power">
+												<Flex gap="1" alignItems="center">
+													<BsLightningCharge color="#000" />
+													<Text fontSize="sm">
+														{asset?.specifications?.power ?? "-"} W
+													</Text>
+												</Flex>
+											</Tooltip>
+											<Tooltip hasArrow label="RPM">
+												<Flex gap="1" alignItems="center">
+													<BsSpeedometer2 color="#000" />
+													<Text fontSize="sm">
+														{asset?.specifications?.rpm ?? "-"} rpm
+													</Text>
+												</Flex>
+											</Tooltip>
 										</Flex>
 									</Box>
 									<Flex justifyContent="space-between">

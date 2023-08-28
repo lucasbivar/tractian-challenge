@@ -1,4 +1,12 @@
-import { Avatar, Box, Flex, Show, Text, useDisclosure } from "@chakra-ui/react";
+import {
+	Avatar,
+	Box,
+	Flex,
+	Show,
+	Text,
+	Tooltip,
+	useDisclosure,
+} from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import { FiEdit, FiTrash2 } from "react-icons/fi";
 import { DeleteModal } from "../DeleteModal";
@@ -56,12 +64,16 @@ export const UserListItem = ({ user }: UserListItemProps): JSX.Element => {
 				<Avatar name={user.name} bg="#1A3071" color="#FFF" />
 
 				<Flex flexDirection="column" justifyContent="center">
-					<Text as="b" fontSize="md" isTruncated>
-						{user.name}
-					</Text>
-					<Text fontSize="sm" isTruncated>
-						{user.email}
-					</Text>
+					<Tooltip hasArrow label="Name">
+						<Text as="b" fontSize="md" width="max-content" isTruncated>
+							{user.name}
+						</Text>
+					</Tooltip>
+					<Tooltip hasArrow label="E-mail">
+						<Text fontSize="sm" width="max-content" isTruncated>
+							{user.email}
+						</Text>
+					</Tooltip>
 				</Flex>
 			</Flex>
 			<Flex

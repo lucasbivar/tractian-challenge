@@ -36,7 +36,7 @@ export const Overview = (): JSX.Element => {
 					height={{ base: "280px", sm: "100%" }}
 					width={{ base: "100%", sm: "32%" }}
 				>
-					{isLoadingAssets && (
+					{(isLoadingAssets || isLoadingUnits || isLoadingWorkOrders) && (
 						<Flex
 							width="100%"
 							height="100%"
@@ -52,14 +52,16 @@ export const Overview = (): JSX.Element => {
 							/>
 						</Flex>
 					)}
-					{!isLoadingAssets && <AssetsStatusHealthGraph assets={assets} />}
+					{!isLoadingAssets && !isLoadingUnits && !isLoadingWorkOrders && (
+						<AssetsStatusHealthGraph assets={assets} />
+					)}
 				</Card>
 				<Card
 					title="Assets Health"
 					height={{ base: "280px", sm: "100%" }}
 					width={{ base: "100%", sm: "32%" }}
 				>
-					{isLoadingAssets && (
+					{(isLoadingAssets || isLoadingUnits || isLoadingWorkOrders) && (
 						<Flex
 							width="100%"
 							height="100%"
@@ -75,14 +77,16 @@ export const Overview = (): JSX.Element => {
 							/>
 						</Flex>
 					)}
-					{!isLoadingAssets && <AssetHealthGrapth assets={assets} />}
+					{!isLoadingAssets && !isLoadingUnits && !isLoadingWorkOrders && (
+						<AssetHealthGrapth assets={assets} />
+					)}
 				</Card>
 				<Card
 					title="Work Orders Status"
 					height={{ base: "280px", sm: "100%" }}
 					width={{ base: "100%", sm: "32%" }}
 				>
-					{isLoadingWorkOrders && (
+					{(isLoadingAssets || isLoadingUnits || isLoadingWorkOrders) && (
 						<Flex
 							width="100%"
 							height="100%"
@@ -98,11 +102,13 @@ export const Overview = (): JSX.Element => {
 							/>
 						</Flex>
 					)}
-					{!isLoadingWorkOrders && <WorkOrdersGraph workOrders={workOrders} />}
+					{!isLoadingAssets && !isLoadingUnits && !isLoadingWorkOrders && (
+						<WorkOrdersGraph workOrders={workOrders} />
+					)}
 				</Card>
 			</Flex>
 			<Card title="Unit's Geolocalization" height="350px" width="100%">
-				{isLoadingUnits && (
+				{(isLoadingAssets || isLoadingUnits || isLoadingWorkOrders) && (
 					<Flex
 						width="100%"
 						height="100%"
@@ -118,7 +124,9 @@ export const Overview = (): JSX.Element => {
 						/>
 					</Flex>
 				)}
-				{!isLoadingUnits && <UnitsGeolocalizationGraph units={units} />}
+				{!isLoadingAssets && !isLoadingUnits && !isLoadingWorkOrders && (
+					<UnitsGeolocalizationGraph units={units} />
+				)}
 			</Card>
 		</Flex>
 	);

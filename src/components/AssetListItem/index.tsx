@@ -1,4 +1,11 @@
-import { Box, Flex, Image, Text, useDisclosure } from "@chakra-ui/react";
+import {
+	Box,
+	Flex,
+	Image,
+	Text,
+	Tooltip,
+	useDisclosure,
+} from "@chakra-ui/react";
 import { FiEdit, FiTrash2 } from "react-icons/fi";
 import { DeleteModal } from "../DeleteModal";
 import { useNavigate } from "react-router-dom";
@@ -55,12 +62,16 @@ export const AssetListItem = ({ asset }: AssetListItemProps): JSX.Element => {
 					src={asset.image}
 				/>
 				<Flex flexDirection="column" justifyContent="center">
-					<Text as="b" fontSize="md" isTruncated>
-						{asset.name}
-					</Text>
-					<Text fontSize="sm" isTruncated>
-						{assetModels[asset.model].label}
-					</Text>
+					<Tooltip hasArrow label="Name">
+						<Text as="b" fontSize="md" width="max-content" isTruncated>
+							{asset.name}
+						</Text>
+					</Tooltip>
+					<Tooltip hasArrow label="Model">
+						<Text fontSize="sm" width="max-content" isTruncated>
+							{assetModels[asset.model].label}
+						</Text>
+					</Tooltip>
 				</Flex>
 			</Flex>
 
@@ -71,32 +82,38 @@ export const AssetListItem = ({ asset }: AssetListItemProps): JSX.Element => {
 				mt={{ base: "3", md: "unset" }}
 				width={{ base: "100%", sm: "100%", md: "auto", lg: "auto", xl: "auto" }}
 			>
-				<Box
-					bg={getHealthScoreInfo(asset.healthscore).color}
-					py="1"
-					width="80px"
-					textAlign="center"
-					borderRadius="5"
-					color="#FFF"
-				>
-					<Text as="b" fontSize="sm">
-						{asset.healthscore != null ? `${asset.healthscore}%` : "No Info"}
-					</Text>
-				</Box>
-				<Box
-					bg={
-						asset.status != null ? assetStatus[asset.status].color : "#1A3071"
-					}
-					py="1"
-					width="100px"
-					textAlign="center"
-					borderRadius="5"
-					color="#FFF"
-				>
-					<Text as="b" fontSize="sm">
-						{asset.status != null ? assetStatus[asset.status].label : "No Info"}
-					</Text>
-				</Box>
+				<Tooltip hasArrow label="Health Score">
+					<Box
+						bg={getHealthScoreInfo(asset.healthscore).color}
+						py="1"
+						width="80px"
+						textAlign="center"
+						borderRadius="5"
+						color="#FFF"
+					>
+						<Text as="b" fontSize="sm">
+							{asset.healthscore != null ? `${asset.healthscore}%` : "No Info"}
+						</Text>
+					</Box>
+				</Tooltip>
+				<Tooltip hasArrow label="Status">
+					<Box
+						bg={
+							asset.status != null ? assetStatus[asset.status].color : "#1A3071"
+						}
+						py="1"
+						width="100px"
+						textAlign="center"
+						borderRadius="5"
+						color="#FFF"
+					>
+						<Text as="b" fontSize="sm">
+							{asset.status != null
+								? assetStatus[asset.status].label
+								: "No Info"}
+						</Text>
+					</Box>
+				</Tooltip>
 				<Flex gap="3" justifyContent="center">
 					<Box
 						onClick={(e) => {

@@ -15,6 +15,7 @@ import {
 	Show,
 	Progress,
 	useToast,
+	Tooltip,
 } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import {
@@ -127,7 +128,6 @@ export const WorkOrderListItem = ({
 				<Flex flexDirection="column">
 					<Flex flexDirection="row" gap="3" alignItems="center">
 						<Image
-							cursor="pointer"
 							borderRadius="10"
 							fit="cover"
 							width={{ base: "50px", sm: "80px" }}
@@ -148,11 +148,13 @@ export const WorkOrderListItem = ({
 						</Flex>
 					</Flex>
 					<Show below="lg">
-						<Progress
-							mt="3"
-							colorScheme="facebook"
-							value={getProgressStatus(workOrderEdited.checklist)}
-						/>
+						<Tooltip hasArrow label="Task's Progress">
+							<Progress
+								mt="3"
+								colorScheme="facebook"
+								value={getProgressStatus(workOrderEdited.checklist)}
+							/>
+						</Tooltip>
 					</Show>
 				</Flex>
 				<Flex
@@ -161,14 +163,16 @@ export const WorkOrderListItem = ({
 					gap={{ base: "5", lg: "20" }}
 				>
 					<Show above="lg">
-						<CircularProgress
-							value={getProgressStatus(workOrderEdited.checklist)}
-							color="#1A3071"
-						>
-							<CircularProgressLabel>
-								{getProgressStatus(workOrderEdited.checklist)}%
-							</CircularProgressLabel>
-						</CircularProgress>
+						<Tooltip hasArrow label="Task's Progress">
+							<CircularProgress
+								value={getProgressStatus(workOrderEdited.checklist)}
+								color="#1A3071"
+							>
+								<CircularProgressLabel>
+									{getProgressStatus(workOrderEdited.checklist)}%
+								</CircularProgressLabel>
+							</CircularProgress>
+						</Tooltip>
 					</Show>
 					<Box
 						onClick={() => {

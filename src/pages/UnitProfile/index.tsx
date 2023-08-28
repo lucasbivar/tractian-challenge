@@ -58,7 +58,7 @@ export const UnitProfile = (): JSX.Element => {
 							color="#FFF"
 							zIndex="4"
 							top="170"
-							left="10"
+							left={{ base: "5", sm: "10" }}
 							position="absolute"
 							as="b"
 							fontSize="2xl"
@@ -74,8 +74,8 @@ export const UnitProfile = (): JSX.Element => {
 							}}
 							color="#FFF"
 							zIndex="4"
-							top="200"
-							left="10"
+							top="203"
+							left={{ base: "5", sm: "10" }}
 							position="absolute"
 							fontSize="sm"
 						>

@@ -1,5 +1,7 @@
-import { Box, Flex, Text } from "@chakra-ui/react";
+import { Box } from "@chakra-ui/react";
 import { type Asset } from "../../interfaces/assets";
+import { MotionBox } from "../MotionBox";
+import { AssetHealthItem } from "./AssetHealthItem";
 
 interface AssetHealthGrapthProps {
 	assets?: Asset[];
@@ -40,71 +42,41 @@ export const AssetHealthGrapth = ({
 
 	return (
 		<Box>
-			<Flex flexDirection="row" alignItems="center" mt="1" mb="1">
-				<Box
-					width="10px"
-					height="35px"
-					bg="#1A3071"
-					borderRadius="5px"
-					marginRight="10px"
+			<MotionBox duration="0.5">
+				<AssetHealthItem
+					label="Total of Assets"
+					color="#1A3071"
+					quantity={totalAssets.toString().padStart(maxLen, "0")}
 				/>
-				<Text style={{ marginRight: 10 }} as="b">
-					{totalAssets.toString().padStart(maxLen, "0")}
-				</Text>
-				<Text>Total of Assets</Text>
-			</Flex>
-			<Flex flexDirection="row" alignItems="center" mb="1">
-				<Box
-					width="10px"
-					height="35px"
-					bg="#52C41A"
-					borderRadius="5px"
-					marginRight="10px"
+			</MotionBox>
+			<MotionBox duration="0.8">
+				<AssetHealthItem
+					label="Correct Operation"
+					color="#52C41A"
+					quantity={totalCorrectOperations.toString().padStart(maxLen, "0")}
 				/>
-				<Text style={{ marginRight: 10 }} as="b">
-					{totalCorrectOperations.toString().padStart(maxLen, "0")}
-				</Text>
-				<Text>Correct Operation</Text>
-			</Flex>
-			<Flex flexDirection="row" alignItems="center" mb="1">
-				<Box
-					width="10px"
-					height="35px"
-					bg="#FAAD14"
-					borderRadius="5px"
-					marginRight="10px"
+			</MotionBox>
+			<MotionBox duration="1.1">
+				<AssetHealthItem
+					label="In Risk"
+					color="#FAAD14"
+					quantity={totalInRisk.toString().padStart(maxLen, "0")}
 				/>
-				<Text style={{ marginRight: 10 }} as="b">
-					{totalInRisk.toString().padStart(maxLen, "0")}
-				</Text>
-				<Text>In Risk</Text>
-			</Flex>
-			<Flex flexDirection="row" alignItems="center" mb="1">
-				<Box
-					width="10px"
-					height="35px"
-					bg="#ED3833"
-					borderRadius="5px"
-					marginRight="10px"
+			</MotionBox>
+			<MotionBox duration="1.4">
+				<AssetHealthItem
+					label="Need Maintenance"
+					color="#ED3833"
+					quantity={totalNeedMaintence.toString().padStart(maxLen, "0")}
 				/>
-				<Text style={{ marginRight: 10 }} as="b">
-					{totalNeedMaintence.toString().padStart(maxLen, "0")}
-				</Text>
-				<Text>Need Maintenance</Text>
-			</Flex>
-			<Flex flexDirection="row" alignItems="center">
-				<Box
-					width="10px"
-					height="35px"
-					bg="#D7D7D7"
-					borderRadius="5px"
-					marginRight="10px"
+			</MotionBox>
+			<MotionBox duration="1.7">
+				<AssetHealthItem
+					label="No Information"
+					color="#D7D7D7"
+					quantity={totalNoInformation.toString().padStart(maxLen, "0")}
 				/>
-				<Text style={{ marginRight: 10 }} as="b">
-					{totalNoInformation.toString().padStart(maxLen, "0")}
-				</Text>
-				<Text>No Informtaion</Text>
-			</Flex>
+			</MotionBox>
 		</Box>
 	);
 };

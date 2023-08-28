@@ -1,4 +1,4 @@
-import { Box, Flex, Text } from "@chakra-ui/react";
+import { Box, Flex, Text, Tooltip } from "@chakra-ui/react";
 import { FiEye } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
 import { type Asset } from "../../interfaces/assets";
@@ -49,18 +49,20 @@ export const AssetMiniCard = ({ asset }: AssetMiniCardProps): JSX.Element => {
 					{asset.healthscore ?? "-"}%
 				</Text>
 			</Flex>
-			<Box
-				onClick={() => {
-					navigate(`/assets/${asset.id}`);
-				}}
-				width="15px"
-				aria-label="open machine"
-				cursor="pointer"
-				mr="2"
-				alignSelf="flex-end"
-			>
-				<FiEye size="23" color="#1A3071" />
-			</Box>
+			<Tooltip hasArrow label="View Asset">
+				<Box
+					onClick={() => {
+						navigate(`/assets/${asset.id}`);
+					}}
+					width="24px"
+					aria-label="open machine"
+					cursor="pointer"
+					mr="2"
+					alignSelf="flex-end"
+				>
+					<FiEye size="23" color="#1A3071" />
+				</Box>
+			</Tooltip>
 		</Flex>
 	);
 };
