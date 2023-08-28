@@ -105,15 +105,16 @@ export const SetWorkOrderModal = ({
 					position: "bottom-right",
 					duration: 3000,
 				});
-				setWorkOrderEdited({
-					...workOrderEdited,
-					title: "",
-					description: "",
-					status: "" as Status,
-					priority: "" as Priority,
-					assetId: undefined,
-					assignedUserIds: [],
-				});
+				if (workOrder == null)
+					setWorkOrderEdited({
+						...workOrderEdited,
+						title: "",
+						description: "",
+						status: "" as Status,
+						priority: "" as Priority,
+						assetId: undefined,
+						assignedUserIds: [],
+					});
 				onClose();
 			} catch (err) {
 				toast({
@@ -133,15 +134,16 @@ export const SetWorkOrderModal = ({
 	return (
 		<Modal
 			onClose={() => {
-				setWorkOrderEdited({
-					...workOrderEdited,
-					title: "",
-					description: "",
-					status: "" as Status,
-					priority: "" as Priority,
-					assetId: undefined,
-					assignedUserIds: [],
-				});
+				if (workOrder == null)
+					setWorkOrderEdited({
+						...workOrderEdited,
+						title: "",
+						description: "",
+						status: "" as Status,
+						priority: "" as Priority,
+						assetId: undefined,
+						assignedUserIds: [],
+					});
 				onClose();
 			}}
 			isOpen={isOpen}

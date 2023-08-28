@@ -67,7 +67,9 @@ export const SetCompanyModal = ({
 					position: "bottom-right",
 					duration: 3000,
 				});
-				setCompanyEdited({ ...companyEdited, name: "" });
+				if (company == null) {
+					setCompanyEdited({ ...companyEdited, name: "" });
+				}
 				onClose();
 			} catch (err) {
 				toast({
@@ -87,7 +89,9 @@ export const SetCompanyModal = ({
 	return (
 		<Modal
 			onClose={() => {
-				setCompanyEdited({ ...companyEdited, name: "" });
+				if (company == null) {
+					setCompanyEdited({ ...companyEdited, name: "" });
+				}
 				onClose();
 			}}
 			isOpen={isOpen}

@@ -72,7 +72,8 @@ export const SetAssetModal = ({
 					position: "bottom-right",
 					duration: 3000,
 				});
-				setAssetEdited({ ...assetEdited, name: "", model: "" as Models });
+				if (asset == null)
+					setAssetEdited({ ...assetEdited, name: "", model: "" as Models });
 				onClose();
 			} catch (err) {
 				toast({
@@ -92,7 +93,8 @@ export const SetAssetModal = ({
 	return (
 		<Modal
 			onClose={() => {
-				setAssetEdited({ ...assetEdited, name: "", model: "" as Models });
+				if (asset == null)
+					setAssetEdited({ ...assetEdited, name: "", model: "" as Models });
 				onClose();
 			}}
 			isOpen={isOpen}

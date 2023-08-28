@@ -91,12 +91,13 @@ export const SetUserModal = ({
 					position: "bottom-right",
 					duration: 3000,
 				});
-				setUserEdited({
-					...userEdited,
-					name: "",
-					email: "",
-					unitId: undefined,
-				});
+				if (user == null)
+					setUserEdited({
+						...userEdited,
+						name: "",
+						email: "",
+						unitId: undefined,
+					});
 				onClose();
 			} catch (err) {
 				toast({
@@ -116,12 +117,13 @@ export const SetUserModal = ({
 	return (
 		<Modal
 			onClose={() => {
-				setUserEdited({
-					...userEdited,
-					name: "",
-					email: "",
-					unitId: undefined,
-				});
+				if (user == null)
+					setUserEdited({
+						...userEdited,
+						name: "",
+						email: "",
+						unitId: undefined,
+					});
 				onClose();
 			}}
 			isOpen={isOpen}
