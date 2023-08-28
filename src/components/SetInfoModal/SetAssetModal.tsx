@@ -17,6 +17,7 @@ import { type Models, type Asset } from "../../interfaces/assets";
 import { useCreateAsset } from "../../hooks/assets/useCreateAssets";
 import { useUpdateAsset } from "../../hooks/assets/useUpdateAssets";
 import { getFakeImage } from "../../services/assets";
+import { useUnits } from "../../hooks/units/useUnits";
 
 interface SetAssetModalProps {
 	onClose: () => void;
@@ -38,7 +39,9 @@ export const SetAssetModal = ({
 		name: asset?.name ?? "",
 		model: asset?.model ?? ("" as Models),
 		image: asset?.image ?? "",
+		unitId: asset?.unitId ?? undefined,
 	});
+	const { data: units } = useUnits({});
 
 	const { mutateAsync: createAsset } = useCreateAsset();
 	const handleCreateAsset = async (): Promise<void> => {
@@ -54,7 +57,11 @@ export const SetAssetModal = ({
 	const handleSetAsset = (): void => {
 		(async () => {
 			try {
-				if (assetEdited.name === "" || assetEdited.model === ("" as Models))
+				if (
+					assetEdited.name === "" ||
+					assetEdited.model === ("" as Models) ||
+					assetEdited.unitId == null
+				)
 					throw Error("");
 
 				if (view === "new") {
@@ -73,7 +80,12 @@ export const SetAssetModal = ({
 					duration: 3000,
 				});
 				if (asset == null)
-					setAssetEdited({ ...assetEdited, name: "", model: "" as Models });
+					setAssetEdited({
+						...assetEdited,
+						name: "",
+						model: "" as Models,
+						unitId: undefined,
+					});
 				onClose();
 			} catch (err) {
 				toast({
@@ -94,7 +106,12 @@ export const SetAssetModal = ({
 		<Modal
 			onClose={() => {
 				if (asset == null)
-					setAssetEdited({ ...assetEdited, name: "", model: "" as Models });
+					setAssetEdited({
+						...assetEdited,
+						name: "",
+						model: "" as Models,
+						unitId: undefined,
+					});
 				onClose();
 			}}
 			isOpen={isOpen}
@@ -161,6 +178,27 @@ export const SetAssetModal = ({
 						>
 							<option value="motor">Motor</option>
 							<option value="fan">Fan</option>
+						</Select>
+					</Box>
+					<Box>
+						<Text as="b">{labels.unitLabel}</Text>
+						<Select
+							mb="2"
+							onChange={(e) => {
+								setAssetEdited({
+									...assetEdited,
+									unitId: Number(e.target.value) ?? undefined,
+								});
+							}}
+							value={assetEdited.unitId}
+							mt={2}
+							placeholder={labels.unitPlaceholder}
+						>
+							{units?.map((unit) => (
+								<option key={unit.id} value={unit.id}>
+									{unit.name}
+								</option>
+							))}
 						</Select>
 					</Box>
 					<Button

@@ -85,6 +85,8 @@ export const categoryLabels: ICategoryLabels = {
 		namePlaceholder: "Type the Asset name",
 		modelLabel: "Model",
 		modelPlaceholder: "Select the Asset model",
+		unitLabel: "Unit",
+		unitPlaceholder: "Select the asset's unit",
 		deleteMessage: "Are you sure you want to delete this Asset?",
 		successEditMessage: "Asset edited successfully!",
 		errorEditMessage: "Cannot edit the asset!",

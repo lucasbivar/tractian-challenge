@@ -1,5 +1,4 @@
 import { Routes, Route } from "react-router-dom";
-import { Settings } from "../pages/Settings";
 import { Overview } from "../pages/Overview";
 import { Units } from "../pages/Units";
 import { UnitProfile } from "../pages/UnitProfile";
@@ -83,14 +82,6 @@ export const PageRoutes = (): JSX.Element => {
 				element={
 					<PageWrapper title="Users">
 						<Users />
-					</PageWrapper>
-				}
-			/>
-			<Route
-				path="/settings"
-				element={
-					<PageWrapper title="Settings">
-						<Settings />
 					</PageWrapper>
 				}
 			/>

@@ -1,12 +1,5 @@
 import { Box, Flex, type BoxProps, Show, Hide } from "@chakra-ui/react";
-import {
-	FiSettings,
-	FiX,
-	FiActivity,
-	FiCpu,
-	FiList,
-	FiUser,
-} from "react-icons/fi";
+import { FiX, FiActivity, FiCpu, FiList, FiUser } from "react-icons/fi";
 import { MdOutlineStoreMallDirectory } from "react-icons/md";
 import { TractianLogo } from "../../assets/icons/TractianLogo";
 import { BsBank } from "react-icons/bs";
@@ -30,7 +23,6 @@ const LinkItems: LinkItemProps[] = [
 	{ name: "Assets", icon: <FiCpu color="#fff" />, path: "/assets" },
 	{ name: "Work Orders", icon: <FiList color="#fff" />, path: "/work-orders" },
 	{ name: "Users", icon: <FiUser color="#fff" />, path: "/users" },
-	{ name: "Settings", icon: <FiSettings color="#fff" />, path: "/settings" },
 ];
 
 interface SidebarContentProps extends BoxProps {
@@ -41,7 +33,6 @@ export const SidebarContent = ({
 	onClose,
 	...rest
 }: SidebarContentProps): JSX.Element => {
-	const isAdmin = localStorage.getItem("view") === "admin";
 	const navigate = useNavigate();
 
 	return (
@@ -67,18 +58,15 @@ export const SidebarContent = ({
 				</Flex>
 			</Show>
 
-			{LinkItems.map((link) => {
-				if (link.name === "Companies" && !isAdmin) return <></>;
-				return (
-					<NavItem
-						key={link.name}
-						label={link.name}
-						onClick={onClose}
-						path={link.path}
-						icon={link.icon}
-					/>
-				);
-			})}
+			{LinkItems.map((link) => (
+				<NavItem
+					key={link.name}
+					label={link.name}
+					onClick={onClose}
+					path={link.path}
+					icon={link.icon}
+				/>
+			))}
 			<Hide above="sm">
 				<NavItem
 					key={"Close"}

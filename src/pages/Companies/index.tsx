@@ -8,7 +8,6 @@ import {
 	useDisclosure,
 } from "@chakra-ui/react";
 import { FiSearch, FiPlus } from "react-icons/fi";
-import { Navigate } from "react-router-dom";
 import { CompanyListItem } from "../../components/CompanyListItem";
 import { Card } from "../../components/Card";
 import { useCompanies } from "../../hooks/companies/useCompanies";
@@ -22,8 +21,6 @@ export const Companies = (): JSX.Element => {
 		onOpen: onOpenEdit,
 		onClose: onCloseEdit,
 	} = useDisclosure();
-	const view = localStorage.getItem("view");
-	if (view !== "admin") return <Navigate to="/" />;
 
 	const { searchValue, debouncedValue, handleChangedSearchValue } = useSearch();
 	const { data: companies, isLoading } = useCompanies({

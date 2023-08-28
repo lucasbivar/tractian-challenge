@@ -60,7 +60,8 @@ export const SetUnitModal = ({
 	const handleSetCompany = (): void => {
 		(async () => {
 			try {
-				if (unitEdited.name === "") throw Error("");
+				if (unitEdited.name === "" || unitEdited.companyId == null)
+					throw Error("");
 
 				if (view === "new") {
 					await handleCreateUnit();
