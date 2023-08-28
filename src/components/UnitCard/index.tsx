@@ -34,13 +34,14 @@ export const UnitCard = ({ unit, disableEdit }: UnitCardProps): JSX.Element => {
 			onClick={() => {
 				navigate(`/units/${unit.id}`);
 			}}
-			width={{ base: "100%", sm: "47%", md: "47%", lg: "30%", xl: "31%" }}
+			width={{ base: "100%", sm: "47%", md: "47%", lg: "30%", xl: "32%" }}
 			height="200px"
 			position="relative"
 			_hover={{ boxShadow: "dark-lg" }}
 			bg="#D7D7D7"
 			cursor="pointer"
 			borderRadius={10}
+			mb={{ base: "0", xl: "2%" }}
 		>
 			<Image
 				fit="cover"
@@ -67,7 +68,7 @@ export const UnitCard = ({ unit, disableEdit }: UnitCardProps): JSX.Element => {
 				left="5"
 				position="absolute"
 			>
-				<Text color="#FFF" as="b">
+				<Text color="#FFF" as="b" isTruncated>
 					{unit.name}
 				</Text>
 				{(disableEdit === false || !disableEdit) && (

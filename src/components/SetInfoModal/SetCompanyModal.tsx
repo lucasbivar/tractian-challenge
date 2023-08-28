@@ -67,6 +67,7 @@ export const SetCompanyModal = ({
 					position: "bottom-right",
 					duration: 3000,
 				});
+				setCompanyEdited({ ...companyEdited, name: "" });
 				onClose();
 			} catch (err) {
 				toast({
@@ -84,7 +85,14 @@ export const SetCompanyModal = ({
 	};
 
 	return (
-		<Modal onClose={onClose} isOpen={isOpen} isCentered>
+		<Modal
+			onClose={() => {
+				setCompanyEdited({ ...companyEdited, name: "" });
+				onClose();
+			}}
+			isOpen={isOpen}
+			isCentered
+		>
 			<ModalOverlay />
 			<ModalContent
 				width={{ base: "90%", sm: "80%" }}

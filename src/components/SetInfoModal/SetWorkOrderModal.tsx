@@ -105,6 +105,15 @@ export const SetWorkOrderModal = ({
 					position: "bottom-right",
 					duration: 3000,
 				});
+				setWorkOrderEdited({
+					...workOrderEdited,
+					title: "",
+					description: "",
+					status: "" as Status,
+					priority: "" as Priority,
+					assetId: undefined,
+					assignedUserIds: [],
+				});
 				onClose();
 			} catch (err) {
 				toast({
@@ -122,7 +131,22 @@ export const SetWorkOrderModal = ({
 	};
 
 	return (
-		<Modal onClose={onClose} isOpen={isOpen} isCentered>
+		<Modal
+			onClose={() => {
+				setWorkOrderEdited({
+					...workOrderEdited,
+					title: "",
+					description: "",
+					status: "" as Status,
+					priority: "" as Priority,
+					assetId: undefined,
+					assignedUserIds: [],
+				});
+				onClose();
+			}}
+			isOpen={isOpen}
+			isCentered
+		>
 			<ModalOverlay />
 			<ModalContent
 				width={{ base: "90%", sm: "80%" }}

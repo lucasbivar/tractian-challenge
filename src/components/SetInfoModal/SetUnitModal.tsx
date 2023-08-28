@@ -77,6 +77,7 @@ export const SetUnitModal = ({
 					position: "bottom-right",
 					duration: 3000,
 				});
+				setUnitEdited({ ...unitEdited, name: "", companyId: undefined });
 				onClose();
 			} catch (err) {
 				toast({
@@ -94,7 +95,14 @@ export const SetUnitModal = ({
 	};
 
 	return (
-		<Modal onClose={onClose} isOpen={isOpen} isCentered>
+		<Modal
+			onClose={() => {
+				setUnitEdited({ ...unitEdited, name: "", companyId: undefined });
+				onClose();
+			}}
+			isOpen={isOpen}
+			isCentered
+		>
 			<ModalOverlay />
 			<ModalContent
 				width={{ base: "90%", sm: "80%" }}

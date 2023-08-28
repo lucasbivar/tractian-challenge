@@ -91,6 +91,12 @@ export const SetUserModal = ({
 					position: "bottom-right",
 					duration: 3000,
 				});
+				setUserEdited({
+					...userEdited,
+					name: "",
+					email: "",
+					unitId: undefined,
+				});
 				onClose();
 			} catch (err) {
 				toast({
@@ -108,7 +114,19 @@ export const SetUserModal = ({
 	};
 
 	return (
-		<Modal onClose={onClose} isOpen={isOpen} isCentered>
+		<Modal
+			onClose={() => {
+				setUserEdited({
+					...userEdited,
+					name: "",
+					email: "",
+					unitId: undefined,
+				});
+				onClose();
+			}}
+			isOpen={isOpen}
+			isCentered
+		>
 			<ModalOverlay />
 			<ModalContent
 				width={{ base: "90%", sm: "80%" }}

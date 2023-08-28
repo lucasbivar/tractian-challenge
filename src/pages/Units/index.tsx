@@ -71,7 +71,7 @@ export const Units = (): JSX.Element => {
 			<Flex
 				flexDirection="row"
 				// justifyContent="space-between"
-				gap={5}
+				gap={{ base: "2", sm: "5", md: "6", lg: "8", xl: "2%" }}
 				flexWrap="wrap"
 				width="100%"
 				mb="50px"

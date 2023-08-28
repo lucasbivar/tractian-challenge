@@ -72,6 +72,7 @@ export const SetAssetModal = ({
 					position: "bottom-right",
 					duration: 3000,
 				});
+				setAssetEdited({ ...assetEdited, name: "", model: "" });
 				onClose();
 			} catch (err) {
 				toast({
@@ -89,7 +90,14 @@ export const SetAssetModal = ({
 	};
 
 	return (
-		<Modal onClose={onClose} isOpen={isOpen} isCentered>
+		<Modal
+			onClose={() => {
+				setAssetEdited({ ...assetEdited, name: "", model: "" });
+				onClose();
+			}}
+			isOpen={isOpen}
+			isCentered
+		>
 			<ModalOverlay />
 			<ModalContent
 				width={{ base: "90%", sm: "80%" }}
