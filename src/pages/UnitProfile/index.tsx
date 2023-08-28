@@ -12,6 +12,8 @@ export const UnitProfile = (): JSX.Element => {
 	const { id } = useParams();
 	const { data: unit, isLoading } = useUnit(Number(id));
 
+	if (unit == null && !isLoading) navigate("/not-found");
+
 	return (
 		<Card noPadding>
 			{isLoading && (

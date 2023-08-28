@@ -2,7 +2,7 @@ import { Box, Flex, Image, Spinner, Text, Tooltip } from "@chakra-ui/react";
 import { Card } from "../../components/Card";
 import { FiThermometer } from "react-icons/fi";
 import { BsSpeedometer2, BsLightningCharge } from "react-icons/bs";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useAsset } from "../../hooks/assets/useAssets";
 import { getHealthScoreInfo } from "../../utils/healthScore";
 import { assetStatus } from "../../utils/enums/assetStatus";
@@ -12,6 +12,9 @@ import { HealthHistoryGraph } from "../../components/HealthHistoryGraph";
 export const AssetProfile = (): JSX.Element => {
 	const { id } = useParams();
 	const { data: asset, isLoading } = useAsset(Number(id));
+
+	const navigate = useNavigate();
+	if (asset == null && !isLoading) navigate("/not-found");
 
 	return (
 		<Card noPadding>

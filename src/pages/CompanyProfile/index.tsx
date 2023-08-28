@@ -2,11 +2,14 @@ import { Box, Flex, Spinner, Text } from "@chakra-ui/react";
 import { Card } from "../../components/Card";
 import { UnitCard } from "../../components/UnitCard";
 import { useCompany } from "../../hooks/companies/useCompanies";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 export const CompanyProfile = (): JSX.Element => {
 	const { id } = useParams();
 	const { data: company, isLoading } = useCompany(Number(id));
+
+	const navigate = useNavigate();
+	if (company == null && !isLoading) navigate("/not-found");
 
 	return (
 		<Card noPadding>
