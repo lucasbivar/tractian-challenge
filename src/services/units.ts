@@ -1,40 +1,14 @@
-import type { Geolocalization, Unit } from "../interfaces/units";
+import type { Unit } from "../interfaces/units";
 import { axiosTractianApiInstance } from "../api/axios";
 import { getAllAssets } from "./assets";
 import { getAllUsers } from "./users";
 import { getAllCompanies, getCompanyById } from "./companies";
 import { getObjIdAndEntity } from "../utils/manipulateDataStructures";
 import { type Company } from "../interfaces/companies";
+import { generateRandomFakeGeolocalization } from "../utils/geolocalization";
 
 export const urlFakeUnitImage =
 	"https://lh3.googleusercontent.com/p/AF1QipMEHk-PfFIzK1mVIdaDaSdjl2fzVxO_b_ymt3Kv=s1360-w1360-h1020";
-
-export const fakeGeolocalizations: Geolocalization[] = [
-	{
-		lat: -7.069378,
-		lon: -34.637298,
-	},
-	{
-		lat: -17.675428,
-		lon: -55.042005,
-	},
-	{
-		lat: -12.055437,
-		lon: -43.686212,
-	},
-	{
-		lat: -23.329646,
-		lon: -48.738786,
-	},
-	{
-		lat: -5.886528,
-		lon: -59.116661,
-	},
-	{
-		lat: -26.20227,
-		lon: -58.413076,
-	},
-];
 
 const populateAllUnits = async (data: Unit[]): Promise<Unit[]> => {
 	const companies = await getAllCompanies();
@@ -44,8 +18,7 @@ const populateAllUnits = async (data: Unit[]): Promise<Unit[]> => {
 		...unit,
 		...(unit.companyId != null && { company: companiesObj[unit.companyId] }),
 		image: urlFakeUnitImage,
-		geolocalization:
-			fakeGeolocalizations[(fakeGeolocalizations.length * Math.random()) | 0],
+		geolocalization: generateRandomFakeGeolocalization(),
 	}));
 };
 

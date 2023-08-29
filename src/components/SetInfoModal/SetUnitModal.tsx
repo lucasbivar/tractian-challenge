@@ -16,8 +16,9 @@ import { useState } from "react";
 import { type Unit } from "../../interfaces/units";
 import { useCreateUnit } from "../../hooks/units/useCreateUnits";
 import { useUpdateUnit } from "../../hooks/units/useUpdateUnits";
-import { fakeGeolocalizations, urlFakeUnitImage } from "../../services/units";
+import { urlFakeUnitImage } from "../../services/units";
 import { useCompanies } from "../../hooks/companies/useCompanies";
+import { generateRandomFakeGeolocalization } from "../../utils/geolocalization";
 
 interface SetUnitModalProps {
 	onClose: () => void;
@@ -40,8 +41,7 @@ export const SetUnitModal = ({
 		companyId: unit?.companyId ?? undefined,
 		image: unit?.image ?? urlFakeUnitImage,
 		geolocalization:
-			unit?.geolocalization ??
-			fakeGeolocalizations[(fakeGeolocalizations.length * Math.random()) | 0],
+			unit?.geolocalization ?? generateRandomFakeGeolocalization(),
 	});
 
 	const { data: companies } = useCompanies({});
