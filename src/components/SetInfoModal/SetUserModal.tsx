@@ -19,6 +19,7 @@ import { useUpdateUser } from "../../hooks/users/useUpdateUsers";
 import { useUnits } from "../../hooks/units/useUnits";
 import { getObjIdAndEntity } from "../../utils/manipulateDataStructures";
 import { type Unit } from "../../interfaces/units";
+import { isEmail } from "../../utils/users";
 
 interface SetUserModalProps {
 	onClose: () => void;
@@ -64,7 +65,8 @@ export const SetUserModal = ({
 				if (
 					userEdited.name === "" ||
 					userEdited.email === "" ||
-					userEdited.unitId === undefined
+					userEdited.unitId === undefined ||
+					(userEdited.email !== "" && !isEmail(userEdited.email))
 				)
 					throw Error("");
 

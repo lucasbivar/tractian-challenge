@@ -16,9 +16,9 @@ import { useState } from "react";
 import { type Unit } from "../../interfaces/units";
 import { useCreateUnit } from "../../hooks/units/useCreateUnits";
 import { useUpdateUnit } from "../../hooks/units/useUpdateUnits";
-import { urlFakeUnitImage } from "../../services/units";
 import { useCompanies } from "../../hooks/companies/useCompanies";
 import { generateRandomFakeGeolocalization } from "../../utils/geolocalization";
+import { urlFakeUnitImage } from "../../utils/units";
 
 interface SetUnitModalProps {
 	onClose: () => void;

@@ -16,8 +16,8 @@ import { useState } from "react";
 import { type Models, type Asset } from "../../interfaces/assets";
 import { useCreateAsset } from "../../hooks/assets/useCreateAssets";
 import { useUpdateAsset } from "../../hooks/assets/useUpdateAssets";
-import { getFakeImage } from "../../services/assets";
 import { useUnits } from "../../hooks/units/useUnits";
+import { getFakeImage } from "../../utils/assets";
 
 interface SetAssetModalProps {
 	onClose: () => void;

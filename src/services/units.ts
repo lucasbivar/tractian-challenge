@@ -6,9 +6,7 @@ import { getAllCompanies, getCompanyById } from "./companies";
 import { getObjIdAndEntity } from "../utils/manipulateDataStructures";
 import { type Company } from "../interfaces/companies";
 import { generateRandomFakeGeolocalization } from "../utils/geolocalization";
-
-export const urlFakeUnitImage =
-	"https://lh3.googleusercontent.com/p/AF1QipMEHk-PfFIzK1mVIdaDaSdjl2fzVxO_b_ymt3Kv=s1360-w1360-h1020";
+import { urlFakeUnitImage } from "../utils/units";
 
 const populateAllUnits = async (data: Unit[]): Promise<Unit[]> => {
 	const companies = await getAllCompanies();
