@@ -220,6 +220,11 @@ export const WorkOrderListItem = ({
 								onChange={(e) => {
 									setNewTasks(e.target.value);
 								}}
+								onKeyDown={(e) => {
+									if (e.key === "Enter") {
+										handleCreateNewTask();
+									}
+								}}
 								placeholder="Create new task"
 								variant="unstyled"
 							/>
