@@ -17,7 +17,7 @@ import { type Models, type Asset } from "../../interfaces/assets";
 import { useCreateAsset } from "../../hooks/assets/useCreateAssets";
 import { useUpdateAsset } from "../../hooks/assets/useUpdateAssets";
 import { useUnits } from "../../hooks/units/useUnits";
-import { getFakeImage } from "../../utils/assets";
+import { assetModels } from "../../utils/enums/models";
 
 interface SetAssetModalProps {
 	onClose: () => void;
@@ -168,7 +168,7 @@ export const SetAssetModal = ({
 									...assetEdited,
 									model: (e.target.value as Models) ?? undefined,
 									...(asset?.id == null && {
-										image: getFakeImage(e.target.value as Models),
+										image: assetModels[e.target.value as Models].image,
 									}),
 								});
 							}}
