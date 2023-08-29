@@ -26,6 +26,7 @@ import { useUpdateWorkOrder } from "../../hooks/workOrders/useUpdateWorkOrders";
 import { type Asset } from "../../interfaces/assets";
 import { getObjIdAndEntity } from "../../utils/manipulateDataStructures";
 import { type User } from "../../interfaces/users";
+import { validateWorkOrder } from "../../validations/workOrders";
 
 interface SetWorkOrderModalProps {
 	onClose: () => void;
@@ -69,14 +70,7 @@ export const SetWorkOrderModal = ({
 	const handleSetWorkOrder = (): void => {
 		(async () => {
 			try {
-				if (
-					workOrderEdited.title === "" ||
-					workOrderEdited.description === "" ||
-					workOrderEdited.status === ("" as Status) ||
-					workOrderEdited.priority === ("" as Priority) ||
-					workOrderEdited.assetId == null
-				)
-					throw Error("");
+				validateWorkOrder(workOrderEdited);
 
 				if (assets != null && workOrderEdited.assetId != null) {
 					const assetsObj = getObjIdAndEntity<Asset>(assets);

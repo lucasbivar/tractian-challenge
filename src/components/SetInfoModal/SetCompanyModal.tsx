@@ -15,6 +15,7 @@ import { type Company } from "../../interfaces/companies";
 import { useState } from "react";
 import { useCreateCompany } from "../../hooks/companies/useCreateCompanies";
 import { useUpdateCompany } from "../../hooks/companies/useUpdateCompanies";
+import { validateCompany } from "../../validations/companies";
 
 interface SetCompanyModalProps {
 	onClose: () => void;
@@ -49,7 +50,7 @@ export const SetCompanyModal = ({
 	const handleSetCompany = (): void => {
 		(async () => {
 			try {
-				if (companyEdited.name === "") throw Error("");
+				validateCompany(companyEdited);
 
 				if (view === "new") {
 					await handleCreateCompany();

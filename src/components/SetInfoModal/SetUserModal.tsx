@@ -19,7 +19,7 @@ import { useUpdateUser } from "../../hooks/users/useUpdateUsers";
 import { useUnits } from "../../hooks/units/useUnits";
 import { getObjIdAndEntity } from "../../utils/manipulateDataStructures";
 import { type Unit } from "../../interfaces/units";
-import { isEmail } from "../../utils/users";
+import { validateUser } from "../../validations/users";
 
 interface SetUserModalProps {
 	onClose: () => void;
@@ -62,15 +62,9 @@ export const SetUserModal = ({
 	const handleSetUser = (): void => {
 		(async () => {
 			try {
-				if (
-					userEdited.name === "" ||
-					userEdited.email === "" ||
-					userEdited.unitId === undefined ||
-					(userEdited.email !== "" && !isEmail(userEdited.email))
-				)
-					throw Error("");
+				validateUser(userEdited);
 
-				if (units != null) {
+				if (units != null && userEdited.unitId != null) {
 					const unitsObj = getObjIdAndEntity<Unit>(units);
 					userEdited.unitName = unitsObj[userEdited.unitId].name;
 					userEdited.companyId = unitsObj[userEdited.unitId].company?.id;

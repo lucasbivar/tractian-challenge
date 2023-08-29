@@ -18,6 +18,7 @@ import { useCreateAsset } from "../../hooks/assets/useCreateAssets";
 import { useUpdateAsset } from "../../hooks/assets/useUpdateAssets";
 import { useUnits } from "../../hooks/units/useUnits";
 import { assetModels } from "../../utils/enums/models";
+import { validateAsset } from "../../validations/assets";
 
 interface SetAssetModalProps {
 	onClose: () => void;
@@ -57,12 +58,7 @@ export const SetAssetModal = ({
 	const handleSetAsset = (): void => {
 		(async () => {
 			try {
-				if (
-					assetEdited.name === "" ||
-					assetEdited.model === ("" as Models) ||
-					assetEdited.unitId == null
-				)
-					throw Error("");
+				validateAsset(assetEdited);
 
 				if (view === "new") {
 					await handleCreateAsset();

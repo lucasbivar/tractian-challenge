@@ -19,6 +19,7 @@ import { useUpdateUnit } from "../../hooks/units/useUpdateUnits";
 import { useCompanies } from "../../hooks/companies/useCompanies";
 import { generateRandomFakeGeolocalization } from "../../utils/geolocalization";
 import { urlFakeUnitImage } from "../../utils/units";
+import { validateUnit } from "../../validations/units";
 
 interface SetUnitModalProps {
 	onClose: () => void;
@@ -60,8 +61,7 @@ export const SetUnitModal = ({
 	const handleSetCompany = (): void => {
 		(async () => {
 			try {
-				if (unitEdited.name === "" || unitEdited.companyId == null)
-					throw Error("");
+				validateUnit(unitEdited);
 
 				if (view === "new") {
 					await handleCreateUnit();
