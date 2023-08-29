@@ -12,7 +12,7 @@ export const arrayOfObjectsGeneralFilter = <T extends object>(
 	searchValue: string,
 ): T[] => {
 	return items.filter((item) => {
-		if (searchValue.length === 0) return item;
+		if (!searchValue.length) return item;
 		return Object.values(item)
 			.join("")
 			.toLowerCase()

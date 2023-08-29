@@ -1,12 +1,12 @@
-import type { Priority, Status, WorkOrder } from "../interfaces/workOrders";
+import type { WorkOrder } from "../interfaces/workOrders";
 
 export const validateWorkOrder = (workOrder: WorkOrder): void => {
 	if (
-		workOrder.title === "" ||
-		workOrder.description === "" ||
-		workOrder.status === ("" as Status) ||
-		workOrder.priority === ("" as Priority) ||
-		workOrder.assetId == null
+		!workOrder.title ||
+		!workOrder.description ||
+		!workOrder.status ||
+		!workOrder.priority ||
+		!workOrder.assetId
 	)
-		throw Error("");
+		throw Error("Invalid Required Fields");
 };

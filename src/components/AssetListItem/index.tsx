@@ -13,7 +13,7 @@ import { type Asset } from "../../interfaces/assets";
 import { useDeleteAsset } from "../../hooks/assets/useDeleteAssets";
 import { getHealthScoreInfo } from "../../utils/healthScore";
 import { assetStatus } from "../../utils/enums/assetStatus";
-import { assetModels } from "../../utils/enums/models";
+import { assetModels } from "../../utils/enums/assetModels";
 import { SetAssetModal } from "../SetInfoModal/SetAssetModal";
 
 interface AssetListItemProps {
@@ -92,15 +92,13 @@ export const AssetListItem = ({ asset }: AssetListItemProps): JSX.Element => {
 						color="#FFF"
 					>
 						<Text as="b" fontSize="sm">
-							{asset.healthscore != null ? `${asset.healthscore}%` : "No Info"}
+							{(asset.healthscore && `${asset.healthscore}%`) ?? "No Info"}
 						</Text>
 					</Box>
 				</Tooltip>
 				<Tooltip hasArrow label="Status">
 					<Box
-						bg={
-							asset.status != null ? assetStatus[asset.status].color : "#1A3071"
-						}
+						bg={(asset.status && assetStatus[asset.status]?.color) ?? "#1A3071"}
 						py="1"
 						width="100px"
 						textAlign="center"
@@ -108,9 +106,7 @@ export const AssetListItem = ({ asset }: AssetListItemProps): JSX.Element => {
 						color="#FFF"
 					>
 						<Text as="b" fontSize="sm">
-							{asset.status != null
-								? assetStatus[asset.status].label
-								: "No Info"}
+							{(asset.status && assetStatus[asset.status]?.label) ?? "No Info"}
 						</Text>
 					</Box>
 				</Tooltip>

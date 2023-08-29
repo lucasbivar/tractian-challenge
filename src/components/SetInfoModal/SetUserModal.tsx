@@ -64,7 +64,7 @@ export const SetUserModal = ({
 			try {
 				validateUser(userEdited);
 
-				if (units != null && userEdited.unitId != null) {
+				if (units && userEdited.unitId) {
 					const unitsObj = getObjIdAndEntity<Unit>(units);
 					userEdited.unitName = unitsObj[userEdited.unitId].name;
 					userEdited.companyId = unitsObj[userEdited.unitId].company?.id;
@@ -87,7 +87,7 @@ export const SetUserModal = ({
 					position: "bottom-right",
 					duration: 3000,
 				});
-				if (user == null)
+				if (!user)
 					setUserEdited({
 						...userEdited,
 						name: "",
@@ -113,7 +113,7 @@ export const SetUserModal = ({
 	return (
 		<Modal
 			onClose={() => {
-				if (user == null)
+				if (!user)
 					setUserEdited({
 						...userEdited,
 						name: "",

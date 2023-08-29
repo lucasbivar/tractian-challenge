@@ -3,7 +3,7 @@ import { FiEye } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
 import { type Asset } from "../../interfaces/assets";
 import { assetStatus } from "../../utils/enums/assetStatus";
-import { assetModels } from "../../utils/enums/models";
+import { assetModels } from "../../utils/enums/assetModels";
 
 interface AssetMiniCardProps {
 	asset: Asset;
@@ -22,7 +22,7 @@ export const AssetMiniCard = ({ asset }: AssetMiniCardProps): JSX.Element => {
 			_hover={{ boxShadow: "base" }}
 			bg="#FFF"
 			borderLeft={`15px solid ${
-				asset.status != null ? assetStatus[asset.status].color : "#1A3071"
+				(asset.status && assetStatus[asset.status]?.color) ?? "#1A3071"
 			}`}
 			borderRadius={10}
 		>
@@ -34,13 +34,13 @@ export const AssetMiniCard = ({ asset }: AssetMiniCardProps): JSX.Element => {
 					<Text as="b" fontSize="sm">
 						Model:&nbsp;
 					</Text>
-					{asset.model != null ? assetModels[asset.model].label : "-"}
+					{(asset.model && assetModels[asset.model]?.label) ?? "-"}
 				</Text>
 				<Text fontSize="sm" isTruncated>
 					<Text as="b" fontSize="sm">
 						Status:&nbsp;
 					</Text>
-					{asset.status != null ? assetStatus[asset.status].label : "-"}
+					{(asset.status && assetStatus[asset.status]?.label) ?? "-"}
 				</Text>
 				<Text fontSize="sm" isTruncated>
 					<Text as="b" fontSize="sm">

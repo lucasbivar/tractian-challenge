@@ -9,7 +9,7 @@ export const CompanyProfile = (): JSX.Element => {
 	const { data: company, isLoading } = useCompany(Number(id));
 
 	const navigate = useNavigate();
-	if (company == null && !isLoading) navigate("/not-found");
+	if (!company && !isLoading) navigate("/not-found");
 
 	return (
 		<Card noPadding>

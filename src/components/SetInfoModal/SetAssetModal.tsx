@@ -17,7 +17,7 @@ import { type Models, type Asset } from "../../interfaces/assets";
 import { useCreateAsset } from "../../hooks/assets/useCreateAssets";
 import { useUpdateAsset } from "../../hooks/assets/useUpdateAssets";
 import { useUnits } from "../../hooks/units/useUnits";
-import { assetModels } from "../../utils/enums/models";
+import { assetModels } from "../../utils/enums/assetModels";
 import { validateAsset } from "../../validations/assets";
 
 interface SetAssetModalProps {
@@ -38,7 +38,7 @@ export const SetAssetModal = ({
 		...asset,
 		id: asset?.id ?? Math.floor(Math.random() * 10000 + 100),
 		name: asset?.name ?? "",
-		model: asset?.model ?? ("" as Models),
+		model: asset?.model ?? "motor",
 		image: asset?.image ?? "",
 		unitId: asset?.unitId ?? undefined,
 	});
@@ -75,11 +75,11 @@ export const SetAssetModal = ({
 					position: "bottom-right",
 					duration: 3000,
 				});
-				if (asset == null)
+				if (!asset)
 					setAssetEdited({
 						...assetEdited,
 						name: "",
-						model: "" as Models,
+						model: "motor",
 						unitId: undefined,
 					});
 				onClose();
@@ -101,11 +101,11 @@ export const SetAssetModal = ({
 	return (
 		<Modal
 			onClose={() => {
-				if (asset == null)
+				if (!asset)
 					setAssetEdited({
 						...assetEdited,
 						name: "",
-						model: "" as Models,
+						model: "motor",
 						unitId: undefined,
 					});
 				onClose();
@@ -163,7 +163,7 @@ export const SetAssetModal = ({
 								setAssetEdited({
 									...assetEdited,
 									model: (e.target.value as Models) ?? undefined,
-									...(asset?.id == null && {
+									...(!asset?.id && {
 										image: assetModels[e.target.value as Models].image,
 									}),
 								});

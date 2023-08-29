@@ -12,7 +12,7 @@ export const UnitProfile = (): JSX.Element => {
 	const { id } = useParams();
 	const { data: unit, isLoading } = useUnit(Number(id));
 
-	if (unit == null && !isLoading) navigate("/not-found");
+	if (!unit && !isLoading) navigate("/not-found");
 
 	return (
 		<Card noPadding>
@@ -71,8 +71,7 @@ export const UnitProfile = (): JSX.Element => {
 						<Text
 							cursor="pointer"
 							onClick={() => {
-								unit?.companyId != null &&
-									navigate(`/companies/${unit?.companyId}`);
+								unit?.companyId && navigate(`/companies/${unit.companyId}`);
 							}}
 							color="#FFF"
 							zIndex="4"

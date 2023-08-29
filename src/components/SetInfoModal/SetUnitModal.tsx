@@ -78,7 +78,7 @@ export const SetUnitModal = ({
 					position: "bottom-right",
 					duration: 3000,
 				});
-				if (unit == null)
+				if (!unit)
 					setUnitEdited({ ...unitEdited, name: "", companyId: undefined });
 				onClose();
 			} catch (err) {
@@ -99,7 +99,7 @@ export const SetUnitModal = ({
 	return (
 		<Modal
 			onClose={() => {
-				if (unit == null)
+				if (!unit)
 					setUnitEdited({ ...unitEdited, name: "", companyId: undefined });
 				onClose();
 			}}

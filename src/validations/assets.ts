@@ -1,10 +1,6 @@
-import { type Models, type Asset } from "../interfaces/assets";
+import { type Asset } from "../interfaces/assets";
 
 export const validateAsset = (asset: Asset): void => {
-	if (
-		asset.name === "" ||
-		asset.model === ("" as Models) ||
-		asset.unitId == null
-	)
-		throw Error("");
+	if (!asset.name || !asset.model || !asset.unitId)
+		throw Error("Invalid Required Fields");
 };

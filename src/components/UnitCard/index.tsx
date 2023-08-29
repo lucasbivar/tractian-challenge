@@ -71,7 +71,7 @@ export const UnitCard = ({ unit, disableEdit }: UnitCardProps): JSX.Element => {
 				<Text color="#FFF" as="b" isTruncated>
 					{unit.name}
 				</Text>
-				{(disableEdit === false || !disableEdit) && (
+				{!disableEdit && (
 					<Flex flexDirection="row" gap="2">
 						<Box
 							onClick={(e) => {

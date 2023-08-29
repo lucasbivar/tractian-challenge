@@ -47,8 +47,8 @@ export const SetWorkOrderModal = ({
 		id: workOrder?.id ?? Math.floor(Math.random() * 10000 + 100),
 		title: workOrder?.title ?? "",
 		description: workOrder?.description ?? "",
-		priority: workOrder?.priority ?? ("" as Priority),
-		status: workOrder?.status ?? ("" as Status),
+		priority: workOrder?.priority ?? "low",
+		status: workOrder?.status ?? "not started",
 		assetId: workOrder?.assetId ?? undefined,
 		assignedUserIds: workOrder?.assignedUserIds ?? [],
 	});
@@ -72,11 +72,11 @@ export const SetWorkOrderModal = ({
 			try {
 				validateWorkOrder(workOrderEdited);
 
-				if (assets != null && workOrderEdited.assetId != null) {
+				if (assets && workOrderEdited.assetId) {
 					const assetsObj = getObjIdAndEntity<Asset>(assets);
 					workOrderEdited.asset = assetsObj[workOrderEdited.assetId];
 				}
-				if (users != null && workOrderEdited.assignedUserIds.length !== 0) {
+				if (users && workOrderEdited.assignedUserIds.length) {
 					const usersObj = getObjIdAndEntity<User>(users);
 					workOrderEdited.users = workOrderEdited.assignedUserIds.map(
 						(id) => usersObj[id],
@@ -99,7 +99,7 @@ export const SetWorkOrderModal = ({
 					position: "bottom-right",
 					duration: 3000,
 				});
-				if (workOrder == null)
+				if (!workOrder)
 					setWorkOrderEdited({
 						...workOrderEdited,
 						title: "",
@@ -128,13 +128,13 @@ export const SetWorkOrderModal = ({
 	return (
 		<Modal
 			onClose={() => {
-				if (workOrder == null)
+				if (!workOrder)
 					setWorkOrderEdited({
 						...workOrderEdited,
 						title: "",
 						description: "",
-						status: "" as Status,
-						priority: "" as Priority,
+						status: "not started",
+						priority: "low" as Priority,
 						assetId: undefined,
 						assignedUserIds: [],
 					});

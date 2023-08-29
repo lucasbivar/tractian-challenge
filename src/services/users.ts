@@ -15,10 +15,10 @@ const populateUsers = async (data: User[]): Promise<User[]> => {
 
 	return data.map((user) => ({
 		...user,
-		...(user.companyId != null && {
+		...(user.companyId && {
 			companyName: companiesObj[user.companyId].name,
 		}),
-		...(user.unitId != null && {
+		...(user.unitId && {
 			unitName: unitsObj[user.unitId].name,
 		}),
 	}));

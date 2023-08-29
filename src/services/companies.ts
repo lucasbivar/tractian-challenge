@@ -18,6 +18,6 @@ export const getCompanyById = async (id: number): Promise<Company> => {
 
 	return {
 		...response.data,
-		...(companyUnits.length !== 0 && { units: companyUnits }),
+		...(companyUnits.length && { units: companyUnits }),
 	};
 };

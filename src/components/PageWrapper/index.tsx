@@ -11,7 +11,7 @@ export const PageWrapper = ({
 }: PageWrapperProps): JSX.Element => {
 	return (
 		<>
-			{title != null && (
+			{title && (
 				<Box mb={4}>
 					<Text as="b" fontSize="4xl">
 						{title}

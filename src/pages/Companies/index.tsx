@@ -77,10 +77,7 @@ export const Companies = (): JSX.Element => {
 				</Button>
 			</Flex>
 			<Card noPadding width="100%">
-				{!isLoading &&
-					(companies?.length == null || companies?.length === 0) && (
-						<NoDataFound />
-					)}
+				{!isLoading && !companies?.length && <NoDataFound />}
 				{isLoading && (
 					<Flex
 						width="100%"

@@ -89,7 +89,7 @@ export const WorkOrderListItem = ({
 	const handleCreateNewTask = (): void => {
 		(async () => {
 			try {
-				if (newTask === "") throw Error("");
+				if (!newTask) throw Error("Empty Task");
 				workOrderEdited.checklist?.push({ completed: false, task: newTask });
 				await handleUpdateWorkOrder();
 				setNewTasks("");
@@ -254,7 +254,7 @@ export const WorkOrderListItem = ({
 												(currTask) => currTask.task === task.task,
 											);
 											const checklist = workOrderEdited.checklist;
-											if (checklist != null && index != null && index > -1) {
+											if (checklist && index != null && index > -1) {
 												if (e.target.checked) {
 													checklist[index].completed = true;
 												} else {
@@ -276,7 +276,7 @@ export const WorkOrderListItem = ({
 									cursor="pointer"
 									onClick={() => {
 										let checklist = workOrderEdited.checklist;
-										if (checklist != null) {
+										if (checklist) {
 											checklist = checklist.filter(
 												(currTask) => task.task !== currTask.task,
 											);
@@ -315,9 +315,9 @@ export const WorkOrderListItem = ({
 
 									<Box
 										bg={
-											workOrder.priority != null
-												? workOrderPriority[workOrder.priority].color
-												: "#1A3071"
+											(workOrder.priority &&
+												workOrderPriority[workOrder.priority]?.color) ??
+											"#1A3071"
 										}
 										mt="1"
 										py="1"
@@ -327,9 +327,9 @@ export const WorkOrderListItem = ({
 										color="#FFF"
 									>
 										<Text as="b" fontSize="sm">
-											{workOrder.priority != null
-												? workOrderPriority[workOrder.priority].label
-												: "No Information"}
+											{(workOrder.priority &&
+												workOrderPriority[workOrder.priority]?.label) ??
+												"No Information"}
 										</Text>
 									</Box>
 								</Box>
@@ -340,9 +340,9 @@ export const WorkOrderListItem = ({
 
 									<Box
 										bg={
-											workOrder.status != null
-												? workOrderStatus[workOrder.status].color
-												: "#1A3071"
+											(workOrder.status &&
+												workOrderStatus[workOrder.status]?.color) ??
+											"#1A3071"
 										}
 										mt="1"
 										py="1"
@@ -352,9 +352,9 @@ export const WorkOrderListItem = ({
 										color="#FFF"
 									>
 										<Text as="b" fontSize="sm">
-											{workOrder.status != null
-												? workOrderStatus[workOrder.status].label
-												: "No Information"}
+											{(workOrder.status &&
+												workOrderStatus[workOrder.status]?.label) ??
+												"No Information"}
 										</Text>
 									</Box>
 								</Box>
@@ -383,7 +383,7 @@ export const WorkOrderListItem = ({
 										gap="2"
 										cursor="pointer"
 										onClick={() => {
-											workOrder.assetId != null &&
+											workOrder.assetId &&
 												navigate(`/assets/${workOrder.assetId}`);
 										}}
 										alignItems="center"

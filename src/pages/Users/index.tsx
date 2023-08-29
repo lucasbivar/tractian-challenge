@@ -75,9 +75,7 @@ export const Users = (): JSX.Element => {
 				</Button>
 			</Flex>
 			<Card noPadding width="100%">
-				{!isLoading && (users?.length == null || users?.length === 0) && (
-					<NoDataFound />
-				)}
+				{!isLoading && !users?.length && <NoDataFound />}
 				{isLoading && (
 					<Flex
 						width="100%"

@@ -95,8 +95,7 @@ export const UserListItem = ({ user }: UserListItemProps): JSX.Element => {
 						<Text
 							cursor="pointer"
 							onClick={() => {
-								user.companyId != null &&
-									navigate(`/companies/${user.companyId}`);
+								user.companyId && navigate(`/companies/${user.companyId}`);
 							}}
 							fontSize="sm"
 							isTruncated
@@ -112,7 +111,7 @@ export const UserListItem = ({ user }: UserListItemProps): JSX.Element => {
 							fontSize="sm"
 							cursor="pointer"
 							onClick={() => {
-								user.unitId != null && navigate(`/units/${user.unitId}`);
+								user.unitId && navigate(`/units/${user.unitId}`);
 							}}
 							isTruncated
 						>
@@ -135,8 +134,7 @@ export const UserListItem = ({ user }: UserListItemProps): JSX.Element => {
 								<Text
 									cursor="pointer"
 									onClick={() => {
-										user.companyId != null &&
-											navigate(`/companies/${user.companyId}`);
+										user.companyId && navigate(`/companies/${user.companyId}`);
 									}}
 									fontSize="sm"
 								>
@@ -165,7 +163,7 @@ export const UserListItem = ({ user }: UserListItemProps): JSX.Element => {
 								<Text
 									cursor="pointer"
 									onClick={() => {
-										user.unitId != null && navigate(`/units/${user.unitId}`);
+										user.unitId && navigate(`/units/${user.unitId}`);
 									}}
 									fontSize="sm"
 								>

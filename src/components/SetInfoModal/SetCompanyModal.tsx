@@ -68,7 +68,7 @@ export const SetCompanyModal = ({
 					position: "bottom-right",
 					duration: 3000,
 				});
-				if (company == null) {
+				if (!company) {
 					setCompanyEdited({ ...companyEdited, name: "" });
 				}
 				onClose();
@@ -90,7 +90,7 @@ export const SetCompanyModal = ({
 	return (
 		<Modal
 			onClose={() => {
-				if (company == null) {
+				if (!company) {
 					setCompanyEdited({ ...companyEdited, name: "" });
 				}
 				onClose();

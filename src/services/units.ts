@@ -14,7 +14,7 @@ const populateAllUnits = async (data: Unit[]): Promise<Unit[]> => {
 
 	return data?.map((unit) => ({
 		...unit,
-		...(unit.companyId != null && { company: companiesObj[unit.companyId] }),
+		...(unit.companyId && { company: companiesObj[unit.companyId] }),
 		image: urlFakeUnitImage,
 		geolocalization: generateRandomFakeGeolocalization(),
 	}));
@@ -36,14 +36,14 @@ const populateUnit = async (unit: Unit): Promise<Unit> => {
 	const usersFiltered = users.filter((user) => user.unitId === unit.id);
 
 	const company =
-		unit.companyId != null ? await getCompanyById(unit.companyId) : null;
+		(unit.companyId && (await getCompanyById(unit.companyId))) ?? null;
 
 	return {
 		...unit,
 		image: urlFakeUnitImage,
-		...(assetsFiltered.length !== 0 && { assets: assetsFiltered }),
-		...(usersFiltered.length !== 0 && { users: usersFiltered }),
-		...(company != null && { company }),
+		...(assetsFiltered.length && { assets: assetsFiltered }),
+		...(usersFiltered.length && { users: usersFiltered }),
+		...(company && { company }),
 	};
 };
 

@@ -6,7 +6,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useAsset } from "../../hooks/assets/useAssets";
 import { getHealthScoreInfo } from "../../utils/healthScore";
 import { assetStatus } from "../../utils/enums/assetStatus";
-import { assetModels } from "../../utils/enums/models";
+import { assetModels } from "../../utils/enums/assetModels";
 import { HealthHistoryGraph } from "../../components/HealthHistoryGraph";
 
 export const AssetProfile = (): JSX.Element => {
@@ -14,7 +14,7 @@ export const AssetProfile = (): JSX.Element => {
 	const { data: asset, isLoading } = useAsset(Number(id));
 
 	const navigate = useNavigate();
-	if (asset == null && !isLoading) navigate("/not-found");
+	if (!asset && !isLoading) navigate("/not-found");
 
 	return (
 		<Card noPadding>
@@ -79,9 +79,7 @@ export const AssetProfile = (): JSX.Element => {
 											Model:
 										</Text>
 										<Text fontSize="sm" isTruncated>
-											{asset?.model != null
-												? assetModels[asset.model].label
-												: "-"}
+											{(asset?.model && assetModels[asset.model]?.label) ?? "-"}
 										</Text>
 									</Box>
 									<Box>
@@ -130,9 +128,8 @@ export const AssetProfile = (): JSX.Element => {
 											</Text>
 											<Box
 												bg={
-													asset?.status != null
-														? assetStatus[asset.status].color
-														: "#1A3071"
+													(asset?.status && assetStatus[asset.status]?.color) ??
+													"#1A3071"
 												}
 												py="1"
 												width="100px"
@@ -141,9 +138,9 @@ export const AssetProfile = (): JSX.Element => {
 												color="#FFF"
 											>
 												<Text fontSize="sm">
-													{asset?.status != null
-														? assetStatus[asset.status].label
-														: "No Info"}
+													{(asset?.status &&
+														assetStatus[asset.status]?.label) ??
+														"No Info"}
 												</Text>
 											</Box>
 										</Box>
@@ -185,14 +182,13 @@ export const AssetProfile = (): JSX.Element => {
 										Total Uptime:
 									</Text>
 									<Text fontSize="sm" isTruncated>
-										{asset?.metrics != null
-											? asset?.metrics?.totalUptime != null &&
-											  `${asset?.metrics.totalUptime.toFixed(0)} hours ${(
-													(asset?.metrics.totalUptime -
-														Math.trunc(asset?.metrics.totalUptime)) *
-													60
-											  ).toFixed(0)} minutes`
-											: "-"}
+										{(asset?.metrics?.totalUptime &&
+											`${asset?.metrics.totalUptime.toFixed(0)} hours ${(
+												(asset?.metrics.totalUptime -
+													Math.trunc(asset?.metrics.totalUptime)) *
+												60
+											).toFixed(0)} minutes`) ??
+											"-"}
 									</Text>
 								</Box>
 								<Box>
@@ -217,9 +213,7 @@ export const AssetProfile = (): JSX.Element => {
 									<Text as="b" fontSize="sm">
 										Current 4G Connection Quality:
 									</Text>
-									<Text fontSize="sm">
-										{asset?.metrics != null ? "Good" : "-"}
-									</Text>
+									<Text fontSize="sm">{(asset?.metrics && "Good") ?? "-"}</Text>
 								</Box>
 							</Flex>
 						</Flex>

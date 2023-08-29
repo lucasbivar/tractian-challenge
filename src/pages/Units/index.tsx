@@ -75,9 +75,7 @@ export const Units = (): JSX.Element => {
 				width="100%"
 				mb="50px"
 			>
-				{!isLoading && (units?.length == null || units?.length === 0) && (
-					<NoDataFound />
-				)}
+				{!isLoading && !units?.length && <NoDataFound />}
 				{isLoading && (
 					<Flex
 						width="100%"

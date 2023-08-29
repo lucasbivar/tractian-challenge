@@ -18,9 +18,9 @@ const populateWorkOrders = async (data: WorkOrder[]): Promise<WorkOrder[]> => {
 		workOrder.assignedUserIds?.forEach((id) => woUsers.push(userById[id]));
 		return {
 			...workOrder,
-			...(woUsers.length !== 0 && { users: woUsers }),
-			...(workOrder.assetId != null &&
-				assetById[workOrder.assetId] != null && {
+			...(woUsers.length && { users: woUsers }),
+			...(workOrder.assetId &&
+				assetById[workOrder.assetId] && {
 					asset: assetById[workOrder.assetId],
 				}),
 		};

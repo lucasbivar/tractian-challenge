@@ -55,7 +55,7 @@ export const useUpdate = <T extends { id: number }>(
 				(entity) => entity.id === data.id,
 			);
 
-			if (entityIndex != null && entities != null) {
+			if (entityIndex && entities) {
 				entities[entityIndex] = data;
 				queryClient.setQueryData([queryKey], () => entities);
 				queryClient.setQueryData([`${queryKey}-${data.id}`], () => data);
@@ -74,7 +74,7 @@ export const useCreate = <T extends { id: number }>(
 		async (data: T) => ({ ...data, id: Math.floor(Math.random() * 10000 + 1) }),
 		{
 			onSuccess: (data) => {
-				if (entities != null) {
+				if (entities) {
 					entities.push(data);
 					queryClient.setQueryData([queryKey], () => entities);
 					queryClient.setQueryData([`${queryKey}-${data.id}`], () => data);

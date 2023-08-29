@@ -10,31 +10,25 @@ interface AssetHealthGrapthProps {
 export const AssetHealthGrapth = ({
 	assets,
 }: AssetHealthGrapthProps): JSX.Element => {
+	const correctOperationFilter = (asset: Asset): boolean =>
+		!!asset.healthscore && asset.healthscore >= 85;
+	const inRiskFilter = (asset: Asset): boolean =>
+		!!asset.healthscore && asset.healthscore < 85 && asset.healthscore >= 70;
+	const needMaintenceFilter = (asset: Asset): boolean =>
+		!!asset.healthscore && asset.healthscore < 70;
+	const noInformationFilter = (asset: Asset): boolean => !asset.healthscore;
+
 	const totalAssets = assets?.length ?? 0;
-	const totalCorrectOperations =
-		assets?.filter(
-			(asset) => asset.healthscore != null && asset.healthscore >= 85,
-		).length ?? 0;
-	const totalInRisk =
-		assets?.filter(
-			(asset) =>
-				asset.healthscore != null &&
-				asset.healthscore < 85 &&
-				asset.healthscore >= 70,
-		).length ?? 0;
-	const totalNeedMaintence =
-		assets?.filter(
-			(asset) => asset.healthscore != null && asset.healthscore < 70,
-		).length ?? 0;
-	const totalNoInformation =
-		assets?.filter(
-			(asset) => asset.healthscore != null && asset.healthscore == null,
-		).length ?? 0;
+	const totalCorrectOperation =
+		assets?.filter(correctOperationFilter).length ?? 0;
+	const totalInRisk = assets?.filter(inRiskFilter).length ?? 0;
+	const totalNeedMaintence = assets?.filter(needMaintenceFilter).length ?? 0;
+	const totalNoInformation = assets?.filter(noInformationFilter).length ?? 0;
 
 	const maxLen: number =
 		Math.max.apply(null, [
 			String(totalAssets).length,
-			String(totalCorrectOperations).length,
+			String(totalCorrectOperation).length,
 			String(totalInRisk).length,
 			String(totalNeedMaintence).length,
 			String(totalNoInformation).length,
@@ -53,7 +47,7 @@ export const AssetHealthGrapth = ({
 				<AssetHealthItem
 					label="Correct Operation"
 					color="#52C41A"
-					quantity={totalCorrectOperations.toString().padStart(maxLen, "0")}
+					quantity={totalCorrectOperation.toString().padStart(maxLen, "0")}
 				/>
 			</MotionBox>
 			<MotionBox duration="1.1">
