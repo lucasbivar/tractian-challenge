@@ -18,7 +18,7 @@ export const useFetch = <T>(
 		[queryKey],
 		async () => await query(),
 		{
-			staleTime: 120000,
+			staleTime: 60000,
 			...config,
 		},
 	);

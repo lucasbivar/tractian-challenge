@@ -39,7 +39,7 @@ export const SetUserModal = ({
 		...user,
 		id: user?.id ?? Math.floor(Math.random() * 10000 + 100),
 		name: user?.name ?? "",
-		email: user?.name ?? "",
+		email: user?.email ?? "",
 		companyId: user?.companyId ?? undefined,
 		companyName: user?.companyName ?? undefined,
 		unitId: user?.unitId ?? undefined,
