@@ -81,6 +81,8 @@ export const SetWorkOrderModal = ({
 					workOrderEdited.users = workOrderEdited.assignedUserIds.map(
 						(id) => usersObj[id],
 					);
+				} else if (!workOrderEdited.assignedUserIds.length) {
+					workOrderEdited.users = [];
 				}
 
 				if (view === "new") {
@@ -292,19 +294,25 @@ export const SetWorkOrderModal = ({
 								>
 									<Checkbox
 										onChange={(e) => {
+											const assignedUserIdsCopy = [
+												...workOrderEdited.assignedUserIds,
+											];
 											if (
 												e.target.checked &&
-												!workOrderEdited.assignedUserIds.includes(user.id)
+												!assignedUserIdsCopy.includes(user.id)
 											) {
-												workOrderEdited.assignedUserIds.push(user.id);
+												assignedUserIdsCopy.push(user.id);
 											} else if (!e.target.checked) {
-												const index = workOrderEdited.assignedUserIds.indexOf(
-													user.id,
-												);
+												const index = assignedUserIdsCopy.indexOf(user.id);
+
 												if (index > -1) {
-													workOrderEdited.assignedUserIds.splice(index, 1);
+													assignedUserIdsCopy.splice(index, 1);
 												}
 											}
+											setWorkOrderEdited({
+												...workOrderEdited,
+												assignedUserIds: assignedUserIdsCopy,
+											});
 										}}
 										defaultChecked={workOrderEdited.assignedUserIds.includes(
 											user.id,

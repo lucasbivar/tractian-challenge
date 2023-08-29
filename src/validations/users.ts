@@ -1,10 +1,10 @@
 import { type User } from "../interfaces/users";
-import { isEmail } from "../utils/users";
+import { isEmail } from "../utils/validations";
 
 export const validateUser = (user: User): void => {
 	if (
-		!user.name ||
-		!user.email ||
+		!user.name.replace(/\s/g, "").length ||
+		!user.email.replace(/\s/g, "").length ||
 		!user.unitId ||
 		(user.email && !isEmail(user.email))
 	)

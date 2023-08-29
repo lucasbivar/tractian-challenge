@@ -55,7 +55,7 @@ export const useUpdate = <T extends { id: number }>(
 				(entity) => entity.id === data.id,
 			);
 
-			if (entityIndex && entities) {
+			if (entityIndex != null && entities) {
 				entities[entityIndex] = data;
 				queryClient.setQueryData([queryKey], () => entities);
 				queryClient.setQueryData([`${queryKey}-${data.id}`], () => data);
